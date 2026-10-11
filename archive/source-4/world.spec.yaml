@@ -1,0 +1,10 @@
+package:
+  id: abyssfall
+  display_name: Abyssfall — The Ocean World
+  spec: worldspec-core/0.6
+revision: { id: abyssfall-0.1, status: development }
+extensions: []
+genre_profile: science_fiction        # regular sci-fi, not grimdark
+style_profiles: []                    # no forced tone
+dependencies: {}
+validation: { mode: development }

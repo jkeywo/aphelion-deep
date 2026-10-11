@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[project]
+name = "aphelion-deep"
+version = "0.1.0"
+description = "The Aphelion Deep PlayTrace tutorial plugin"
+requires-python = ">=3.12"
+dependencies = ["playtrace>=0.1.0"]
+[project.optional-dependencies]
+dev = ["pytest>=8.3,<10", "PyYAML>=6", "openpyxl>=3.1"]
+[project.entry-points."playtrace.simulation_plugins"]
+aphelion_deep = "aphelion_deep.plugin:AphelionPlugin"
+[tool.hatch.build.targets.wheel]
+packages = ["src/aphelion_deep"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]

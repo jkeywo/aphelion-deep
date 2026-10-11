@@ -1,0 +1,37 @@
+package:
+  id: aphelion_deep
+  display_name: The Aphelion Deep
+  spec: gamespec-core/0.6
+  game_family: cooperative_megagame
+
+revision: { id: ad-0.1-dev, status: development }
+
+# Co-op survival megagame: cooperative (auto automated-opponent) + facilitation (Control
+# + scarce Command authority) + briefings (hidden philosophy) + cards (Drowned tech) +
+# campaign (persistent outposts and milestones).
+extensions:
+  - id: cooperative
+  - id: facilitation
+  - id: briefings
+  - id: cards
+  - id: campaign
+
+domains:
+  game:      { source: game/, owns: [game_design, objectives], reads: [component, mechanism, setting] }
+  scenario:  { source: scenarios/, owns: [scenario_configuration], reads: [game, setting] }
+  design:    { source: design/, owns: [design_decisions], reads: [game] }
+  component: { source: components/, owns: [component_definitions], reads: [game, mechanism] }
+  mechanism: { source: mechanisms/, owns: [procedural_behaviour] }
+
+namespaces: { game: game/, scenario: scenarios/, design: design/, component: components/, mechanism: mechanisms/ }
+
+dependencies:
+  setting:
+    kind: setting
+    spec: worldspec/0.1
+    package: abyssfall
+    source: ../../_shared_worlds/abyssfall/
+    compatibility: { mode: development }
+    scope: { used_for: [megafauna, the_drowned, reactor, locations] }
+
+validation: { mode: development }

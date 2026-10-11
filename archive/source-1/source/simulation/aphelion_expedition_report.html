@@ -1,0 +1,95 @@
+<!doctype html><html lang=en><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<title>The Aphelion Deep — 3-player expedition sim</title><style>
+ body{margin:0;background:#fcfcfb;color:#0b0b0b;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+ .wrap{max-width:860px;margin:0 auto;padding:40px 28px 64px}
+ h1{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
+ h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:#52514e;margin:34px 0 12px;border-bottom:1px solid #e7e6e2;padding-bottom:6px}
+ h3{font-size:16px;margin:22px 0 8px}
+ .sub{color:#8a8a86;margin:0 0 26px} p{color:#52514e}
+ .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0}
+ .tile{background:rgba(0,0,0,.02);border:1px solid #e7e6e2;border-radius:10px;padding:14px 16px}
+ .big{font-size:26px;font-weight:650;letter-spacing:-.02em} .tlabel{color:#8a8a86;font-size:12.5px;margin-top:2px}
+ table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:4px}
+ th,td{text-align:left;padding:7px 10px;border-bottom:1px solid #e7e6e2;vertical-align:top}
+ th{color:#8a8a86;font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+ .muted{color:#8a8a86} .chip{padding:1px 8px;border-radius:20px;font-size:12px;font-weight:600}
+ .row{display:flex;align-items:center;gap:12px;margin:4px 0}
+ .rl{width:120px;color:#52514e;font-size:12.5px;text-align:right;flex:none}
+ .track{flex:1;background:rgba(0,0,0,.04);border-radius:5px;height:15px} .bar{height:15px;border-radius:5px;display:block}
+ .rv{width:44px;font-size:12.5px;font-variant-numeric:tabular-nums;flex:none}
+ .clock{display:inline-flex;gap:3px;vertical-align:middle;margin-right:6px}
+ .pip{width:13px;height:13px;border-radius:3px;display:inline-block}
+ .turnstate{display:flex;flex-wrap:wrap;gap:18px;margin:8px 0 2px;padding:10px 12px;background:rgba(0,0,0,.02);border:1px solid #e7e6e2;border-radius:9px;font-size:13px;color:#52514e}
+ .note{background:rgba(208,59,59,.05);border:1px solid rgba(208,59,59,.25);border-radius:10px;padding:14px 16px;color:#52514e;font-size:14px}
+ .callout{background:rgba(42,120,214,.06);border:1px solid rgba(42,120,214,.25);border-radius:10px;padding:12px 16px;color:#52514e;font-size:13.5px;margin:6px 0 0}
+ code{background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px;font-size:12.5px}
+ table.exp td:nth-child(4){white-space:nowrap;font-variant-numeric:tabular-nums}
+</style></head><body><div class=wrap>
+<h1>The Aphelion Deep — first three turns, three players</h1>
+<p class=sub>Three role cards (two Ecology, one Engineering) across three expedition sites. Assignment
+by role affinity + colony need + crowding; every yield and consequence resolved by the real
+colony / reactor / megafauna mechanisms. Location profiles derived from the card text.</p>
+
+<div class=tiles><div class="tile"><div class="big" style="color:#0b0b0b">3</div><div class="tlabel">players / roles</div></div><div class="tile"><div class="big" style="color:#0b0b0b">3</div><div class="tlabel">expedition sites</div></div><div class="tile"><div class="big" style="color:#d03b3b">6/6</div><div class="tlabel">reactor at turn 3</div></div><div class="tile"><div class="big" style="color:#d03b3b">defeat critical</div><div class="tlabel">turn-3 outcome</div></div></div>
+
+<div class=callout><b>Content check.</b> Verified in <code>components.xlsx</code>: <b>3 locations</b>
+(Reef Gardens 21 cards, Crash Flats 14, Kelp Cathedral 9) and <b>3 role cards</b> — but two are
+Ecology (Lead + Systems Ecologist, native to the reef) and one is Engineering (Fabrication Lead,
+native to the wreckage). <b>Kelp Cathedral has no role of its own</b>, so the deep site is only ever
+reached when crowding pushes an ecologist off the reef.</div>
+
+<h2>The three sites (yields derived from card text)</h2>
+<table><tr><th>Location</th><th>Production</th><th>Life</th><th>Reactor heat</th><th>Source icons counted</th></tr>
+<tr><td><b>Reef Gardens</b></td><td>1</td><td>3</td><td>2</td><td class=muted>materials 2 · oxygen 4 · biomass 9 · reactor 2 · pressure 0</td></tr><tr><td><b>Crash Flats</b></td><td>2</td><td>2</td><td>3</td><td class=muted>materials 4 · oxygen 1 · biomass 6 · reactor 3 · pressure 0</td></tr><tr><td><b>Kelp Cathedral</b></td><td>0</td><td>1</td><td>3</td><td class=muted>materials 0 · oxygen 2 · biomass 1 · reactor 1 · pressure 2</td></tr></table>
+
+<h2>The three players</h2>
+<table><tr><th>Role</th><th>Department</th><th>Philosophy</th><th>Expedition affinity</th></tr>
+<tr><td><b>Fabrication Lead</b></td><td><span class=chip style='background:#eb68341a;color:#eb6834'>Engineering</span></td><td><span class=chip style='background:#eb68341a;color:#eb6834'>exploit</span></td><td class=muted>Crash 3 · Kelp 1 · Reef 0</td></tr><tr><td><b>Lead Ecologist</b></td><td><span class=chip style='background:#0083001a;color:#008300'>Ecology</span></td><td><span class=chip style='background:#0083001a;color:#008300'>restore</span></td><td class=muted>Reef 3 · Kelp 2 · Crash 0</td></tr><tr><td><b>Systems Ecologist</b></td><td><span class=chip style='background:#0083001a;color:#008300'>Ecology</span></td><td><span class=chip style='background:#0083001a;color:#008300'>restore</span></td><td class=muted>Reef 3 · Kelp 2 · Crash 1</td></tr></table>
+
+<h2>The playthrough</h2>
+
+    <h3>Turn 1</h3>
+    <table class=exp>
+      <tr><th>Player</th><th>Expedition</th><th>Stance</th><th>Yield</th><th>Discovery</th><th>Why here</th></tr>
+      <tr><td><b>Fabrication Lead</b><div class=muted style='font-size:11.5px'>Engineering</div></td><td>Crash Flats</td><td><span class=chip style='background:#eb68341a;color:#eb6834'>exploit</span></td><td>+3 prod<br>+2 life</td><td class=muted>Aphelion Wreckage Field</td><td class=muted>affinity 3, colony short of production</td></tr><tr><td><b>Lead Ecologist</b><div class=muted style='font-size:11.5px'>Ecology</div></td><td>Reef Gardens</td><td><span class=chip style='background:#0083001a;color:#008300'>restore</span></td><td>+1 prod<br>+4 life</td><td class=muted>Spotted Grazers</td><td class=muted>affinity 3</td></tr><tr><td><b>Systems Ecologist</b><div class=muted style='font-size:11.5px'>Ecology</div></td><td>Kelp Cathedral</td><td><span class=chip style='background:#0083001a;color:#008300'>restore</span></td><td>+0 prod<br>+2 life</td><td class=muted>Hush Mussels</td><td class=muted>affinity 2</td></tr>
+    </table>
+    <div class=turnstate>
+      <span>Colony <b>6</b> production · <b>14</b> life-support</span>
+      <span>Reactor <span class="clock"><span class="pip" style="background:#0ca30c"></span><span class="pip" style="background:#0ca30c"></span><span class="pip" style="background:rgba(0,0,0,.08)"></span><span class="pip" style="background:rgba(0,0,0,.08)"></span><span class="pip" style="background:rgba(0,0,0,.08)"></span><span class="pip" style="background:rgba(0,0,0,.08)"></span></span> phase 2/6</span>
+      <span>Megafauna aggression <b>0</b></span>
+      <span style="color:#52514e;font-weight:600">ongoing</span>
+    </div>
+    <h3>Turn 2</h3>
+    <table class=exp>
+      <tr><th>Player</th><th>Expedition</th><th>Stance</th><th>Yield</th><th>Discovery</th><th>Why here</th></tr>
+      <tr><td><b>Fabrication Lead</b><div class=muted style='font-size:11.5px'>Engineering</div></td><td>Crash Flats</td><td><span class=chip style='background:#eb68341a;color:#eb6834'>exploit</span></td><td>+3 prod<br>+2 life</td><td class=muted>Tidal Rust Bloom</td><td class=muted>affinity 3</td></tr><tr><td><b>Lead Ecologist</b><div class=muted style='font-size:11.5px'>Ecology</div></td><td>Reef Gardens</td><td><span class=chip style='background:#0083001a;color:#008300'>restore</span></td><td>+1 prod<br>+4 life</td><td class=muted>Echoing Calcite Spires</td><td class=muted>affinity 3</td></tr><tr><td><b>Systems Ecologist</b><div class=muted style='font-size:11.5px'>Ecology</div></td><td>Kelp Cathedral</td><td><span class=chip style='background:#0083001a;color:#008300'>restore</span></td><td>+0 prod<br>+2 life</td><td class=muted>Giant Lungweed Stalks</td><td class=muted>affinity 2</td></tr>
+    </table>
+    <div class=turnstate>
+      <span>Colony <b>10</b> production · <b>19</b> life-support</span>
+      <span>Reactor <span class="clock"><span class="pip" style="background:#fab219"></span><span class="pip" style="background:#fab219"></span><span class="pip" style="background:#fab219"></span><span class="pip" style="background:#fab219"></span><span class="pip" style="background:rgba(0,0,0,.08)"></span><span class="pip" style="background:rgba(0,0,0,.08)"></span></span> phase 4/6</span>
+      <span>Megafauna aggression <b>0</b></span>
+      <span style="color:#52514e;font-weight:600">ongoing</span>
+    </div>
+    <h3>Turn 3</h3>
+    <table class=exp>
+      <tr><th>Player</th><th>Expedition</th><th>Stance</th><th>Yield</th><th>Discovery</th><th>Why here</th></tr>
+      <tr><td><b>Fabrication Lead</b><div class=muted style='font-size:11.5px'>Engineering</div></td><td>Crash Flats</td><td><span class=chip style='background:#eb68341a;color:#eb6834'>exploit</span></td><td>+3 prod<br>+2 life</td><td class=muted>Aphelion Wreckage Field</td><td class=muted>affinity 3</td></tr><tr><td><b>Lead Ecologist</b><div class=muted style='font-size:11.5px'>Ecology</div></td><td>Reef Gardens</td><td><span class=chip style='background:#0083001a;color:#008300'>restore</span></td><td>+1 prod<br>+4 life</td><td class=muted>Coral Shelf Formation</td><td class=muted>affinity 3</td></tr><tr><td><b>Systems Ecologist</b><div class=muted style='font-size:11.5px'>Ecology</div></td><td>Kelp Cathedral</td><td><span class=chip style='background:#0083001a;color:#008300'>restore</span></td><td>+0 prod<br>+2 life</td><td class=muted>Giant Lungweed Stalks</td><td class=muted>affinity 2</td></tr>
+    </table>
+    <div class=turnstate>
+      <span>Colony <b>14</b> production · <b>24</b> life-support</span>
+      <span>Reactor <span class="clock"><span class="pip" style="background:#d03b3b"></span><span class="pip" style="background:#d03b3b"></span><span class="pip" style="background:#d03b3b"></span><span class="pip" style="background:#d03b3b"></span><span class="pip" style="background:#d03b3b"></span><span class="pip" style="background:#d03b3b"></span></span> phase 6/6 <b style="color:#d03b3b">CRITICAL</b></span>
+      <span>Megafauna aggression <b>0</b></span>
+      <span style="color:#d03b3b;font-weight:600">defeat critical</span>
+    </div>
+
+<h2>Colony trajectory</h2>
+<div class="row"><span class="rl">T1 production</span><span class="track"><span class="bar" style="width:50px;background:#2a78d6"></span></span><span class="rv">6</span></div><div class="row"><span class="rl">T1 life-support</span><span class="track"><span class="bar" style="width:117px;background:#008300"></span></span><span class="rv">14</span></div><div class="row"><span class="rl">T2 production</span><span class="track"><span class="bar" style="width:83px;background:#2a78d6"></span></span><span class="rv">10</span></div><div class="row"><span class="rl">T2 life-support</span><span class="track"><span class="bar" style="width:158px;background:#008300"></span></span><span class="rv">19</span></div><div class="row"><span class="rl">T3 production</span><span class="track"><span class="bar" style="width:117px;background:#2a78d6"></span></span><span class="rv">14</span></div><div class="row"><span class="rl">T3 life-support</span><span class="track"><span class="bar" style="width:200px;background:#008300"></span></span><span class="rv">24</span></div>
+
+<h2>What the sim reveals</h2>
+<div class=note>The colony is <b>thriving on resources</b> — production and life-support both climb every turn — yet it reaches <b style='color:#d03b3b'>defeat critical</b> by turn 3. The Fabrication Lead's extraction at Crash Flats, right beside the sunken Engine Core, stokes the reactor an extra phase each turn, and with both ecologists committed to the reef and the deep, <b>no one is ever assigned to contain the reactor</b>. Two restorers to one exploiter keeps the megafauna calm (aggression stays at 0), so the danger isn't the sea — it's the clock the extraction feeds.</div>
+<p class=callout style="background:rgba(0,131,0,.06);border-color:rgba(0,131,0,.25)"><b>Lever to test.</b> The assignment policy optimises for colony supply and never trades an expedition slot for <code>attempt_stabilise_reactor</code>. Add a reactor-need term (e.g. when phase ≥ 3, pull the engineer off Crash Flats to contain) and re-run — the harness will show whether three players is simply too few to both supply the colony and hold the clock.</p>
+
+<p class=sub style="margin-top:26px">Reproduce: <code>python3 simulation/expedition_sim.py</code> ·
+report: <code>python3 simulation/build_expedition_report.py</code>. Seeded &amp; deterministic.</p>
+</div></body></html>

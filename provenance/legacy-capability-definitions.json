@@ -1,0 +1,1921 @@
+{
+  "crash_flats_1_a_rough_landing": {
+    "id": "crash_flats_1_a_rough_landing",
+    "front": {
+      "narrative": true
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "instruction": "read_aloud"
+        },
+        {
+          "disposition": "discard"
+        }
+      ]
+    }
+  },
+  "crash_flats_2_engineering_department": {
+    "id": "crash_flats_2_engineering_department",
+    "front": {
+      "narrative": true
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "reveal_cards": {
+            "positions": [
+              3
+            ]
+          }
+        },
+        {
+          "each_player_chooses": {
+            "from": "revealed",
+            "keep": 1,
+            "read_back_privately": true
+          }
+        }
+      ]
+    }
+  },
+  "crash_flats_3_fabrication_lead": {
+    "id": "crash_flats_3_fabrication_lead",
+    "front": {
+      "role": true,
+      "hidden": true
+    },
+    "back": {
+      "disposition": "to_player_hand",
+      "passive": [
+        {
+          "provides_icon": {
+            "icon": "power",
+            "amount": 1
+          }
+        }
+      ]
+    }
+  },
+  "crash_flats_8_phase_reference": {
+    "id": "crash_flats_8_phase_reference",
+    "front": {
+      "narrative": true
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "instruction": "read_aloud"
+        },
+        {
+          "disposition": "set_beside_deck"
+        }
+      ]
+    }
+  },
+  "crash_flats_9_crash_flats_outpost_fabrication_bay": {
+    "id": "crash_flats_9_crash_flats_outpost_fabrication_bay",
+    "front": {
+      "upkeep": [
+        {
+          "status": "unresolved",
+          "text": "Fabricator: items crafted here cost 1 fewer resource (crafting economy not modelled)"
+        },
+        {
+          "player_obligation": {
+            "each_player": [
+              {
+                "has_icon": "food"
+              },
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": {
+                    "type": "flora",
+                    "at": "location",
+                    "choose": "player"
+                  }
+                }
+              },
+              {
+                "change_track": {
+                  "track": "rations"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_location_track": {
+            "track": "rations",
+            "value": 5
+          }
+        }
+      ]
+    }
+  },
+  "crash_flats_10_tidal_rust_bloom": {
+    "id": "crash_flats_10_tidal_rust_bloom",
+    "front": {
+      "upkeep": {
+        "conditional": [
+          {
+            "when": {
+              "self_pop_ge": 2
+            },
+            "do": [
+              {
+                "produce_resource": {
+                  "resource": "materials",
+                  "amount": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "self_pop_ge": 4
+            },
+            "do": [
+              {
+                "produce_resource": {
+                  "resource": "food",
+                  "amount": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "keyword_track_ge": {
+                "keyword": "wreckage",
+                "track": "abundance",
+                "value": 3
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "not": {
+                "keyword_present": {
+                  "keyword": "wreckage"
+                }
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "crash_flats_11_carrier_crabs": {
+    "id": "crash_flats_11_carrier_crabs",
+    "front": {
+      "upkeep": [
+        {
+          "conditional": [
+            {
+              "when": {
+                "all": [
+                  {
+                    "self_pop_ge": 3
+                  },
+                  {
+                    "keyword_track_ge": {
+                      "keyword": "wreckage",
+                      "track": "abundance",
+                      "value": 3
+                    }
+                  }
+                ]
+              },
+              "do": [
+                {
+                  "produce_resource": {
+                    "resource": "materials",
+                    "amount": 1
+                  }
+                }
+              ]
+            },
+            {
+              "when": {
+                "not": {
+                  "keyword_track_ge": {
+                    "keyword": "wreckage",
+                    "track": "abundance",
+                    "value": 2
+                  }
+                }
+              },
+              "do": [
+                {
+                  "change_track": {
+                    "track": "population",
+                    "target": "self",
+                    "delta": -1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bands": [
+            {
+              "pop": 0,
+              "do": []
+            },
+            {
+              "pop": "1-2",
+              "do": [
+                {
+                  "consume_population": {
+                    "from": {
+                      "type": "fauna",
+                      "exclude_self": true
+                    },
+                    "amount": 1,
+                    "then": [
+                      {
+                        "change_track": {
+                          "track": "population",
+                          "target": "self",
+                          "delta": 1
+                        }
+                      }
+                    ],
+                    "else": [
+                      {
+                        "change_track": {
+                          "track": "population",
+                          "target": "self",
+                          "delta": -1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "pop": "3-4",
+              "do": [
+                {
+                  "consume_population": {
+                    "from": {
+                      "type": "fauna",
+                      "exclude_self": true
+                    },
+                    "amount": 2,
+                    "then": [
+                      {
+                        "change_track": {
+                          "track": "population",
+                          "target": "self",
+                          "delta": 2
+                        }
+                      }
+                    ],
+                    "else": [
+                      {
+                        "change_track": {
+                          "track": "population",
+                          "target": "self",
+                          "delta": -2
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "pop": 5,
+              "do": [
+                {
+                  "consume_population": {
+                    "from": {
+                      "type": "fauna",
+                      "exclude_self": true
+                    },
+                    "amount": 3,
+                    "then": [],
+                    "else": [
+                      {
+                        "change_track": {
+                          "track": "population",
+                          "target": "self",
+                          "delta": -2
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "crash_flats_12_aphelion_wreckage_field": {
+    "id": "crash_flats_12_aphelion_wreckage_field",
+    "front": {
+      "upkeep": [
+        {
+          "convert_track": {
+            "from": "abundance",
+            "to": "materials",
+            "amount": "all",
+            "rate": 2
+          }
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "abundance",
+            "value": 5
+          }
+        }
+      ]
+    }
+  },
+  "crash_flats_13_salvage_manifest": {
+    "id": "crash_flats_13_salvage_manifest",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "knowledge",
+          "amount": 2
+        }
+      ],
+      "upkeep": [
+        {
+          "status": "unresolved",
+          "text": "the 2 Knowledge apply only while crafting Aphelion Salvage (crafting not modelled)"
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_beside_deck"
+        }
+      ],
+      "conditional_gain": [
+        {
+          "to": "player_hand",
+          "when": {
+            "keyword_count_ge": {
+              "keyword": "aphelion_salvage",
+              "count": 3
+            }
+          }
+        }
+      ]
+    }
+  },
+  "crash_flats_14_the_power_question": {
+    "id": "crash_flats_14_the_power_question",
+    "front": {
+      "dilemma": {
+        "choose": "unanimous",
+        "options": [
+          {
+            "id": "restart",
+            "label": "Restart it",
+            "do": [
+              {
+                "provides_icon": {
+                  "icon": "power",
+                  "amount": 2
+                }
+              },
+              {
+                "status": "unresolved",
+                "text": "the Reactor track advances 1 (board reactor clock — mechanisms/reactor.py, not wired to card dilemmas)"
+              }
+            ]
+          },
+          {
+            "id": "strip",
+            "label": "Strip for parts",
+            "do": [
+              {
+                "set_track": {
+                  "track": "abundance",
+                  "target": "card.crash_flats_12_aphelion_wreckage_field",
+                  "value": 5
+                }
+              }
+            ]
+          },
+          {
+            "id": "seal",
+            "label": "Seal it",
+            "do": [
+              {
+                "instruction": "inform_control"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "resolve_now"
+        }
+      ]
+    }
+  },
+  "crash_flats_15_engine_core_section": {
+    "id": "crash_flats_15_engine_core_section",
+    "front": {
+      "narrative": true
+    },
+    "back": {
+      "gate": {
+        "requires": {
+          "oxygen": 1,
+          "power": 3
+        },
+        "sourced_from": [
+          "hand",
+          "location"
+        ],
+        "on_meet": {
+          "open_expedition": true
+        }
+      }
+    }
+  },
+  "crash_flats_s1_oxygen_tank": {
+    "id": "crash_flats_s1_oxygen_tank",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "oxygen",
+          "amount": 1
+        }
+      ],
+      "craft": {
+        "cost": {
+          "materials": 1
+        },
+        "to": "player_hand"
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_beside_deck"
+        }
+      ]
+    }
+  },
+  "crash_flats_s3_aphelion_scan_database": {
+    "id": "crash_flats_s3_aphelion_scan_database",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "knowledge",
+          "amount": 1
+        }
+      ],
+      "craft": {
+        "requires": {
+          "power": 3
+        },
+        "to": "player_hand"
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_beside_deck"
+        }
+      ]
+    }
+  },
+  "crash_flats_c2_reactor_pulse": {
+    "id": "crash_flats_c2_reactor_pulse",
+    "front": {
+      "on_reveal": [
+        {
+          "for_each": {
+            "filter": {
+              "type": "flora"
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ]
+          }
+        },
+        {
+          "for_each": {
+            "filter": {
+              "type": "mineral"
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "abundance",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "resolve_now"
+        }
+      ]
+    }
+  },
+  "kelp_cathedral_1_kelp_cathedral": {
+    "id": "kelp_cathedral_1_kelp_cathedral",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "oxygen",
+          "amount": 1
+        }
+      ],
+      "upkeep": [
+        {
+          "produce_resource": {
+            "resource": "biomass",
+            "amount": 1
+          }
+        },
+        {
+          "player_obligation": {
+            "each_player": [
+              {
+                "has_icon": "food"
+              },
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": {
+                    "type": "flora",
+                    "at": "location",
+                    "choose": "player"
+                  }
+                }
+              },
+              {
+                "change_track": {
+                  "track": "rations"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        }
+      ],
+      "gate": {
+        "requires": {
+          "oxygen": 2
+        },
+        "sourced_from": [
+          "hand",
+          "location"
+        ],
+        "on_meet": {
+          "open_expedition": true
+        }
+      }
+    }
+  },
+  "kelp_cathedral_2_giant_lungweed_stalks": {
+    "id": "kelp_cathedral_2_giant_lungweed_stalks",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "oxygen",
+          "amount": 1,
+          "when": {
+            "self_pop_ge": 2
+          }
+        },
+        {
+          "icon": "pressure",
+          "amount": 1,
+          "when": {
+            "self_pop_ge": 3
+          }
+        }
+      ],
+      "upkeep": {
+        "conditional": [
+          {
+            "when": {
+              "card_track_ge": {
+                "card": "kelp_cathedral_4_hush_mussels",
+                "track": "population",
+                "value": 3
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "board_icon_ge": {
+                "icon": "reactor",
+                "value": 3
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "kelp_cathedral_3_resonating_lure_fish": {
+    "id": "kelp_cathedral_3_resonating_lure_fish",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "pressure",
+          "amount": 1,
+          "when": {
+            "all": [
+              {
+                "self_pop_ge": 2
+              },
+              {
+                "keyword_track_ge": {
+                  "keyword": "prey",
+                  "track": "population",
+                  "value": 2
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "upkeep": {
+        "conditional": [
+          {
+            "when": {
+              "card_track_ge": {
+                "card": "kelp_cathedral_2_giant_lungweed_stalks",
+                "track": "population",
+                "value": 3
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "not": {
+                "keyword_present": {
+                  "type": "flora"
+                }
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "kelp_cathedral_4_hush_mussels": {
+    "id": "kelp_cathedral_4_hush_mussels",
+    "front": {
+      "upkeep": {
+        "conditional": [
+          {
+            "when": {
+              "card_track_ge": {
+                "card": "kelp_cathedral_3_resonating_lure_fish",
+                "track": "population",
+                "value": 2
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "not": {
+                "keyword_present": {
+                  "type": "mineral"
+                }
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "kelp_cathedral_5_sunken_survey_drone": {
+    "id": "kelp_cathedral_5_sunken_survey_drone",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "knowledge",
+          "amount": 1,
+          "when": {
+            "self_track_ge": {
+              "track": "scanning",
+              "value": 3
+            }
+          }
+        },
+        {
+          "icon": "knowledge",
+          "amount": 1,
+          "when": {
+            "self_track_ge": {
+              "track": "scanning",
+              "value": 5
+            }
+          }
+        }
+      ],
+      "upkeep": [
+        {
+          "change_track": {
+            "track": "scanning",
+            "target": "self",
+            "delta": 1
+          }
+        },
+        {
+          "status": "unresolved",
+          "text": "can be moved between locations; on move reset Scanning to 2 (card movement not modelled)"
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_beside_deck"
+        },
+        {
+          "status": "unresolved",
+          "text": "craft: spend 2 Materials to flip and set Scanning to 4 (crafting not modelled)"
+        }
+      ]
+    }
+  },
+  "kelp_cathedral_6_the_bloom": {
+    "id": "kelp_cathedral_6_the_bloom",
+    "front": {
+      "on_reveal": [
+        {
+          "for_each": {
+            "filter": {
+              "type": "flora",
+              "keyword": "kelp"
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_aside"
+        },
+        {
+          "status": "unresolved",
+          "text": "flip the next time an exploration starts here (deferred event trigger not modelled)"
+        }
+      ]
+    }
+  },
+  "kelp_cathedral_7_cathedral_hymn": {
+    "id": "kelp_cathedral_7_cathedral_hymn",
+    "front": {
+      "upkeep": {
+        "conditional": [
+          {
+            "when": {
+              "keyword_present": {
+                "type": "flora",
+                "keyword": "kelp"
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": {
+                    "type": "fauna",
+                    "choose": "player"
+                  },
+                  "delta": 2
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_beside_deck"
+        }
+      ],
+      "conditional_gain": [
+        {
+          "to": "player_hand",
+          "when": {
+            "all": [
+              {
+                "card_track_ge": {
+                  "card": "kelp_cathedral_2_giant_lungweed_stalks",
+                  "track": "population",
+                  "value": 5
+                }
+              },
+              {
+                "card_track_ge": {
+                  "card": "kelp_cathedral_3_resonating_lure_fish",
+                  "track": "population",
+                  "value": 5
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "kelp_cathedral_8_echoing_drowned_mass": {
+    "id": "kelp_cathedral_8_echoing_drowned_mass",
+    "front": {
+      "dilemma": {
+        "choose": "unanimous",
+        "options": [
+          {
+            "id": "cut_free",
+            "label": "Cut it free",
+            "do": [
+              {
+                "status": "unresolved",
+                "text": "effect unprinted on the card (???)"
+              }
+            ]
+          },
+          {
+            "id": "recover",
+            "label": "Recover it",
+            "do": [
+              {
+                "status": "unresolved",
+                "text": "effect unprinted on the card (???)"
+              }
+            ]
+          },
+          {
+            "id": "document",
+            "label": "Document and leave",
+            "do": [
+              {
+                "status": "unresolved",
+                "text": "effect unprinted on the card (???)"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "resolve_now"
+        }
+      ]
+    }
+  },
+  "kelp_cathedral_s4_thermal_power_generator": {
+    "id": "kelp_cathedral_s4_thermal_power_generator",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "power",
+          "amount": 2
+        }
+      ],
+      "craft": {
+        "cost": {
+          "materials": 3
+        },
+        "to": "tuck"
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_beside_deck"
+        }
+      ]
+    }
+  },
+  "reef_gardens_1_a_rough_landing": {
+    "id": "reef_gardens_1_a_rough_landing",
+    "front": {
+      "narrative": true
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "instruction": "read_aloud"
+        },
+        {
+          "disposition": "discard"
+        }
+      ]
+    }
+  },
+  "reef_gardens_2_ecology_department": {
+    "id": "reef_gardens_2_ecology_department",
+    "front": {
+      "narrative": true
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "reveal_cards": {
+            "positions": [
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "each_player_chooses": {
+            "from": "revealed",
+            "keep": 1,
+            "read_back_privately": true
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_3_lead_ecologist": {
+    "id": "reef_gardens_3_lead_ecologist",
+    "front": {
+      "role": true,
+      "hidden": true
+    },
+    "back": {
+      "disposition": "to_player_hand",
+      "passive": [
+        {
+          "provides_icon": {
+            "icon": "oxygen",
+            "amount": 1
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_4_systems_ecologist": {
+    "id": "reef_gardens_4_systems_ecologist",
+    "front": {
+      "role": true,
+      "hidden": true
+    },
+    "back": {
+      "disposition": "to_player_hand",
+      "passive": [
+        {
+          "action": {
+            "id": "cultivator",
+            "change_track": {
+              "track": "population",
+              "target": {
+                "type": "flora",
+                "at": "location",
+                "choose": "player"
+              },
+              "delta": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_8_phase_reference": {
+    "id": "reef_gardens_8_phase_reference",
+    "front": {
+      "narrative": true
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "instruction": "read_aloud"
+        },
+        {
+          "disposition": "set_beside_deck"
+        }
+      ]
+    }
+  },
+  "reef_gardens_9_reef_garden_outpost": {
+    "id": "reef_gardens_9_reef_garden_outpost",
+    "front": {
+      "upkeep": [
+        {
+          "refill_track": {
+            "track": "rations",
+            "per_icon": "power"
+          }
+        },
+        {
+          "player_obligation": {
+            "each_player": [
+              {
+                "has_icon": "food"
+              },
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": {
+                    "type": "flora",
+                    "at": "location",
+                    "choose": "player"
+                  }
+                }
+              },
+              {
+                "change_track": {
+                  "track": "rations"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_location_track": {
+            "track": "rations",
+            "value": 3
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_10_shallowwater_filterweed": {
+    "id": "reef_gardens_10_shallowwater_filterweed",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "oxygen",
+          "amount": 1,
+          "when": {
+            "self_pop_ge": 3
+          }
+        }
+      ],
+      "upkeep": {
+        "bands": [
+          {
+            "pop": 0,
+            "do": []
+          },
+          {
+            "pop": 1,
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": 1
+                }
+              }
+            ]
+          },
+          {
+            "pop": "2-4",
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": 2
+                }
+              }
+            ]
+          },
+          {
+            "pop": 5,
+            "do": []
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_11_spotted_grazers": {
+    "id": "reef_gardens_11_spotted_grazers",
+    "front": {
+      "upkeep": {
+        "bands": [
+          {
+            "pop": 0,
+            "do": []
+          },
+          {
+            "pop": "1-2",
+            "do": [
+              {
+                "consume_population": {
+                  "from": {
+                    "type": "fauna",
+                    "exclude_self": true
+                  },
+                  "amount": 1,
+                  "then": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": 1
+                      }
+                    }
+                  ],
+                  "else": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": -1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "pop": "3-4",
+            "do": [
+              {
+                "consume_population": {
+                  "from": {
+                    "type": "fauna",
+                    "exclude_self": true
+                  },
+                  "amount": 2,
+                  "then": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": 2
+                      }
+                    }
+                  ],
+                  "else": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": -2
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "pop": 5,
+            "do": [
+              {
+                "consume_population": {
+                  "from": {
+                    "type": "fauna",
+                    "exclude_self": true
+                  },
+                  "amount": 3,
+                  "then": [],
+                  "else": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": -2
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_12_coral_shelf_formation": {
+    "id": "reef_gardens_12_coral_shelf_formation",
+    "front": {
+      "upkeep": [
+        {
+          "choose_one": [
+            {
+              "convert_track": {
+                "from": "abundance",
+                "to": "materials",
+                "amount": "all"
+              }
+            },
+            {
+              "change_track": {
+                "track": "abundance",
+                "target": "self",
+                "delta": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "abundance",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_13_reef_ecologist_s_notes": {
+    "id": "reef_gardens_13_reef_ecologist_s_notes",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "knowledge",
+          "amount": 1
+        }
+      ],
+      "upkeep": [
+        {
+          "status": "unresolved",
+          "text": "Take 1 Reef Fauna/Flora into hand"
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_beside_deck"
+        }
+      ],
+      "conditional_gain": [
+        {
+          "to": "player_hand",
+          "when": {
+            "location_cards_pop_ge": {
+              "pop": 4,
+              "count": 2
+            }
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_14_spawning_ground": {
+    "id": "reef_gardens_14_spawning_ground",
+    "front": {
+      "dilemma": {
+        "choose": "unanimous",
+        "options": [
+          {
+            "id": "harvest",
+            "label": "Harvest",
+            "do": [
+              {
+                "provides_icon": {
+                  "icon": "food",
+                  "amount": 1
+                }
+              },
+              {
+                "tuck": {
+                  "under": "outpost"
+                }
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "label": "Protect",
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "card.reef_gardens_10_shallowwater_filterweed",
+                  "delta": 2
+                }
+              },
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "card.reef_gardens_11_spotted_grazers",
+                  "delta": 2
+                }
+              }
+            ]
+          },
+          {
+            "id": "tag_monitor",
+            "label": "Tag & Monitor",
+            "do": [
+              {
+                "provides_icon": {
+                  "icon": "knowledge",
+                  "amount": 1
+                }
+              },
+              {
+                "tuck": {
+                  "under": "outpost"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "resolve_now"
+        }
+      ]
+    }
+  },
+  "reef_gardens_15_reef_caverns": {
+    "id": "reef_gardens_15_reef_caverns",
+    "front": {
+      "on_reveal": [
+        {
+          "instruction": "read_aloud"
+        },
+        {
+          "disposition": "set_aside"
+        }
+      ]
+    },
+    "back": {
+      "gate": {
+        "requires": {
+          "oxygen": 2,
+          "knowledge": 2
+        },
+        "sourced_from": [
+          "hand",
+          "location"
+        ],
+        "on_meet": {
+          "open_expedition": true
+        }
+      }
+    }
+  },
+  "reef_gardens_16_glow_polyp_mat": {
+    "id": "reef_gardens_16_glow_polyp_mat",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "power",
+          "amount": 1,
+          "when": {
+            "self_pop_ge": 4
+          }
+        }
+      ],
+      "upkeep": {
+        "conditional": [
+          {
+            "when": {
+              "card_track_ge": {
+                "card": "reef_gardens_18_echoing_calcite_spires",
+                "track": "abundance",
+                "value": 2
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "board_icon_ge": {
+                "icon": "reactor",
+                "value": 2
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_17_crystalblind_snapper": {
+    "id": "reef_gardens_17_crystalblind_snapper",
+    "front": {
+      "upkeep": {
+        "bands": [
+          {
+            "pop": 0,
+            "do": []
+          },
+          {
+            "pop": "1-3",
+            "do": [
+              {
+                "consume_population": {
+                  "from": {
+                    "keyword": "prey"
+                  },
+                  "amount": 1,
+                  "then": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": 1
+                      }
+                    }
+                  ],
+                  "else": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": -1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "pop": "4-5",
+            "do": [
+              {
+                "consume_population": {
+                  "from": {
+                    "keyword": "prey"
+                  },
+                  "amount": 2,
+                  "then": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": 1
+                      }
+                    }
+                  ],
+                  "else": [
+                    {
+                      "change_track": {
+                        "track": "population",
+                        "target": "self",
+                        "delta": -1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "population",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_18_echoing_calcite_spires": {
+    "id": "reef_gardens_18_echoing_calcite_spires",
+    "front": {
+      "upkeep": {
+        "conditional": [
+          {
+            "when": {
+              "self_track_ge": {
+                "track": "abundance",
+                "value": 2
+              }
+            },
+            "do": [
+              {
+                "produce_resource": {
+                  "resource": "materials",
+                  "amount": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "card_track_ge": {
+                "card": "reef_gardens_16_glow_polyp_mat",
+                "track": "population",
+                "value": 4
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "abundance",
+                  "target": "self",
+                  "delta": 1
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "board_icon_ge": {
+                "icon": "reactor",
+                "value": 3
+              }
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        },
+        {
+          "set_track": {
+            "track": "abundance",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_19_drowned_survey_cache": {
+    "id": "reef_gardens_19_drowned_survey_cache",
+    "front": {
+      "provides_icon": [
+        {
+          "icon": "knowledge",
+          "amount": 1
+        }
+      ],
+      "action": {
+        "id": "trash_ask_control",
+        "status": "unresolved",
+        "text": "Trash: ask Control any question (adjudicated)"
+      }
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "set_beside_deck"
+        }
+      ],
+      "conditional_gain": [
+        {
+          "to": "player_hand",
+          "when": {
+            "all": [
+              {
+                "card_track_ge": {
+                  "card": "reef_gardens_16_glow_polyp_mat",
+                  "track": "population",
+                  "value": 4
+                }
+              },
+              {
+                "card_track_ge": {
+                  "card": "reef_gardens_18_echoing_calcite_spires",
+                  "track": "abundance",
+                  "value": 4
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "reef_gardens_20_the_watcher_in_the_dark": {
+    "id": "reef_gardens_20_the_watcher_in_the_dark",
+    "front": {
+      "upkeep": [
+        {
+          "for_each": {
+            "filter": {
+              "type": "fauna"
+            },
+            "where": {
+              "self_pop_ge": 3
+            },
+            "do": [
+              {
+                "change_track": {
+                  "track": "population",
+                  "target": "self",
+                  "delta": -1
+                }
+              }
+            ],
+            "if_none": [
+              {
+                "remove_self": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "play_at_location"
+        }
+      ]
+    }
+  },
+  "reef_gardens_21_bioluminescent_pollination": {
+    "id": "reef_gardens_21_bioluminescent_pollination",
+    "front": {
+      "upkeep": [
+        {
+          "status": "unresolved",
+          "text": "A Flora you move gains +1 Pop on arrival if at Depth 3+ (movement/Depth not modelled)"
+        }
+      ]
+    },
+    "back": {
+      "on_reveal": [
+        {
+          "disposition": "to_player_hand"
+        }
+      ]
+    }
+  }
+}

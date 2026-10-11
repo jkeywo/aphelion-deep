@@ -1,0 +1,94 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>Cards as data — Reef Gardens</title><style>
+ body{{margin:0;background:#fcfcfb;color:#0b0b0b;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}}
+ .wrap{{max-width:820px;margin:0 auto;padding:40px 28px 64px}} h1{{font-size:25px;margin:0 0 4px}}
+ h2{{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:#52514e;margin:30px 0 12px;border-bottom:1px solid #e7e6e2;padding-bottom:6px}}
+ h3{{font-size:14px;margin:16px 0 4px}} .sub{{color:#8a8a86;margin:0 0 20px}} p{{color:#52514e}}
+ pre{{background:#1c1c1a;color:#e7e6e2;border-radius:9px;padding:12px 14px;font-size:12px;overflow-x:auto;line-height:1.45;margin:0 0 6px}}
+ table{{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:4px}} td{{padding:6px 10px;border-bottom:1px solid #e7e6e2;vertical-align:top}}
+ .muted{{color:#8a8a86}} .chip{{padding:1px 9px;border-radius:20px;font-size:11.5px;font-weight:600}}
+ code{{background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px;font-size:12.5px}}
+ .note{{background:rgba(42,120,214,.05);border:1px solid rgba(42,120,214,.25);border-radius:10px;padding:13px 16px;font-size:13.5px;color:#52514e}} b{{color:#0b0b0b}}
+</style></head><body><div class=wrap>
+<h1>Cards as data — capability blocks the sim interprets</h1>
+<p class=sub>Each card's rules are captured from its text as a <b>front</b> and a <b>back</b> effect block
+(<code>game/reef_cards.gamespec.md</code>). A generic interpreter (<code>mechanisms/card_effects.py</code>)
+reads them and works out the turn — no per-card logic in the sim. This is the same Reef Gardens turn 1,
+now driven entirely by the data.</p>
+
+<h2>What a capability block looks like</h2>
+<h3>Lead Ecologist — a role passive (an Oxygen icon)</h3><pre>card_effects:
+  id: reef_gardens_3_lead_ecologist
+  front: { role: true, hidden: true }
+  back:
+    disposition: to_player_hand
+    passive:
+      - { provides_icon: { icon: oxygen, amount: 1 } }</pre><h3>Systems Ecologist — a role passive that is an ACTION</h3><pre>  back:
+    passive:
+      - { action: { id: cultivator,
+            change_track: { track: population,
+              target: { type: flora, at: location, choose: player }, delta: 1 } } }</pre><h3>Shallowwater Filterweed — a conditional icon + Pop-banded upkeep</h3><pre>  front:
+    provides_icon:
+      - { icon: oxygen, amount: 1, when: { self_pop_ge: 3 } }
+    upkeep:
+      bands:
+        - { pop: 1,   do: [ { change_track: { track: population, target: self, delta: 1 } } ] }
+        - { pop: &quot;2-4&quot;, do: [ { change_track: { track: population, target: self, delta: 2 } } ] }
+  back:
+    on_reveal:
+      - { disposition: play_at_location }
+      - { set_track: { track: population, value: 2 } }</pre><h3>Spawning Ground — a unanimous dilemma, each option a real effect</h3><pre>  front:
+    dilemma:
+      choose: unanimous
+      options:
+        - { id: tag_monitor, label: &quot;Tag &amp; Monitor&quot;,
+            do: [ { provides_icon: { icon: knowledge, amount: 1 } }, { tuck: { under: outpost } } ] }
+        - { id: protect, label: &quot;Protect&quot;,
+            do: [ { change_track: { track: population, target: card.…filterweed, delta: 2 } },
+                  { change_track: { track: population, target: card.…grazers, delta: 2 } } ] }</pre><h3>Reef Ecologist&#x27;s Notes — a CONDITIONAL gain</h3><pre>  back:
+    on_reveal: [ { disposition: set_beside_deck } ]
+    conditional_gain:
+      - { to: player_hand, when: { location_cards_pop_ge: { pop: 4, count: 2 } } }</pre><h3>Reef Caverns — the expedition gate (presence test)</h3><pre>  back:
+    gate:
+      requires: { oxygen: 2, knowledge: 2 }
+      sourced_from: [hand, location]</pre>
+
+<h2>Turn 1, driven by the blocks</h2>
+<table><tr><td><span class=chip style="background:#8a8a861a;color:#8a8a86">resolve</span></td><td>A Rough Landing</td><td class=muted>read / resolved</td></tr><tr><td><span class=chip style="background:#52514e1a;color:#52514e">reveal</span></td><td>Ecology Department</td><td class=muted>reveal role cards; each player chooses one</td></tr><tr><td><span class=chip style="background:#0083001a;color:#008300">role</span></td><td>Player 1 = Lead Ecologist</td><td class=muted>passive 1 oxygen icon</td></tr><tr><td><span class=chip style="background:#0083001a;color:#008300">role</span></td><td>Player 2 = Systems Ecologist</td><td class=muted>passive action: cultivator</td></tr><tr><td><span class=chip style="background:#8a8a861a;color:#8a8a86">aside</span></td><td>Phase Reference</td><td class=muted>set beside the deck</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">play</span></td><td>Reef Garden Outpost</td><td class=muted>tracks {}</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">play</span></td><td>Shallowwater Filterweed</td><td class=muted>tracks {&#x27;population&#x27;: 2}</td></tr><tr><td><span class=chip style="background:#0083001a;color:#008300">action</span></td><td>Player 2 uses Cultivator</td><td class=muted>Shallowwater Filterweed.population -&gt; 3</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">play</span></td><td>Spotted Grazers</td><td class=muted>tracks {&#x27;population&#x27;: 2}</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">play</span></td><td>Coral Shelf Formation</td><td class=muted>tracks {&#x27;abundance&#x27;: 2}</td></tr><tr><td><span class=chip style="background:#8a8a861a;color:#8a8a86">aside</span></td><td>Reef Ecologist&#x27;s Notes</td><td class=muted>set beside the deck (conditional gain)</td></tr><tr><td><span class=chip style="background:#4a3aa71a;color:#4a3aa7">dilemma</span></td><td>Spawning Ground</td><td class=muted>group chose &#x27;Protect&#x27;</td></tr><tr><td><span class=chip style="background:#d03b3b1a;color:#d03b3b">GATE</span></td><td>Reef Caverns</td><td class=muted>need {&#x27;oxygen&#x27;: 2, &#x27;knowledge&#x27;: 2} · have {&#x27;oxygen&#x27;: 2, &#x27;knowledge&#x27;: 1} · CLOSED — cannot descend</td></tr></table>
+<div class=note><b>The gate tally is now derived from the data:</b> <code>{&#x27;oxygen&#x27;: 2, &#x27;knowledge&#x27;: 1}</code>. Oxygen 2 comes from
+the Lead Ecologist's passive icon + the Filterweed the Cultivator pushed to Pop 3; Knowledge 1 comes from the
+Notes card, gained because Protect took two cards to 4+ Pop. Need 2 Knowledge → the cavern stays closed — the
+tight puzzle, produced by the rules, not hardcoded.</div>
+
+<h2>Upkeep</h2>
+<table><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">upkeep</span></td><td>reef_garden_outpost</td><td class=muted>tracks {} -&gt; {}</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">upkeep</span></td><td>shallowwater_filterweed</td><td class=muted>tracks {&#x27;population&#x27;: 5} -&gt; {&#x27;population&#x27;: 5}</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">upkeep</span></td><td>spotted_grazers</td><td class=muted>tracks {&#x27;population&#x27;: 4} -&gt; {&#x27;population&#x27;: 2}</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">upkeep</span></td><td>coral_shelf_formation</td><td class=muted>tracks {&#x27;abundance&#x27;: 2} -&gt; {&#x27;abundance&#x27;: 3}</td></tr></table>
+
+<h2>Beyond the gate — the caverns, exercised</h2>
+<p>The same interpreter drives cards 16–21. Forcing the gate open (a <b>labelled hypothetical</b>, not a
+legal move on this tally) runs the deep's own upkeep verbs: cross-card conditions
+(<code>card_track_ge</code>), an apex predator that consumes <b>Prey</b> population, a mineral that
+<code>produce_resource</code>s Materials at Abundance 2+, and an Event that <code>remove_self</code>s when it
+finds nothing to act on. Resources produced: <code>{&#x27;materials&#x27;: 1}</code>.</p>
+<table><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">upkeep</span></td><td>glow_polyp_mat</td><td class=muted>tracks {&#x27;population&#x27;: 2} -&gt; {&#x27;population&#x27;: 3}</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">upkeep</span></td><td>crystalblind_snapper</td><td class=muted>tracks {&#x27;population&#x27;: 0} -&gt; {&#x27;population&#x27;: 0}</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">upkeep</span></td><td>echoing_calcite_spires</td><td class=muted>tracks {&#x27;abundance&#x27;: 2} -&gt; {&#x27;abundance&#x27;: 2}</td></tr><tr><td><span class=chip style="background:#2a78d61a;color:#2a78d6">upkeep</span></td><td>the_watcher_in_the_dark</td><td class=muted>tracks {} -&gt; {}</td></tr></table>
+<div class=note style="background:rgba(237,161,0,.06);border-color:rgba(237,161,0,.3)"><b>A rule the encoding
+surfaced.</b> The Snapper is an apex predator that eats <b>Prey</b>; the surface Grazers eat <b>Fauna</b>. Run
+together, the Grazers' <code>consume_population: {from: {type: fauna}}</code> can eat the Snapper — predator and
+prey reversed. That is a concrete, testable content question the executable layer made visible, exactly what it
+is for. It's flagged in the block's DESIGN NOTE, not silently resolved.</div>
+
+<h2>gsx validates the blocks themselves</h2>
+<p>Because the rules are data, <code>gsx</code> checks them like any contract: <b>PASS</b> — 18 capability blocks; every verb, icon, track and card reference resolves. Unencoded prose is
+not an error — it is an honest, tracked <code>status: unresolved</code> marker (INFO), so the gaps are counted,
+not hidden:</p>
+<table><tr><td><span class=chip style="background:#eda1001a;color:#eda100">unresolved</span></td><td class=muted>card reef_gardens_13_reef_ecologist_s_notes: Take 1 Reef Fauna/Flora into hand</td></tr><tr><td><span class=chip style="background:#eda1001a;color:#eda100">unresolved</span></td><td class=muted>card reef_gardens_19_drowned_survey_cache: Trash: ask Control any question (adjudicated)</td></tr><tr><td><span class=chip style="background:#eda1001a;color:#eda100">unresolved</span></td><td class=muted>card reef_gardens_21_bioluminescent_pollination: A Flora you move gains +1 Pop on arrival if at Depth 3+ (movement/Depth not modelled)</td></tr></table>
+
+<h2>The effect-verb vocabulary (closed set)</h2>
+<table><tr><td><code>disposition</code></td><td class=muted>where a turned card goes (hand / play / set_aside / beside_deck / resolve / discard)</td></tr><tr><td><code>provides_icon</code></td><td class=muted>{icon, amount, when?} — a presence icon (not consumed), optionally conditional</td></tr><tr><td><code>set_track / change_track</code></td><td class=muted>initialise or adjust a card track (population, abundance, …)</td></tr><tr><td><code>passive</code></td><td class=muted>persistent effect on a role/card: an icon, or an {action: …}</td></tr><tr><td><code>reveal_cards / each_player_chooses</code></td><td class=muted>setup: reveal cards, each player keeps one (assigns roles)</td></tr><tr><td><code>conditional_gain</code></td><td class=muted>gain a set-aside card when a condition holds (e.g. two cards at 4+ Pop)</td></tr><tr><td><code>dilemma</code></td><td class=muted>{choose: unanimous, options: [{id, label, do:[effects]}]}</td></tr><tr><td><code>choose_one</code></td><td class=muted>pick one of several upkeep effects</td></tr><tr><td><code>gate</code></td><td class=muted>{requires: {icon: n}, sourced_from, on_meet} — the expedition gate</td></tr><tr><td><code>tuck / instruction / narrative</code></td><td class=muted>tuck under a card; read-aloud; flavour (no mechanic)</td></tr><tr><td><code>status: unresolved</code></td><td class=muted>an honest, tracked marker for prose not yet encoded</td></tr></table>
+<p class=note style="margin-top:12px">Adding a card is now authoring a block, not editing the sim. Encoding a
+prose effect means adding its verb here (e.g. the Grazers <code>consume_population</code> / else op, or the
+Outpost Rations) — and <code>gsx</code> validates that every verb, icon and reference resolves: a new verb the
+interpreter doesn't know fails <b>L6</b>, so the data and the interpreter can't drift apart.</p>
+
+<p class=sub style="margin-top:22px">Reproduce: <code>python3 simulation/reef_turn1_effects.py</code>.
+Blocks in <code>game/reef_cards.gamespec.md</code>, interpreter in <code>mechanisms/card_effects.py</code>.</p>
+</div></body></html>

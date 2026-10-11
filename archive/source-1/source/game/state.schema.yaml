@@ -1,0 +1,61 @@
+spec: gamespec-state/0.7
+
+# Canonical game state for The Aphelion Deep.
+# The mechanisms in source/mechanisms/ mutate colony/reactor/megafauna state via
+# ChangeValue; this file is the single source of truth those writes are validated
+# against. python_type binds the Colony / ReactorState dataclasses so that
+# `colony.reference` / `reactor.reference` writes resolve here.
+state:
+  colony:
+    kind: composite
+    owner: game
+    python_type: Colony
+    fields:
+      production:   { type: int, min: 0, initial: 0 }
+      life_support: { type: int, min: 0, initial: 10 }
+      headcount:    { type: int, min: 0, initial: 0 }
+      outposts:     { type: int, min: 0, initial: 0 }
+
+  reactor:
+    kind: composite
+    owner: game
+    python_type: ReactorState
+    fields:
+      phase:            { type: int, min: 0, max: 6, initial: 0 }
+      containment:      { type: int, min: 0, initial: 0 }
+      stabilised:       { type: bool, initial: false }
+      max_phase:        { type: int, min: 1, initial: 6 }
+      containment_needed: { type: int, min: 1, initial: 3 }
+
+  megafauna:
+    kind: marker
+    owner: game
+    fields:
+      aggression: { type: int, min: 0, max: 5, initial: 0 }
+    visibility: public
+
+  milestone_state:
+    kind: score
+    owner: game
+    type: int
+    min: 0
+    initial: 0
+    visibility: public
+
+  # ── exploration layer (game/exploration.gamespec.md) ──
+  # A location deck's exploration position — persists across turns.
+  reef_gardens:
+    kind: composite
+    owner: game
+    fields:
+      deck_position:   { type: int, min: 0, initial: 0 }
+      expedition_open: { type: bool, initial: false }
+
+  # Per played card: its Population track (component-owned). python_type binds the
+  # CardState dataclass so resolve_pop_upkeep's ChangeValue(card.reference, ...) resolves.
+  card_population:
+    kind: unit
+    owner: component
+    python_type: CardState
+    fields:
+      population: { type: int, min: 0, max: 5, initial: 0 }

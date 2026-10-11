@@ -1,0 +1,125 @@
+Checking: C:\Coding\playtrace\.venv\Scripts\python.exe -m pytest -p no:cacheprovider --basetemp=C:\Coding\playtrace\.scratch\release-l5_riilk\tests
+........................................................................ [ 23%]
+........................................................................ [ 47%]
+........................................................................ [ 70%]
+........................................................................ [ 94%]
+..................                                                       [100%]
+306 passed in 13.60s
+Checking: C:\Program Files\nodejs\node.EXE --check src/playtrace/review/app.js
+Checking: C:\Coding\playtrace\.venv\Scripts\python.exe -m compileall -q src tests
+Checking: C:\Users\jkeyw\.local\bin\uv.EXE build --out-dir C:\Coding\playtrace\.scratch\release-l5_riilk\dist
+Building source distribution...
+Building wheel from source distribution...
+Successfully built .scratch\release-l5_riilk\dist\playtrace-0.1.0.tar.gz
+Successfully built .scratch\release-l5_riilk\dist\playtrace-0.1.0-py3-none-any.whl
+Checking: git diff --check
+warning: in the working copy of 'src/playtrace/simulation.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/playtrace/simulation_report.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/playtrace/tension.py', LF will be replaced by CRLF the next time Git touches it
+Checking: C:\Coding\playtrace\.venv\Scripts\python.exe -m playtrace migrate --db C:\Coding\playtrace\.scratch\release-l5_riilk\playtrace.db
+{
+  "database": "C:\\Coding\\playtrace\\.scratch\\release-l5_riilk\\playtrace.db",
+  "schema_version": 3
+}
+Checking: C:\Coding\playtrace\.venv\Scripts\python.exe -m playtrace doctor --db C:\Coding\playtrace\.scratch\release-l5_riilk\playtrace.db --root C:\Coding\playtrace
+{
+  "ok": true,
+  "checks": {
+    "database": {
+      "ok": true,
+      "schema_version": 3,
+      "integrity": "ok",
+      "foreign_key_violations": 0,
+      "foreign_key_details": [],
+      "incomplete_sagas": 0,
+      "incomplete_saga_ids": []
+    },
+    "container": {
+      "ok": true,
+      "checks": {
+        "base_image_digest_pinned": true,
+        "dockerfile_uses_locked_base": true,
+        "dependency_lock_matches": true,
+        "locked_install": true,
+        "non_editable_package_install": true,
+        "runtime_venv_copied": true,
+        "runtime_package_importable": true,
+        "runtime_source_excluded": true,
+        "non_root_runtime": true,
+        "docker_available": true,
+        "secure_runner_controls": true,
+        "network_disabled": true
+      },
+      "details": {
+        "base_image": "python:3.12.11-slim@sha256:47ae396f09c1303b8653019811a8498470603d7ffefc29cb07c88f1f8cb3d19f",
+        "lock_sha256": "8136d5a0f67715470ab7a5e05b11f9c8ad761b20280386fce60ea15837d08964"
+      }
+    }
+  }
+}
+Checking: C:\Users\jkeyw\.local\bin\uv.EXE pip install --python C:\Coding\playtrace\.venv\Scripts\python.exe --no-deps --target C:\Coding\playtrace\.scratch\release-l5_riilk\installed C:\Coding\playtrace\.scratch\release-l5_riilk\dist\playtrace-0.1.0-py3-none-any.whl
+Using CPython 3.12.14 interpreter at: .venv\Scripts\python.exe
+Resolved 1 package in 9ms
+Prepared 1 package in 21ms
+Installed 1 package in 58ms
+ + playtrace==0.1.0 (from file:///C:/Coding/playtrace/.scratch/release-l5_riilk/dist/playtrace-0.1.0-py3-none-any.whl)
+Checking: C:\Coding\playtrace\.venv\Scripts\python.exe -c import os; from pathlib import Path; import playtrace; from playtrace.cnl import TabletopRuleCompiler; from playtrace.review_server import REVIEW_ROOT; from playtrace.demo import build_demo_review; assert Path(playtrace.__file__).resolve().is_relative_to(Path(os.environ['PLAYTRACE_WHEEL_ROOT'])); TabletopRuleCompiler(); build_demo_review(); assert all((REVIEW_ROOT / name).is_file() for name in ('index.html', 'app.js', 'styles.css')); print('Installed wheel, grammar, demo and review assets verified.')
+Installed wheel, grammar, demo and review assets verified.
+Checking: C:\Coding\playtrace\.venv\Scripts\python.exe -m playtrace --help
+usage: playtrace [-h]
+                 {validate-telemetry,demo,review,serve,migrate,doctor,sync,recover,container-doctor,run-critics,snapshot,assess,simulate,simulation-report,simulate-batch,compare-batches,tension-report,record-experiment,decide-review,propose,submit-proposal,decide-proposal,dry-run-proposal,apply-proposal,promote-precedent,run-regressions,accept-regression-case,propose-extension,submit-extension,decide-extension}
+                 ...
+
+positional arguments:
+  {validate-telemetry,demo,review,serve,migrate,doctor,sync,recover,container-doctor,run-critics,snapshot,assess,simulate,simulation-report,simulate-batch,compare-batches,tension-report,record-experiment,decide-review,propose,submit-proposal,decide-proposal,dry-run-proposal,apply-proposal,promote-precedent,run-regressions,accept-regression-case,propose-extension,submit-extension,decide-extension}
+    validate-telemetry  validate local Unreal JSONL evidence without importing
+                        it
+    demo                analyse and persist the synthetic M0 snapshot
+    review              serve the claim-linked review shell
+    serve               serve the unified local review projector and bounded
+                        job API
+    migrate             adopt or migrate a Play Trace database
+    doctor              run local database and container diagnostics
+    sync                refresh authoritative Workspace metadata and cache
+    recover             retry reverse compensation for a write saga
+    container-doctor    verify the pinned isolated simulation container
+                        contract
+    run-critics         run typed critics through local, CLI, then API
+                        fallback
+    snapshot            build a Workspace or local Unreal snapshot from a game
+                        repository
+    assess              build a claim-linked Phase 2 design review
+    simulate            run a deterministic tabletop simulation experiment
+    simulation-report   build an interactive HTML report from simulation
+                        results
+    simulate-batch      measure tension for all Crisis Wardens character
+                        combinations
+    compare-batches     compare paired tension batches by character
+                        combination and seed
+    tension-report      build an HTML report for a paired tension A/B test
+    record-experiment   record simulation, tension or Unreal telemetry as
+                        hypothesis-linked evidence
+    decide-review       record a human decision without applying canonical
+                        changes
+    propose             persist a typed design proposal record
+    submit-proposal     submit a draft for approval
+    decide-proposal     approve, reject, or return a submitted proposal for
+                        revision
+    dry-run-proposal    recheck an approved proposal without canonical writes
+    apply-proposal      apply an approved proposal to a live writable
+                        workspace
+    promote-precedent   explicitly promote an applied proposal into its game
+                        repository
+    run-regressions     run an accepted deterministic behavioral regression
+                        suite
+    accept-regression-case
+                        accept a proposed case after verifying its applied-
+                        proposal origin
+    propose-extension   persist an inert generated plugin, grammar, or RuleIR
+                        proposal
+    submit-extension    submit an inert extension proposal for human review
+    decide-extension    approve, reject, or request revision of an extension
+
+options:
+  -h, --help            show this help message and exit
+M6 release gate passed. Artifacts: C:\Coding\playtrace\.scratch\release-l5_riilk

@@ -1,0 +1,154 @@
+manifest_version = 1
+project_id = "aphelion-deep"
+name = "The Aphelion Deep"
+repository = "."
+drive_folder_id = "1mM3AK6DfZrgYH4auLBugy6NZB9TKBdwo"
+drive_manifest_file_id = "1Qiex0faSwhdS9gj2lJcBHqkESvZdcLWcZmY-MLMxdOE"
+drive_manifest_range = "Manifest!A1:J17"
+capabilities = ["cards", "simulation"]
+
+[[sources]]
+id = "ad:overview"
+file_id = "1A_8GxEFiVcre4EyWqR4vQG3_pHd3oiQojCTFv_cVNl4"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Overview"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:core-rules"
+file_id = "11Ybx_vdKQzybtNP8omCdH1oA1ASrhMZ1BWdKqywp1nE"
+kind = "google_doc"
+role = "tutorial_rules"
+title = "The Aphelion Deep Core Rules"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:departments"
+file_id = "1izCPb-W03rSOQZVvFOc6Cl311SBQh5YOtOEAnDz8NSI"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Departments"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:engineering-briefs"
+file_id = "1Ja4RZRTiWKD17hLgChLKZWOBVsanMsgynxDMfzlIvQM"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Engineering Briefs"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:ecology-briefs"
+file_id = "16CLBWcBSEMz4LgXzFnYL924LsYlc9U2NjMMxiWVRadw"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Ecology Briefs"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:medical-briefs"
+file_id = "1EwSrbfg93HLi4rsEAH3uGlhMDDUn1Q9ISxMoNTODWT8"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Medical Briefs"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:philosophies"
+file_id = "1RoEC8Ktm4hdHyAT-z9xjgkE8-1uYsAe2nXSsFkoTaOE"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Philosophies"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:locations"
+file_id = "1gCMO_uUkQIe6nr9FnJZkrn4jxoK_vVbqzk1tqRGbsVo"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Locations"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:player-lore"
+file_id = "1XvteBEgiqW3S50i7cNX-swaYWP4kduHOX8Uelvc_hKQ"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Player Lore"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:facilitator-lore"
+file_id = "1scEyod5y4H1CKZsseru6hGezecz9MJK9NCv47PDye4M"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Facilitator Lore"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:facilitator-guide"
+file_id = "1P9hhTNPieNIc6Twqs0GHqByBzEPUfjTzGYkLMLcPSjM"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Facilitator Guidance"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:card-design"
+file_id = "1gIJlk_cpoqx-qVMY61b_xdd2ZjYsGrUHv3hon-pUUmw"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Card Design Reference"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:sensory-vocabulary"
+file_id = "1MY5TGuPMeD9sJn0Q7xuZJ7jymdLlZSNaGC8aOY6C8Ok"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Sensory Vocabulary"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:deeper-knowledge"
+file_id = "1RpMBiY0UO6NvjtIU9-N7jB8bj-jpozN7b_g2QB45mGY"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Deeper Knowledge Drafts"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:structured-design"
+file_id = "13aMqvCqVN7QB-ZIG5SevdgPp9LJl9ugfjHetwps7V_E"
+kind = "google_doc"
+role = "design_reference"
+title = "The Aphelion Deep Structured Design Annex"
+schema_id = "aphelion-document-v1"
+
+[[sources]]
+id = "ad:cards"
+file_id = "1o4X96xXOTL-vQAZq7RghdJBM0fvN2xKH74dnzVRxec4"
+kind = "google_sheet"
+role = "card_catalogue"
+title = "The Aphelion Deep Card Catalogue"
+schema_id = "aphelion-cards-v1"
+
+[[sources.tables]]
+sheet = "Cards"
+range = "Cards!A1:X47"
+entity_kind = "card"
+entity_id_column = "ID"
+
+[[sources.tables]]
+sheet = "Pacing"
+range = "Pacing!A1:D6"
+entity_kind = "historical_pacing"
+entity_id_column = "ID"
+
+[[sources.tables]]
+sheet = "Map Names"
+range = "'Map Names'!A1:E41"
+entity_kind = "location_name"
+entity_id_column = "ID"

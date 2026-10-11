@@ -1,0 +1,160 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>Reef Gardens — Turn 1 blow-by-blow (2 players)</title><style>
+ body{{margin:0;background:#fcfcfb;color:#0b0b0b;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}}
+ .wrap{{max-width:820px;margin:0 auto;padding:40px 28px 64px}} h1{{font-size:25px;margin:0 0 4px}}
+ h2{{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:#52514e;margin:30px 0 12px;border-bottom:1px solid #e7e6e2;padding-bottom:6px}}
+ .sub{{color:#8a8a86;margin:0 0 20px}} p{{color:#52514e}}
+ .step{{border:1px solid #e7e6e2;border-radius:10px;padding:12px 15px;margin:10px 0;background:rgba(0,0,0,.012)}}
+ .sh{{font-size:15px;margin-bottom:6px}} .pos{{color:#8a8a86;font-variant-numeric:tabular-nums}}
+ .muted{{color:#8a8a86}} .chip{{padding:1px 9px;border-radius:20px;font-size:11.5px;font-weight:600}}
+ .quote{{font-size:12.5px;color:#8a8a86;font-style:italic;margin:2px 0 7px;line-height:1.5}}
+ .rule{{font-size:13.5px;margin:3px 0}} .sim{{font-size:13.5px;margin:3px 0;color:#52514e}}
+ .eff{{font-size:13px;margin-top:5px;color:#52514e;border-left:3px solid #e7e6e2;padding-left:9px}}
+ table{{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:4px}}
+ td{{padding:6px 10px;border-bottom:1px solid #e7e6e2}}
+ .note{{border-radius:10px;padding:13px 16px;font-size:13.5px;color:#52514e}}
+ .tally{{background:rgba(42,120,214,.05);border:1px solid rgba(42,120,214,.25)}}
+ .verdict{{background:rgba(208,59,59,.05);border:1px solid rgba(208,59,59,.22)}}
+ code{{background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px;font-size:12.5px}} b{{color:#0b0b0b}}
+</style></head><body><div class=wrap>
+<h1>Reef Gardens — the first turn, two players</h1>
+<p class=sub>A blow-by-blow of the intro turn, exploring the reef together. Each card is quoted, paired
+with the rule as written, what the simulation currently does, and whether that rule is captured — so
+you can check the model against your intent. <b>Player 1</b> takes the Lead Ecologist, <b>Player 2</b>
+the Systems Ecologist.</p>
+
+<h2>Exploration — turning the deck together</h2>
+
+    <div class=step>
+      <div class=sh><span class=pos>#1</span> <b>A Rough Landing</b> <span class=muted>· Narrative · both</span>
+        <span class=chip style="background:#0ca30c1a;color:#0ca30c;float:right">captured</span></div>
+      <div class=quote><b>Front:</b> You enter your cryo-pod filled with hope, to be selection for a survey mission on board the E.S.S. Aphelion is a rare honour, the finest research starship takes onto the finest crew. You drift into your induced slumber, dreaming of the disc…<br><b>Back:</b> Read aloud and follow instructions on the backs of cards (like this one) as they are revealed. They will walk you through playing the game. This deck will introduce you to the Ecology Department on the A.E.V. Aphelion, and the Reef Garden l…</div>
+      <div class=rule><b>Rule as written:</b> Tutorial narrative. Back: “Read aloud and follow instructions on the backs of cards as they are revealed.”</div>
+      <div class=sim><b>What the sim does:</b> Sim disposition = resolve_now: it reads and discards. No mechanic to capture.</div>
+      <div class=eff>The intro deck is a guided tutorial; the backs drive setup.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#2</span> <b>Ecology Department</b> <span class=muted>· Department · both</span>
+        <span class=chip style="background:#eda1001a;color:#eda100;float:right">approximated</span></div>
+      <div class=quote><b>Front:</b> The Ecology Department is responsible for understanding and tending the living systems of this world. Goals: 1) Understand the flora and fauna of this world. 2) Work out how to generate a reliable source of food and water.<br><b>Back:</b> You are a member of the Ecology Department. Reveal the next cards (3-4). Each player chooses 1 to keep and reads its back side privately.</div>
+      <div class=rule><b>Rule as written:</b> Department. Back: “You are a member of the Ecology Department. Reveal the next cards (3–4). Each player chooses 1 to keep and reads its back privately.”</div>
+      <div class=sim><b>What the sim does:</b> Sim disposition = to_hand. It does NOT run the ‘reveal 3–4, each player chooses a role’ step.</div>
+      <div class=eff>Drives role assignment for the 2 players — an un-modelled setup instruction.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#3</span> <b>Lead Ecologist</b> <span class=muted>· Role · P1</span>
+        <span class=chip style="background:#d03b3b1a;color:#d03b3b;float:right">not captured</span></div>
+      <div class=quote><b>Front:</b> DO NOT SHOW THIS SIDE TO OTHER PLAYERS. This planet is not just a resource. The reef systems here, the kelp forests, the deep-water biology – they are extraordinary. Exploitation will destroy them. You want the group to survive, but not at …<br><b>Back:</b> Head of the Ecology field team. Coordinates surveys, prevents cascading losses. Passive: Diver [1 Oxygen Icon] Icons, like the Oxygen icon above, are used as prerequisites for actions and expeditions. They are not consumed.</div>
+      <div class=rule><b>Rule as written:</b> Lead Ecologist (Role, hidden). Back: “Passive: Diver — [1 Oxygen Icon]. Icons … are used as prerequisites … They are not consumed.”</div>
+      <div class=sim><b>What the sim does:</b> Sim sends it to_hand but does NOT count the role’s passive Oxygen icon.</div>
+      <div class=eff>P1 now contributes a permanent 1 Oxygen. Confirms icons are a PRESENCE test, not a pool.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#4</span> <b>Systems Ecologist</b> <span class=muted>· Role · P2</span>
+        <span class=chip style="background:#d03b3b1a;color:#d03b3b;float:right">not captured</span></div>
+      <div class=quote><b>Front:</b> DO NOT SHOW THIS SIDE TO OTHER PLAYERS. This world is a paradise and a chance for a fresh start. You don’t want to escape, you want a colony that works in the long-term. Personal Goals: 1) Demonstrate that a permanent colony here could be n…<br><b>Back:</b> You grow things. That&#x27;s not a simple skill here – the &quot;soil&quot; is a mineral analogue, the light is wrong, and the organisms you&#x27;re working with are alien – but the principles hold. Water, nutrients, growth cycles, yield. Passive: Cultivator I…</div>
+      <div class=rule><b>Rule as written:</b> Systems Ecologist (Role, hidden). Back: “Passive: Cultivator — Increase the Population Track of one Flora card at your location by 1.”</div>
+      <div class=sim><b>What the sim does:</b> Sim sends it to_hand; the Cultivator passive (a Pop boost) is not modelled at all.</div>
+      <div class=eff>P2 can raise a Flora’s Pop by 1 — e.g. push Filterweed from 2 to 3 so it yields Oxygen.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#8</span> <b>Phase Reference</b> <span class=muted>· Phase Reference · both</span>
+        <span class=chip style="background:#0ca30c1a;color:#0ca30c;float:right">captured</span></div>
+      <div class=quote><b>Front:</b> After the Exploration phase is a 5 minute Upkeep phase. All players must choose an outpost to stay in and resolve the upkeep rules of all cards in hand and at their location, in an order of their choosing. Players must remain at their locat…<br><b>Back:</b> Each turn there will be a 15 minute Exploration phase. You can form a team from any players you wish to visit one location, following the instructions on the deck there. Any remaining time can be spent talking to any player who isn’t on an …</div>
+      <div class=rule><b>Rule as written:</b> Phase Reference. Front: Upkeep phase = choose an outpost, resolve upkeep of all cards in hand and at your location. Back: 15-min Exploration phase, form a team to visit one location.</div>
+      <div class=sim><b>What the sim does:</b> Sim resolve_now (informational).</div>
+      <div class=eff>Defines the turn shape the harness follows.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#9</span> <b>Reef Garden Outpost</b> <span class=muted>· Location · both</span>
+        <span class=chip style="background:#eda1001a;color:#eda100;float:right">approximated</span></div>
+      <div class=quote><b>Front:</b> Upkeep Hydroponics: Refill the rations track by 1 per Energy icon present. Rations: Each player here must either have a Food icon, reduce the population track of a flora by 1, or reduce the Rations Track by 1.<br><b>Back:</b> Looking at your surroundings you find yourselves in a shallow sea. Diving below reveals a coral reef, rich with life. The wreckage of your escape pod will suffice for a makeshift outpost. For this introductory turn you are exploring Reef Ga…</div>
+      <div class=rule><b>Rule as written:</b> Reef Garden Outpost (Location). Upkeep: “Hydroponics: refill rations per Energy icon. Rations: each player must have a Food icon, reduce a flora’s Pop by 1, or reduce the Rations Track.” Back: “For this introductory turn you are exploring Reef Garden together.”</div>
+      <div class=sim><b>What the sim does:</b> Sim plays it at the location; its Rations/Hydroponics upkeep is free-form prose → flagged UNRESOLVED.</div>
+      <div class=eff>Confirms the 2 players explore together this turn; the outpost upkeep needs encoding.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#10</span> <b>Shallowwater Filterweed</b> <span class=muted>· Flora · both</span>
+        <span class=chip style="background:#0ca30c1a;color:#0ca30c;float:right">captured</span></div>
+      <div class=quote><b>Front:</b> Lazy ribbons of pale green weed clinging to the reef. Filters seawater into oxygen and can be processed into an edible mash. Icons Provides 1 Oxygen icon while 3+ Pop. Upkeep Pop 0 – No effect Pop 1 – +1 Pop Pop 2-4 – +2 Population Pop 5 – …<br><b>Back:</b> Immediately draw this card and set its population track to 2.</div>
+      <div class=rule><b>Rule as written:</b> Shallowwater Filterweed (Flora). “Provides 1 Oxygen while 3+ Pop.” Upkeep Pop 0/1/2-4/5. Back: set Population to 2.</div>
+      <div class=sim><b>What the sim does:</b> Sim plays it at Pop 2 and its Pop-band upkeep is FULLY encoded (Filterweed is the one card that parses cleanly).</div>
+      <div class=eff>At Pop 2 it gives no Oxygen yet — but P2’s Cultivator (→3) or upkeep would push it to yield 1 Oxygen.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#11</span> <b>Spotted Grazers</b> <span class=muted>· Fauna · both</span>
+        <span class=chip style="background:#eda1001a;color:#eda100;float:right">approximated</span></div>
+      <div class=quote><b>Front:</b> Small shoaling fish that graze the Filterweed and the Coral Shelf algae. Upkeep Can spend Population to get Biomass. Pop 0 – No effect Pop 1-2 – -1 Population from Fauna then +1 Pop, else -1 Pop Pop 3-4 – -2 Population from Fauna then +2 Po…<br><b>Back:</b> Immediately draw this card and set its population track to 2.</div>
+      <div class=rule><b>Rule as written:</b> Spotted Grazers (Fauna). Upkeep: “Pop 1-2: −1 Population from Fauna then +1 Pop, else −1 Pop …”. Back: set Pop 2.</div>
+      <div class=sim><b>What the sim does:</b> Sim plays it at Pop 2; the consume-from-fauna / else-branch upkeep is bands-parsed but ops UNRESOLVED.</div>
+      <div class=eff>Population dynamics need the consume_population / else op encoding.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#12</span> <b>Coral Shelf Formation</b> <span class=muted>· Mineral · both</span>
+        <span class=chip style="background:#d03b3b1a;color:#d03b3b;float:right">not captured</span></div>
+      <div class=quote><b>Front:</b> A broad shelf of brittle living coral. Upkeep Choose one: (a) convert any amount of Abundance into an equal amount of Materials and/or Coral (b) +1 Abundance.<br><b>Back:</b> Minerals, Coral and other crafting ingredients can be used to craft items, which can be found on the crafting table and must be made at an outpost during the Upkeep phase. Immediately draw this card and set its abundance track to 4.</div>
+      <div class=rule><b>Rule as written:</b> Coral Shelf Formation (Mineral). Upkeep: “Choose one: (a) convert Abundance into Materials/Coral (b) +1 Abundance.” Back: set Abundance to 2.</div>
+      <div class=sim><b>What the sim does:</b> Sim plays it; the choose-one upkeep is UNRESOLVED, and Abundance (a second track) isn’t modelled.</div>
+      <div class=eff>Introduces an Abundance track + a player choose-one — neither encoded yet.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#13</span> <b>Reef Ecologist&#x27;s Notes</b> <span class=muted>· Knowledge · both</span>
+        <span class=chip style="background:#d03b3b1a;color:#d03b3b;float:right">not captured</span></div>
+      <div class=quote><b>Front:</b> Icons [1 Knowledge Icon] Upkeep Take 1 Reef Fauna or Flora card into your hand. Expedition Play 1 Reef Fauna or Flora card into your current location.<br><b>Back:</b> Knowledge cards can be gained to a player’s hand during an expedition when certain conditions are met. Set this card beside the deck with this side up. Gain this card when two cards here have 4+ population.</div>
+      <div class=rule><b>Rule as written:</b> Reef Ecologist’s Notes (Knowledge). Front: “[1 Knowledge Icon]”. Back: “Set this card beside the deck. GAIN this card when two cards here have 4+ population.”</div>
+      <div class=sim><b>What the sim does:</b> Sim sends it straight to_hand and would count its Knowledge unconditionally.</div>
+      <div class=eff>The real rule is a CONDITIONAL gain (two cards at 4+ Pop). The sim’s disposition is wrong for this card.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#14</span> <b>Spawning Ground</b> <span class=muted>· Dilemma · both</span>
+        <span class=chip style="background:#d03b3b1a;color:#d03b3b;float:right">not captured</span></div>
+      <div class=quote><b>Front:</b> Harvest or Tag &amp; Monitor: Tuck this card under the Reef Outpost to leave the corresponding icon visible. Harvest: [Food Icon] Tag &amp; Monitor: [Knowledge Icon] Protect: +2 population to Shallowwater Filterweed and +2 population to Spotted Gra…<br><b>Back:</b> Some cards have decisions to make during an expedition. The group must choose an option unanimously. Spawning Ground You find a spawning ground for the Spotted Grazers. Choose one of the options below, then flip this card to resolve: A — Ha…</div>
+      <div class=rule><b>Rule as written:</b> Spawning Ground (Dilemma). Front: choose unanimously — A Harvest → [Food], B Protect → +2 Pop to Filterweed &amp; Grazers, C Tag &amp; Monitor → [Knowledge]. Tuck under the outpost, chosen icon visible.</div>
+      <div class=sim><b>What the sim does:</b> Sim resolve_now: it discards the dilemma without offering the choice or applying any reward.</div>
+      <div class=eff>A unanimous group choice that yields a persistent Food/Knowledge icon OR a Pop boost — completely un-modelled.</div>
+    </div>
+    <div class=step>
+      <div class=sh><span class=pos>#15</span> <b>Reef Caverns</b> <span class=muted>· Expedition · both</span>
+        <span class=chip style="background:#eda1001a;color:#eda100;float:right">approximated</span></div>
+      <div class=quote><b>Front:</b> You descend through a vertical chimney in the reef shelf. Light fades, then re-emerges — bluish, intermittent, breathing. The cavern walls glow with something alive. Set this card aside with this side up.<br><b>Back:</b> Exploration Phase: You can start an exploration here by flipping an reading this card if you meet the following requirements: 2 [Oxygen] + 2 [Knowledge]. Requirements can be met by cards in hand or at this location.</div>
+      <div class=rule><b>Rule as written:</b> Reef Caverns (Expedition GATE). Back: “Start an exploration here … if you meet 2 [Oxygen] + 2 [Knowledge]. Requirements can be met by cards in hand or at this location.”</div>
+      <div class=sim><b>What the sim does:</b> Sim evaluates the gate via mechanism.check_expedition_gate (a presence test — correct), but with an undercounted icon pool.</div>
+      <div class=eff>The gate logic is captured; its INPUTS are not (missing role passives, the dilemma, the conditional knowledge).</div>
+    </div>
+
+<h2>The gate moment — is the icon count right?</h2>
+<div class="note tally">
+The Reef Caverns gate needs <b>2 Oxygen + 2 Knowledge</b> (present in hand or at the location; not consumed).
+<br><br><b>What the current sim counted:</b> <code>oxygen 0, knowledge 1</code> → closed. It missed the two
+role passives and mis-handled the knowledge card, so it under-counted.
+<br><br><b>What your rules actually allow this turn:</b>
+<br>· <b>Oxygen = 2</b> ✓ — Lead Ecologist passive (1) + Filterweed pushed to Pop 3 by the Systems Ecologist’s
+Cultivator, which then provides 1. <i>The Oxygen requirement is reachable turn 1.</i>
+<br>· <b>Knowledge = 1</b> ✗ — the group faces a real dilemma: choose <b>Protect</b> and Filterweed→5, Grazers→4
+so <i>two cards reach 4+ Pop and you gain the Notes card (1 Knowledge)</i>; or choose <b>Tag &amp; Monitor</b>
+for 1 Knowledge directly — but not both. Either path yields only 1 of the 2 Knowledge needed.
+<br><br><b>So the cavern stays closed on turn 1 — but as a tight, intended puzzle</b> (Oxygen met, Knowledge one
+short), not the “permanently locked” picture the un-corrected sim implied. Whether a second Knowledge source
+should exist before the gate is now a concrete design question.
+</div>
+
+<h2>Upkeep (after exploration)</h2>
+<p>Choosing an outpost, then resolving each played card. <b>Filterweed</b> runs its encoded Pop band
+(Pop 2–4 → +2, so 3 → 5). <b>Grazers</b>, <b>Coral</b>, and the <b>Outpost</b> Rations/Hydroponics are flagged
+<b>unresolved</b> — prose not yet encoded. This is where produced Food/Materials would feed the colony.</p>
+
+<h2>Rule-capture scorecard</h2>
+<table><tr><td>Ordered deck, turned one card at a time, cursor persists</td><td><span class=chip style="background:#0ca30c1a;color:#0ca30c">captured</span></td></tr><tr><td>Card disposition by type (play / hand / resolve)</td><td><span class=chip style="background:#0ca30c1a;color:#0ca30c">captured</span></td></tr><tr><td>Two-faced cards (front reveal / back in-play)</td><td><span class=chip style="background:#0ca30c1a;color:#0ca30c">captured</span></td></tr><tr><td>Expedition gate as a presence test (icons not consumed)</td><td><span class=chip style="background:#0ca30c1a;color:#0ca30c">captured</span></td></tr><tr><td>Filterweed Pop-banded upkeep</td><td><span class=chip style="background:#0ca30c1a;color:#0ca30c">captured</span></td></tr><tr><td>Role passive ICONS (Lead Ecologist → 1 Oxygen)</td><td><span class=chip style="background:#d03b3b1a;color:#d03b3b">not captured</span></td></tr><tr><td>Role passive ACTIONS (Systems Ecologist Cultivator +1 Flora Pop)</td><td><span class=chip style="background:#d03b3b1a;color:#d03b3b">not captured</span></td></tr><tr><td>Conditional card gain (Knowledge notes: two cards at 4+ Pop)</td><td><span class=chip style="background:#d03b3b1a;color:#d03b3b">not captured</span></td></tr><tr><td>Dilemma: unanimous choice + persistent icon/Pop reward</td><td><span class=chip style="background:#d03b3b1a;color:#d03b3b">not captured</span></td></tr><tr><td>Grazers consume/else upkeep ops</td><td><span class=chip style="background:#d03b3b1a;color:#d03b3b">not captured</span></td></tr><tr><td>Coral choose-one + Abundance track</td><td><span class=chip style="background:#d03b3b1a;color:#d03b3b">not captured</span></td></tr><tr><td>Outpost Rations / Hydroponics upkeep</td><td><span class=chip style="background:#d03b3b1a;color:#d03b3b">not captured</span></td></tr></table>
+
+<div class="note verdict" style="margin-top:14px">
+<b>Bottom line.</b> The <i>structure</i> is captured faithfully — ordered deck, disposition, two-faced cards,
+the gate as a presence test, and Filterweed’s Pop band all match your rules. The <i>content that feeds the
+gate</i> is not yet captured: role passives (the Oxygen icon and the Cultivator Pop-boost), the conditional
+Knowledge gain, and the Dilemma’s choice-and-reward. Encoding those four is what turns this from “looks right”
+into a faithful turn — and each is a small, bounded addition to <code>mechanisms/exploration.py</code> +
+<code>game/exploration.gamespec.md</code>, re-checked by this harness.
+</div>
+
+<p class=sub style="margin-top:24px">Generated from the real card text + the encoded run.
+<code>python3 simulation/build_blow_by_blow.py</code></p>
+</div></body></html>

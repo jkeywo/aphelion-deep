@@ -1,0 +1,179 @@
+{
+  "id": "aphelion-tutorial-v1",
+  "scenario_id": "tutorial-three-turns",
+  "ruleset_id": "aphelion-tutorial-v1",
+  "character_ids": [
+    "engineer",
+    "lead",
+    "systems"
+  ],
+  "seed": 0,
+  "max_turns": 3,
+  "player_policy": "plugin_scripted",
+  "strict_semantics": true,
+  "plugin_config": {
+    "turns": [
+      {
+        "assignments": {
+          "engineer": "C",
+          "lead": "R",
+          "systems": "R"
+        },
+        "exploration_order": [
+          "C",
+          "R"
+        ],
+        "upkeep_order": {
+          "C": [
+            "C9",
+            "C10",
+            "C11",
+            "C12"
+          ],
+          "R": [
+            "R9",
+            "R10",
+            "R11",
+            "R12"
+          ]
+        },
+        "crafts": [
+          [
+            "Cs1",
+            "engineer"
+          ],
+          [
+            "Cs3",
+            "engineer"
+          ],
+          [
+            "Rs1",
+            "lead"
+          ],
+          [
+            "Rs2",
+            "lead"
+          ]
+        ],
+        "optional_actions": {
+          "R13": "decline",
+          "R11:harvest": "decline"
+        }
+      },
+      {
+        "assignments": {
+          "engineer": "K",
+          "lead": "K",
+          "systems": "R"
+        },
+        "exploration_order": [
+          "K",
+          "R"
+        ],
+        "upkeep_order": {
+          "C": [
+            "C9",
+            "C10",
+            "C11"
+          ],
+          "R": [
+            "R9",
+            "R10",
+            "R11"
+          ],
+          "K": [
+            "K1",
+            "K2",
+            "K3",
+            "K4"
+          ]
+        },
+        "crafts": [],
+        "optional_actions": {
+          "R13": "decline",
+          "R11:harvest": "decline",
+          "K5": "decline"
+        }
+      },
+      {
+        "assignments": {
+          "engineer": "R",
+          "lead": "R",
+          "systems": "R"
+        },
+        "exploration_order": [
+          "R"
+        ],
+        "upkeep_order": {
+          "C": [
+            "C9",
+            "C10"
+          ],
+          "R": [
+            "R9",
+            "R10",
+            "R11",
+            "R16",
+            "R17",
+            "R18",
+            "R20"
+          ],
+          "K": [
+            "K1",
+            "K2",
+            "K3",
+            "K4"
+          ]
+        },
+        "crafts": [],
+        "optional_actions": {
+          "R13": "decline",
+          "R21": "decline",
+          "R11:harvest": "decline",
+          "K5": "decline"
+        }
+      }
+    ],
+    "choices": {
+      "1:recipient:C3": "engineer",
+      "1:recipient:R3": "lead",
+      "1:recipient:R4": "systems",
+      "1:recipient:R13": "lead",
+      "3:recipient:R21": "lead",
+      "1:dilemma:C14": "Restart",
+      "1:dilemma:R14": "Protect",
+      "2:dilemma:K8": "Cut it free",
+      "1:convert:C12": {
+        "Materials": 5
+      },
+      "1:convert:R12": {
+        "Materials": 4
+      },
+      "1:feed:C11": [],
+      "3:feed:R17": [
+        "R11"
+      ],
+      "1:cultivate": "R10",
+      "1:feed:R11": [
+        "R10"
+      ],
+      "1:eat:engineer": "C9",
+      "1:eat:lead": "R9",
+      "1:eat:systems": "R9",
+      "2:cultivate": "R10",
+      "2:feed:R11": [
+        "R10"
+      ],
+      "2:eat:engineer": "K2",
+      "2:eat:lead": "K2",
+      "2:eat:systems": "R9",
+      "3:cultivate": "R10",
+      "3:feed:R11": [
+        "R10"
+      ],
+      "3:eat:engineer": "R9",
+      "3:eat:lead": "R9",
+      "3:eat:systems": "R9"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "documents": [
+    {
+      "document": "overview",
+      "paragraphs": 63,
+      "provider_id": "1A_8GxEFiVcre4EyWqR4vQG3_pHd3oiQojCTFv_cVNl4",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "core-rules",
+      "paragraphs": 215,
+      "provider_id": "11Ybx_vdKQzybtNP8omCdH1oA1ASrhMZ1BWdKqywp1nE",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "departments",
+      "paragraphs": 150,
+      "provider_id": "1izCPb-W03rSOQZVvFOc6Cl311SBQh5YOtOEAnDz8NSI",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "engineering-briefs",
+      "paragraphs": 89,
+      "provider_id": "1Ja4RZRTiWKD17hLgChLKZWOBVsanMsgynxDMfzlIvQM",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "ecology-briefs",
+      "paragraphs": 86,
+      "provider_id": "16CLBWcBSEMz4LgXzFnYL924LsYlc9U2NjMMxiWVRadw",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "medical-briefs",
+      "paragraphs": 55,
+      "provider_id": "1EwSrbfg93HLi4rsEAH3uGlhMDDUn1Q9ISxMoNTODWT8",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "philosophies",
+      "paragraphs": 52,
+      "provider_id": "1RoEC8Ktm4hdHyAT-z9xjgkE8-1uYsAe2nXSsFkoTaOE",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "locations",
+      "paragraphs": 489,
+      "provider_id": "1gCMO_uUkQIe6nr9FnJZkrn4jxoK_vVbqzk1tqRGbsVo",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "player-lore",
+      "paragraphs": 17,
+      "provider_id": "1XvteBEgiqW3S50i7cNX-swaYWP4kduHOX8Uelvc_hKQ",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "facilitator-lore",
+      "paragraphs": 284,
+      "provider_id": "1scEyod5y4H1CKZsseru6hGezecz9MJK9NCv47PDye4M",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "facilitator-guide",
+      "paragraphs": 84,
+      "provider_id": "1P9hhTNPieNIc6Twqs0GHqByBzEPUfjTzGYkLMLcPSjM",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "card-design",
+      "paragraphs": 583,
+      "provider_id": "1gIJlk_cpoqx-qVMY61b_xdd2ZjYsGrUHv3hon-pUUmw",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "sensory-vocabulary",
+      "paragraphs": 168,
+      "provider_id": "1MY5TGuPMeD9sJn0Q7xuZJ7jymdLlZSNaGC8aOY6C8Ok",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "deeper-knowledge",
+      "paragraphs": 170,
+      "provider_id": "1RpMBiY0UO6NvjtIU9-N7jB8bj-jpozN7b_g2QB45mGY",
+      "exact_text_match_after_removing_added_identity_markers": true
+    },
+    {
+      "document": "structured-design",
+      "paragraphs": 425,
+      "provider_id": "13aMqvCqVN7QB-ZIG5SevdgPp9LJl9ugfjHetwps7V_E",
+      "exact_text_match_after_removing_added_identity_markers": true
+    }
+  ],
+  "card_rows": 46,
+  "card_fields": 24,
+  "all_card_cells_match": true,
+  "full_pacing_matches": true,
+  "historical_rows_verified": 178,
+  "manifest_tables_verified": [
+    "Manifest!A1:J17",
+    "Sources!A1:L340",
+    "Gaps!A1:E11"
+  ],
+  "source_timestamps": "Google import omitted datetime cells; restored all 339 as exact ISO text with bounded Sources!C2:C340 update and verified readback",
+  "original_sources_accounted_for": 339,
+  "unique_preserved_files": 107,
+  "unique_assets": 44
+}
