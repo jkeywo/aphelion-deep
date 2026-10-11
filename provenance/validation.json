@@ -26,5 +26,7 @@
     "Declared tutorial only; unsupported optional actions fail explicitly",
     "Generic plugin report exposes full JSON state; no game-specific board UI",
     "Map artwork and prose names remain unresolved"
-  ]
+  ],
+  "original_file_hashes_unchanged": 339,
+  "replay_javascript_syntax": "passed node --check"
 }
