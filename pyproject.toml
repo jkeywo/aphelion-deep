@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "aphelion-deep"
-version = "0.1.0"
+version = "0.1.1"
 description = "The Aphelion Deep PlayTrace tutorial plugin"
 requires-python = ">=3.12"
 dependencies = ["playtrace>=0.1.0"]

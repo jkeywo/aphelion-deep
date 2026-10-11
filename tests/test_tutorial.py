@@ -232,3 +232,15 @@ def test_stale_source_mappings_fail(mutation):
 def test_unreachable_three_recipe_unlock_is_not_fabricated():
     a = run()
     assert "C13" in a.final_state.data["locations"]["C"]["set_aside"]
+
+
+def test_replay_names_and_action_descriptions():
+    replay = run()
+    assert all(event.data.get("description") for event in replay.events)
+    assert replay.initial_state.data["players"]["engineer"]["name"] == "Fabrication Lead"
+    gate = [e for e in replay.events if e.event_type == "exploration.gate"][-1]
+    assert "4 of 2 required Oxygen" in gate.data["description"]
+    assert "gate opens" in gate.data["description"]
+    dilemma = next(e for e in replay.events if e.data.get("choice") == "Cut it free")
+    assert "Giant Lungweed gains 2 Population" in dilemma.data["description"]
+    assert any("Convert" in e.data["description"] and "Abundance" in e.data["description"] for e in replay.events)

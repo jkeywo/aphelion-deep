@@ -208,7 +208,9 @@
       {
         "actor_id": null,
         "assertion_ids": [],
-        "data": {},
+        "data": {
+          "description": "Prepare the three-player tutorial. The ordered decks are ready; no locations have been explored."
+        },
         "entity_ids": [],
         "event_type": "simulation.started",
         "semantic_ids": [
@@ -225,7 +227,8 @@
             "engineer": "C",
             "lead": "R",
             "systems": "R"
-          }
+          },
+          "description": "Begin turn 1: Fabrication Lead goes to Crash Flats; Lead Ecologist goes to Reef Gardens; Systems Ecologist goes to Reef Gardens."
         },
         "entity_ids": [],
         "event_type": "turn.started",
@@ -259,6 +262,7 @@
         ],
         "data": {
           "deck_position": 1,
+          "description": "Reveal A Rough Landing at Crash Flats (card 1 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -295,6 +299,7 @@
         ],
         "data": {
           "deck_position": 2,
+          "description": "Reveal Engineering Department at Crash Flats (card 2 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -330,6 +335,7 @@
           "crash_flats_3_fabrication_lead:field:source_fingerprint"
         ],
         "data": {
+          "description": "Fabrication Lead takes Fabrication Lead into their hand.",
           "recipient": "engineer"
         },
         "entity_ids": [
@@ -366,6 +372,7 @@
         ],
         "data": {
           "deck_position": 3,
+          "description": "Reveal Fabrication Lead at Crash Flats (card 3 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -402,6 +409,7 @@
         ],
         "data": {
           "deck_position": 4,
+          "description": "Reveal Phase Reference at Crash Flats (card 4 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -440,6 +448,7 @@
         ],
         "data": {
           "deck_position": 5,
+          "description": "Reveal Crash Flats Outpost (Fabrication Bay) at Crash Flats (card 5 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -478,6 +487,7 @@
         ],
         "data": {
           "deck_position": 6,
+          "description": "Reveal Tidal Rust Bloom at Crash Flats (card 6 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -516,6 +526,7 @@
         ],
         "data": {
           "deck_position": 7,
+          "description": "Reveal Carrier Crabs at Crash Flats (card 7 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -554,6 +565,7 @@
         ],
         "data": {
           "deck_position": 8,
+          "description": "Reveal Aphelion Wreckage Field at Crash Flats (card 8 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -590,6 +602,7 @@
         ],
         "data": {
           "deck_position": 9,
+          "description": "Reveal Salvage Manifest at Crash Flats (card 9 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -625,7 +638,8 @@
           "crash_flats_14_the_power_question:field:source_fingerprint"
         ],
         "data": {
-          "choice": "Restart"
+          "choice": "Restart",
+          "description": "Choose ‘Restart’ for The Power Question at Crash Flats. Gain 2 local Power and advance the reactor by 1. Remove the dilemma."
         },
         "entity_ids": [
           "crash_flats_14_the_power_question"
@@ -661,6 +675,7 @@
         ],
         "data": {
           "deck_position": 10,
+          "description": "Reveal The Power Question at Crash Flats (card 10 in its ordered deck).",
           "location": "C"
         },
         "entity_ids": [
@@ -699,6 +714,7 @@
           "available": {
             "Power": 3
           },
+          "description": "Attempt Engine Core Section at Crash Flats: 0 of 1 required Oxygen, 3 of 3 required Power. The gate stays closed; exploration stops here.",
           "open": false,
           "requirements": {
             "Oxygen": 1,
@@ -738,6 +754,7 @@
         ],
         "data": {
           "deck_position": 1,
+          "description": "Reveal A Rough Landing at Reef Gardens (card 1 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -773,6 +790,7 @@
         ],
         "data": {
           "deck_position": 2,
+          "description": "Reveal Ecology Department at Reef Gardens (card 2 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -807,6 +825,7 @@
           "reef_gardens_3_lead_ecologist:field:source_fingerprint"
         ],
         "data": {
+          "description": "Lead Ecologist takes Lead Ecologist into their hand.",
           "recipient": "lead"
         },
         "entity_ids": [
@@ -842,6 +861,7 @@
         ],
         "data": {
           "deck_position": 3,
+          "description": "Reveal Lead Ecologist at Reef Gardens (card 3 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -876,6 +896,7 @@
           "reef_gardens_4_systems_ecologist:field:source_fingerprint"
         ],
         "data": {
+          "description": "Systems Ecologist takes Systems Ecologist into their hand.",
           "recipient": "systems"
         },
         "entity_ids": [
@@ -911,6 +932,7 @@
         ],
         "data": {
           "deck_position": 4,
+          "description": "Reveal Systems Ecologist at Reef Gardens (card 4 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -947,6 +969,7 @@
         ],
         "data": {
           "deck_position": 5,
+          "description": "Reveal Phase Reference at Reef Gardens (card 5 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -985,6 +1008,7 @@
         ],
         "data": {
           "deck_position": 6,
+          "description": "Reveal Reef Garden Outpost at Reef Gardens (card 6 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -1023,6 +1047,7 @@
         ],
         "data": {
           "deck_position": 7,
+          "description": "Reveal Shallowwater Filterweed at Reef Gardens (card 7 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -1077,7 +1102,8 @@
           "reef_gardens_10_shallowwater_filterweed:field:source_fingerprint"
         ],
         "data": {
-          "actor": "systems"
+          "actor": "systems",
+          "description": "Systems Ecologist uses Cultivator on Shallowwater Filterweed at Reef Gardens, adding 1 Population up to the track limit."
         },
         "entity_ids": [
           "reef_gardens_10_shallowwater_filterweed",
@@ -1116,6 +1142,7 @@
         ],
         "data": {
           "deck_position": 8,
+          "description": "Reveal Spotted Grazers at Reef Gardens (card 8 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -1154,6 +1181,7 @@
         ],
         "data": {
           "deck_position": 9,
+          "description": "Reveal Coral Shelf Formation at Reef Gardens (card 9 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -1190,6 +1218,7 @@
         ],
         "data": {
           "deck_position": 10,
+          "description": "Reveal Reef Ecologist's Notes at Reef Gardens (card 10 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -1225,7 +1254,8 @@
           "reef_gardens_14_spawning_ground:field:source_fingerprint"
         ],
         "data": {
-          "choice": "Protect"
+          "choice": "Protect",
+          "description": "Choose ‘Protect’ for Spawning Ground at Reef Gardens. Filterweed and Spotted Grazers each gain 2 Population, up to their track limits. Remove the dilemma."
         },
         "entity_ids": [
           "reef_gardens_14_spawning_ground"
@@ -1261,6 +1291,7 @@
         ],
         "data": {
           "deck_position": 11,
+          "description": "Reveal Spawning Ground at Reef Gardens (card 11 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -1296,6 +1327,7 @@
           "reef_gardens_13_reef_ecologist_s_notes:field:source_fingerprint"
         ],
         "data": {
+          "description": "Lead Ecologist takes Reef Ecologist's Notes into their hand.",
           "recipient": "lead"
         },
         "entity_ids": [
@@ -1336,6 +1368,7 @@
             "Oxygen": 2,
             "Power": 0
           },
+          "description": "Attempt Reef Caverns at Reef Gardens: 2 of 2 required Oxygen, 1 of 2 required Knowledge. The gate stays closed; exploration stops here.",
           "open": false,
           "requirements": {
             "Knowledge": 2,
@@ -1378,6 +1411,7 @@
         ],
         "data": {
           "actor": "engineer",
+          "description": "Fabrication Lead eats at Crash Flats, using 1 Rations from Crash Flats Outpost (Fabrication Bay).",
           "payment": "C9"
         },
         "entity_ids": [
@@ -1416,6 +1450,7 @@
           "crash_flats_9_crash_flats_outpost_fabrication_bay:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Crash Flats Outpost (Fabrication Bay) at Crash Flats.",
           "location": "C"
         },
         "entity_ids": [
@@ -1453,6 +1488,7 @@
           "crash_flats_10_tidal_rust_bloom:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Tidal Rust Bloom at Crash Flats.",
           "location": "C"
         },
         "entity_ids": [
@@ -1491,6 +1527,7 @@
         ],
         "data": {
           "consumed": 0,
+          "description": "Carrier Crabs cannot pay its full feeding cost of 1 at Crash Flats. It consumes nothing and suffers starvation.",
           "required": 1
         },
         "entity_ids": [
@@ -1528,6 +1565,7 @@
           "crash_flats_11_carrier_crabs:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Carrier Crabs at Crash Flats.",
           "location": "C"
         },
         "entity_ids": [
@@ -1565,6 +1603,7 @@
           "crash_flats_12_aphelion_wreckage_field:field:source_fingerprint"
         ],
         "data": {
+          "description": "Convert 5 Abundance from Aphelion Wreckage Field at Crash Flats into 10 Materials.",
           "location": "C"
         },
         "entity_ids": [
@@ -1603,6 +1642,7 @@
         ],
         "data": {
           "actor": "lead",
+          "description": "Lead Ecologist eats at Reef Gardens, using 1 Rations from Reef Garden Outpost.",
           "payment": "R9"
         },
         "entity_ids": [
@@ -1642,6 +1682,7 @@
         ],
         "data": {
           "actor": "systems",
+          "description": "Systems Ecologist eats at Reef Gardens, using 1 Rations from Reef Garden Outpost.",
           "payment": "R9"
         },
         "entity_ids": [
@@ -1680,6 +1721,7 @@
           "reef_gardens_9_reef_garden_outpost:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Reef Garden Outpost at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -1717,6 +1759,7 @@
           "reef_gardens_10_shallowwater_filterweed:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Shallowwater Filterweed at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -1774,7 +1817,8 @@
           "reef_gardens_11_spotted_grazers:field:source_fingerprint"
         ],
         "data": {
-          "amount": 2
+          "amount": 2,
+          "description": "Spotted Grazers feeds at Reef Gardens, consuming 2 Population from the selected targets in order: Shallowwater Filterweed."
         },
         "entity_ids": [
           "reef_gardens_11_spotted_grazers",
@@ -1812,6 +1856,7 @@
           "reef_gardens_11_spotted_grazers:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Spotted Grazers at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -1849,6 +1894,7 @@
           "reef_gardens_12_coral_shelf_formation:field:source_fingerprint"
         ],
         "data": {
+          "description": "Convert 4 Abundance from Coral Shelf Formation at Reef Gardens into 4 Materials.",
           "location": "R"
         },
         "entity_ids": [
@@ -1887,7 +1933,8 @@
           "actor": "engineer",
           "cost": {
             "Materials": 0
-          }
+          },
+          "description": "Fabrication Lead crafts Oxygen Tank at Crash Flats, paying 0 Materials after any Fabricator discount."
         },
         "entity_ids": [
           "crash_flats_s1_oxygen_tank"
@@ -1923,7 +1970,8 @@
           "actor": "engineer",
           "cost": {
             "Materials": 0
-          }
+          },
+          "description": "Fabrication Lead crafts Aphelion Scan Database at Crash Flats, paying 0 Materials after any Fabricator discount."
         },
         "entity_ids": [
           "crash_flats_s3_aphelion_scan_database"
@@ -1961,7 +2009,8 @@
           "actor": "lead",
           "cost": {
             "Materials": 1
-          }
+          },
+          "description": "Lead Ecologist crafts Oxygen Tank at Reef Gardens, paying 1 Materials after any Fabricator discount."
         },
         "entity_ids": [
           "reef_gardens_s1_oxygen_tank"
@@ -1999,7 +2048,8 @@
           "actor": "lead",
           "cost": {
             "Materials": 2
-          }
+          },
+          "description": "Lead Ecologist crafts Field Welder at Reef Gardens, paying 2 Materials after any Fabricator discount."
         },
         "entity_ids": [
           "reef_gardens_s2_field_welder"
@@ -2018,7 +2068,8 @@
           "decisions": {
             "R11:harvest": "decline",
             "R13": "decline"
-          }
+          },
+          "description": "Record optional action choices: Spotted Grazers harvest: decline; Reef Ecologist's Notes: decline."
         },
         "entity_ids": [],
         "event_type": "policy.optional_actions",
@@ -2031,7 +2082,9 @@
       {
         "actor_id": null,
         "assertion_ids": [],
-        "data": {},
+        "data": {
+          "description": "Finish turn 1. All revealed locations have resolved upkeep and the declared optional choices are recorded."
+        },
         "entity_ids": [],
         "event_type": "turn.completed",
         "semantic_ids": [
@@ -2048,7 +2101,8 @@
             "engineer": "K",
             "lead": "K",
             "systems": "R"
-          }
+          },
+          "description": "Begin turn 2: Fabrication Lead goes to Kelp Cathedral; Lead Ecologist goes to Kelp Cathedral; Systems Ecologist goes to Reef Gardens."
         },
         "entity_ids": [],
         "event_type": "turn.started",
@@ -2086,6 +2140,7 @@
             "Oxygen": 3,
             "Power": 2
           },
+          "description": "Attempt Kelp Cathedral at Kelp Cathedral: 3 of 2 required Oxygen. The gate opens; exploration can continue.",
           "open": true,
           "requirements": {
             "Oxygen": 2
@@ -2125,6 +2180,7 @@
         ],
         "data": {
           "deck_position": 1,
+          "description": "Reveal Kelp Cathedral at Kelp Cathedral (card 1 in its ordered deck).",
           "location": "K"
         },
         "entity_ids": [
@@ -2163,6 +2219,7 @@
         ],
         "data": {
           "deck_position": 2,
+          "description": "Reveal Giant Lungweed Stalks at Kelp Cathedral (card 2 in its ordered deck).",
           "location": "K"
         },
         "entity_ids": [
@@ -2201,6 +2258,7 @@
         ],
         "data": {
           "deck_position": 3,
+          "description": "Reveal Resonating Lure Fish at Kelp Cathedral (card 3 in its ordered deck).",
           "location": "K"
         },
         "entity_ids": [
@@ -2239,6 +2297,7 @@
         ],
         "data": {
           "deck_position": 4,
+          "description": "Reveal Hush Mussels at Kelp Cathedral (card 4 in its ordered deck).",
           "location": "K"
         },
         "entity_ids": [
@@ -2277,6 +2336,7 @@
         ],
         "data": {
           "deck_position": 5,
+          "description": "Reveal Sunken Survey Drone at Kelp Cathedral (card 5 in its ordered deck).",
           "location": "K"
         },
         "entity_ids": [
@@ -2313,6 +2373,7 @@
         ],
         "data": {
           "deck_position": 6,
+          "description": "Reveal The Bloom at Kelp Cathedral (card 6 in its ordered deck).",
           "location": "K"
         },
         "entity_ids": [
@@ -2349,6 +2410,7 @@
         ],
         "data": {
           "deck_position": 7,
+          "description": "Reveal Cathedral Hymn at Kelp Cathedral (card 7 in its ordered deck).",
           "location": "K"
         },
         "entity_ids": [
@@ -2384,7 +2446,8 @@
           "kelp_cathedral_8_echoing_drowned_mass:field:source_fingerprint"
         ],
         "data": {
-          "choice": "Cut it free"
+          "choice": "Cut it free",
+          "description": "Choose ‘Cut it free’ for Echoing Drowned Mass at Kelp Cathedral. Giant Lungweed gains 2 Population, up to its track limit, and the location gains 1 Materials. Remove the dilemma."
         },
         "entity_ids": [
           "kelp_cathedral_8_echoing_drowned_mass"
@@ -2420,6 +2483,7 @@
         ],
         "data": {
           "deck_position": 8,
+          "description": "Reveal Echoing Drowned Mass at Kelp Cathedral (card 8 in its ordered deck).",
           "location": "K"
         },
         "entity_ids": [
@@ -2474,7 +2538,8 @@
           "reef_gardens_10_shallowwater_filterweed:field:source_fingerprint"
         ],
         "data": {
-          "actor": "systems"
+          "actor": "systems",
+          "description": "Systems Ecologist uses Cultivator on Shallowwater Filterweed at Reef Gardens, adding 1 Population up to the track limit."
         },
         "entity_ids": [
           "reef_gardens_10_shallowwater_filterweed",
@@ -2513,6 +2578,7 @@
           "available": {
             "Oxygen": 1
           },
+          "description": "Attempt Reef Caverns at Reef Gardens: 1 of 2 required Oxygen, 0 of 2 required Knowledge. The gate stays closed; exploration stops here.",
           "open": false,
           "requirements": {
             "Knowledge": 2,
@@ -2554,6 +2620,7 @@
           "crash_flats_9_crash_flats_outpost_fabrication_bay:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Crash Flats Outpost (Fabrication Bay) at Crash Flats.",
           "location": "C"
         },
         "entity_ids": [
@@ -2591,6 +2658,7 @@
           "crash_flats_10_tidal_rust_bloom:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Tidal Rust Bloom at Crash Flats.",
           "location": "C"
         },
         "entity_ids": [
@@ -2628,6 +2696,7 @@
           "crash_flats_11_carrier_crabs:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Carrier Crabs at Crash Flats.",
           "location": "C"
         },
         "entity_ids": [
@@ -2684,6 +2753,7 @@
         ],
         "data": {
           "actor": "engineer",
+          "description": "Fabrication Lead eats at Kelp Cathedral, using 1 Population from Giant Lungweed Stalks.",
           "payment": "K2"
         },
         "entity_ids": [
@@ -2741,6 +2811,7 @@
         ],
         "data": {
           "actor": "lead",
+          "description": "Lead Ecologist eats at Kelp Cathedral, using 1 Population from Giant Lungweed Stalks.",
           "payment": "K2"
         },
         "entity_ids": [
@@ -2777,6 +2848,7 @@
           "kelp_cathedral_1_kelp_cathedral:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Kelp Cathedral at Kelp Cathedral.",
           "location": "K"
         },
         "entity_ids": [
@@ -2814,6 +2886,7 @@
           "kelp_cathedral_2_giant_lungweed_stalks:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Giant Lungweed Stalks at Kelp Cathedral.",
           "location": "K"
         },
         "entity_ids": [
@@ -2851,6 +2924,7 @@
           "kelp_cathedral_3_resonating_lure_fish:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Resonating Lure Fish at Kelp Cathedral.",
           "location": "K"
         },
         "entity_ids": [
@@ -2888,6 +2962,7 @@
           "kelp_cathedral_4_hush_mussels:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Hush Mussels at Kelp Cathedral.",
           "location": "K"
         },
         "entity_ids": [
@@ -2926,6 +3001,7 @@
         ],
         "data": {
           "actor": "systems",
+          "description": "Systems Ecologist eats at Reef Gardens, using 1 Rations from Reef Garden Outpost.",
           "payment": "R9"
         },
         "entity_ids": [
@@ -2964,6 +3040,7 @@
           "reef_gardens_9_reef_garden_outpost:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Reef Garden Outpost at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -3001,6 +3078,7 @@
           "reef_gardens_10_shallowwater_filterweed:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Shallowwater Filterweed at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -3058,7 +3136,8 @@
           "reef_gardens_11_spotted_grazers:field:source_fingerprint"
         ],
         "data": {
-          "amount": 3
+          "amount": 3,
+          "description": "Spotted Grazers feeds at Reef Gardens, consuming 3 Population from the selected targets in order: Shallowwater Filterweed."
         },
         "entity_ids": [
           "reef_gardens_11_spotted_grazers",
@@ -3096,6 +3175,7 @@
           "reef_gardens_11_spotted_grazers:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Spotted Grazers at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -3116,7 +3196,8 @@
             "K5": "decline",
             "R11:harvest": "decline",
             "R13": "decline"
-          }
+          },
+          "description": "Record optional action choices: Sunken Survey Drone: decline; Spotted Grazers harvest: decline; Reef Ecologist's Notes: decline."
         },
         "entity_ids": [],
         "event_type": "policy.optional_actions",
@@ -3129,7 +3210,9 @@
       {
         "actor_id": null,
         "assertion_ids": [],
-        "data": {},
+        "data": {
+          "description": "Finish turn 2. All revealed locations have resolved upkeep and the declared optional choices are recorded."
+        },
         "entity_ids": [],
         "event_type": "turn.completed",
         "semantic_ids": [
@@ -3146,7 +3229,8 @@
             "engineer": "R",
             "lead": "R",
             "systems": "R"
-          }
+          },
+          "description": "Begin turn 3: Fabrication Lead goes to Reef Gardens; Lead Ecologist goes to Reef Gardens; Systems Ecologist goes to Reef Gardens."
         },
         "entity_ids": [],
         "event_type": "turn.started",
@@ -3198,7 +3282,8 @@
           "reef_gardens_10_shallowwater_filterweed:field:source_fingerprint"
         ],
         "data": {
-          "actor": "systems"
+          "actor": "systems",
+          "description": "Systems Ecologist uses Cultivator on Shallowwater Filterweed at Reef Gardens, adding 1 Population up to the track limit."
         },
         "entity_ids": [
           "reef_gardens_10_shallowwater_filterweed",
@@ -3239,6 +3324,7 @@
             "Oxygen": 4,
             "Power": 2
           },
+          "description": "Attempt Reef Caverns at Reef Gardens: 4 of 2 required Oxygen, 2 of 2 required Knowledge. The gate opens; exploration can continue.",
           "open": true,
           "requirements": {
             "Knowledge": 2,
@@ -3279,6 +3365,7 @@
         ],
         "data": {
           "deck_position": 12,
+          "description": "Reveal Reef Caverns at Reef Gardens (card 12 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -3317,6 +3404,7 @@
         ],
         "data": {
           "deck_position": 13,
+          "description": "Reveal Glow-Polyp Mat at Reef Gardens (card 13 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -3355,6 +3443,7 @@
         ],
         "data": {
           "deck_position": 14,
+          "description": "Reveal Crystalblind Snapper at Reef Gardens (card 14 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -3393,6 +3482,7 @@
         ],
         "data": {
           "deck_position": 15,
+          "description": "Reveal Echoing Calcite Spires at Reef Gardens (card 15 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -3429,6 +3519,7 @@
         ],
         "data": {
           "deck_position": 16,
+          "description": "Reveal Drowned Survey Cache at Reef Gardens (card 16 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -3465,6 +3556,7 @@
         ],
         "data": {
           "deck_position": 17,
+          "description": "Reveal The Watcher in the Dark at Reef Gardens (card 17 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -3500,6 +3592,7 @@
           "reef_gardens_21_bioluminescent_pollination:field:source_fingerprint"
         ],
         "data": {
+          "description": "Lead Ecologist takes Bioluminescent Pollination into their hand.",
           "recipient": "lead"
         },
         "entity_ids": [
@@ -3536,6 +3629,7 @@
         ],
         "data": {
           "deck_position": 18,
+          "description": "Reveal Bioluminescent Pollination at Reef Gardens (card 18 in its ordered deck).",
           "location": "R"
         },
         "entity_ids": [
@@ -3573,6 +3667,7 @@
           "crash_flats_9_crash_flats_outpost_fabrication_bay:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Crash Flats Outpost (Fabrication Bay) at Crash Flats.",
           "location": "C"
         },
         "entity_ids": [
@@ -3610,6 +3705,7 @@
           "crash_flats_10_tidal_rust_bloom:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Tidal Rust Bloom at Crash Flats.",
           "location": "C"
         },
         "entity_ids": [
@@ -3645,6 +3741,7 @@
           "kelp_cathedral_1_kelp_cathedral:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Kelp Cathedral at Kelp Cathedral.",
           "location": "K"
         },
         "entity_ids": [
@@ -3682,6 +3779,7 @@
           "kelp_cathedral_2_giant_lungweed_stalks:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Giant Lungweed Stalks at Kelp Cathedral.",
           "location": "K"
         },
         "entity_ids": [
@@ -3719,6 +3817,7 @@
           "kelp_cathedral_3_resonating_lure_fish:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Resonating Lure Fish at Kelp Cathedral.",
           "location": "K"
         },
         "entity_ids": [
@@ -3756,6 +3855,7 @@
           "kelp_cathedral_4_hush_mussels:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Hush Mussels at Kelp Cathedral.",
           "location": "K"
         },
         "entity_ids": [
@@ -3794,6 +3894,7 @@
         ],
         "data": {
           "actor": "engineer",
+          "description": "Fabrication Lead eats at Reef Gardens, using 1 Rations from Reef Garden Outpost.",
           "payment": "R9"
         },
         "entity_ids": [
@@ -3833,6 +3934,7 @@
         ],
         "data": {
           "actor": "lead",
+          "description": "Lead Ecologist eats at Reef Gardens, using 1 Rations from Reef Garden Outpost.",
           "payment": "R9"
         },
         "entity_ids": [
@@ -3872,6 +3974,7 @@
         ],
         "data": {
           "actor": "systems",
+          "description": "Systems Ecologist eats at Reef Gardens, using 1 Rations from Reef Garden Outpost.",
           "payment": "R9"
         },
         "entity_ids": [
@@ -3910,6 +4013,7 @@
           "reef_gardens_9_reef_garden_outpost:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Reef Garden Outpost at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -3947,6 +4051,7 @@
           "reef_gardens_10_shallowwater_filterweed:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Shallowwater Filterweed at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -4004,7 +4109,8 @@
           "reef_gardens_11_spotted_grazers:field:source_fingerprint"
         ],
         "data": {
-          "amount": 3
+          "amount": 3,
+          "description": "Spotted Grazers feeds at Reef Gardens, consuming 3 Population from the selected targets in order: Shallowwater Filterweed."
         },
         "entity_ids": [
           "reef_gardens_11_spotted_grazers",
@@ -4042,6 +4148,7 @@
           "reef_gardens_11_spotted_grazers:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Spotted Grazers at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -4079,6 +4186,7 @@
           "reef_gardens_16_glow_polyp_mat:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Glow-Polyp Mat at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -4136,7 +4244,8 @@
           "reef_gardens_17_crystalblind_snapper:field:source_fingerprint"
         ],
         "data": {
-          "amount": 1
+          "amount": 1,
+          "description": "Crystalblind Snapper feeds at Reef Gardens, consuming 1 Population from the selected targets in order: Spotted Grazers."
         },
         "entity_ids": [
           "reef_gardens_17_crystalblind_snapper",
@@ -4174,6 +4283,7 @@
           "reef_gardens_17_crystalblind_snapper:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Crystalblind Snapper at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -4211,6 +4321,7 @@
           "reef_gardens_18_echoing_calcite_spires:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for Echoing Calcite Spires at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -4246,6 +4357,7 @@
           "reef_gardens_20_the_watcher_in_the_dark:field:source_fingerprint"
         ],
         "data": {
+          "description": "Complete mandatory upkeep for The Watcher in the Dark at Reef Gardens.",
           "location": "R"
         },
         "entity_ids": [
@@ -4267,7 +4379,8 @@
             "R11:harvest": "decline",
             "R13": "decline",
             "R21": "decline"
-          }
+          },
+          "description": "Record optional action choices: Sunken Survey Drone: decline; Spotted Grazers harvest: decline; Reef Ecologist's Notes: decline; Bioluminescent Pollination: decline."
         },
         "entity_ids": [],
         "event_type": "policy.optional_actions",
@@ -4280,7 +4393,9 @@
       {
         "actor_id": null,
         "assertion_ids": [],
-        "data": {},
+        "data": {
+          "description": "Finish turn 3. All revealed locations have resolved upkeep and the declared optional choices are recorded."
+        },
         "entity_ids": [],
         "event_type": "turn.completed",
         "semantic_ids": [
@@ -4293,7 +4408,8 @@
         "actor_id": null,
         "assertion_ids": [],
         "data": {
-          "blockers": []
+          "blockers": [],
+          "description": "The three-turn tutorial is complete. Inspect the final players, locations and reactor state below."
         },
         "entity_ids": [],
         "event_type": "simulation.completed",
@@ -4728,7 +4844,8 @@
               "C3",
               "Cs1",
               "Cs3"
-            ]
+            ],
+            "name": "Fabrication Lead"
           },
           "lead": {
             "actions": [],
@@ -4745,7 +4862,8 @@
               "Rs1",
               "Rs2",
               "R21"
-            ]
+            ],
+            "name": "Lead Ecologist"
           },
           "systems": {
             "actions": [
@@ -4756,7 +4874,8 @@
             "cultivator_used_this_turn": true,
             "hand": [
               "R4"
-            ]
+            ],
+            "name": "Systems Ecologist"
           }
         },
         "reactor": 1
@@ -5059,21 +5178,24 @@
             "at": null,
             "capabilities": {},
             "cultivator_used_this_turn": false,
-            "hand": []
+            "hand": [],
+            "name": "Fabrication Lead"
           },
           "lead": {
             "actions": [],
             "at": null,
             "capabilities": {},
             "cultivator_used_this_turn": false,
-            "hand": []
+            "hand": [],
+            "name": "Lead Ecologist"
           },
           "systems": {
             "actions": [],
             "at": null,
             "capabilities": {},
             "cultivator_used_this_turn": false,
-            "hand": []
+            "hand": [],
+            "name": "Systems Ecologist"
           }
         },
         "reactor": 0
@@ -5100,10 +5222,10 @@
       "backend_version": "0.1.0",
       "config_digest": "7731b12b7643de9d7a542d8bdbc87070114d56b1dfb0914301e9cfe9e5be7df9",
       "container_image_digest": null,
-      "observed_at": "2026-10-11T18:58:32.294975Z",
+      "observed_at": "2026-10-11T19:51:57.346862Z",
       "player_policy": "plugin_scripted",
       "plugin_id": "aphelion-deep",
-      "plugin_version": "0.1.0",
+      "plugin_version": "0.1.1",
       "runner": "in_process",
       "schema_version": 1,
       "seeds": [
@@ -5487,21 +5609,24 @@
                 "at": null,
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": null,
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": null,
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -5806,21 +5931,24 @@
                 "at": "C",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -6127,21 +6255,24 @@
                 "at": "C",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -6449,21 +6580,24 @@
                 "at": "C",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -6777,21 +6911,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -7105,21 +7242,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -7434,21 +7574,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -7771,21 +7914,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -8115,21 +8261,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -8466,21 +8615,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -8824,21 +8976,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -9184,21 +9339,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 0
@@ -9547,21 +9705,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -9910,21 +10071,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -10273,21 +10437,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -10638,21 +10805,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -11004,21 +11174,24 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -11372,7 +11545,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -11383,14 +11557,16 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -11744,7 +11920,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -11755,14 +11932,16 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [],
                 "at": "R",
                 "capabilities": {},
                 "cultivator_used_this_turn": false,
-                "hand": []
+                "hand": [],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -12116,7 +12295,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -12127,7 +12307,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -12138,7 +12319,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -12492,7 +12674,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -12503,7 +12686,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -12514,7 +12698,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -12869,7 +13054,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -12880,7 +13066,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -12891,7 +13078,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -13254,7 +13442,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -13265,7 +13454,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -13276,7 +13466,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -13646,7 +13837,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -13657,7 +13849,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -13668,7 +13861,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -14039,7 +14233,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -14050,7 +14245,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -14061,7 +14257,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -14439,7 +14636,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -14450,7 +14648,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -14461,7 +14660,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -14846,7 +15046,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -14857,7 +15058,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -14868,7 +15070,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -15255,7 +15458,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -15266,7 +15470,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -15277,7 +15482,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -15665,7 +15871,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -15676,7 +15883,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -15687,7 +15895,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -16075,7 +16284,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -16086,7 +16296,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R3"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -16097,7 +16308,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -16484,7 +16696,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -16497,7 +16710,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -16508,7 +16722,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -16895,7 +17110,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -16908,7 +17124,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -16919,7 +17136,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -17306,7 +17524,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -17319,7 +17538,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -17330,7 +17550,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -17717,7 +17938,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -17730,7 +17952,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -17741,7 +17964,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -18128,7 +18352,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -18141,7 +18366,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -18152,7 +18378,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -18539,7 +18766,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -18552,7 +18780,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -18563,7 +18792,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -18950,7 +19180,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -18963,7 +19194,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -18974,7 +19206,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -19355,7 +19588,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -19368,7 +19602,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -19379,7 +19614,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -19760,7 +19996,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -19773,7 +20010,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -19784,7 +20022,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -20165,7 +20404,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -20178,7 +20418,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -20189,7 +20430,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -20570,7 +20812,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -20583,7 +20826,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -20594,7 +20838,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -20975,7 +21220,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -20988,7 +21234,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -20999,7 +21246,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -21380,7 +21628,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -21393,7 +21642,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -21404,7 +21654,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -21785,7 +22036,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -21798,7 +22050,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -21809,7 +22062,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -22184,7 +22438,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "C3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -22197,7 +22452,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -22208,7 +22464,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -22587,7 +22844,8 @@
                 "hand": [
                   "C3",
                   "Cs1"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -22600,7 +22858,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -22611,7 +22870,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -22992,7 +23252,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -23005,7 +23266,8 @@
                 "hand": [
                   "R3",
                   "R13"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -23016,7 +23278,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -23397,7 +23660,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -23411,7 +23675,8 @@
                   "R3",
                   "R13",
                   "Rs1"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -23422,7 +23687,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -23802,7 +24068,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -23818,7 +24085,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -23829,7 +24097,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -24209,7 +24478,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -24225,7 +24495,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -24236,7 +24507,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -24616,7 +24888,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -24632,7 +24905,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -24643,7 +24917,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -25023,7 +25298,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -25039,7 +25315,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -25050,7 +25327,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -25430,7 +25708,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -25446,7 +25725,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -25457,7 +25737,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -25843,7 +26124,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -25859,7 +26141,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -25870,7 +26153,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -26263,7 +26547,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -26279,7 +26564,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -26290,7 +26576,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -26690,7 +26977,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -26706,7 +26994,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -26717,7 +27006,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -27124,7 +27414,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -27140,7 +27431,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -27151,7 +27443,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -27560,7 +27853,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -27576,7 +27870,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -27587,7 +27882,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -27997,7 +28293,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -28013,7 +28310,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -28024,7 +28322,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -28435,7 +28734,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -28451,7 +28751,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -28462,7 +28763,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -28876,7 +29178,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -28892,7 +29195,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -28903,7 +29207,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -29317,7 +29622,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -29333,7 +29639,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -29344,7 +29651,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -29758,7 +30066,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -29774,7 +30083,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -29785,7 +30095,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -30199,7 +30510,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -30215,7 +30527,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -30226,7 +30539,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -30640,7 +30954,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -30656,7 +30971,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -30667,7 +30983,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -31081,7 +31398,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -31097,7 +31415,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -31108,7 +31427,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -31516,7 +31836,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -31532,7 +31853,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -31543,7 +31865,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -31951,7 +32274,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -31967,7 +32291,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -31978,7 +32303,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -32385,7 +32711,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -32401,7 +32728,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -32412,7 +32740,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -32819,7 +33148,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -32835,7 +33165,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -32846,7 +33177,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -33253,7 +33585,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -33269,7 +33602,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -33280,7 +33614,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -33687,7 +34022,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -33703,7 +34039,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -33714,7 +34051,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -34121,7 +34459,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -34137,7 +34476,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -34148,7 +34488,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -34555,7 +34896,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -34571,7 +34913,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -34582,7 +34925,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -34989,7 +35333,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -35005,7 +35350,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -35016,7 +35362,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -35423,7 +35770,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -35439,7 +35787,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -35450,7 +35799,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -35855,7 +36205,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -35871,7 +36222,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -35882,7 +36234,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -36287,7 +36640,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -36303,7 +36657,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -36314,7 +36669,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -36719,7 +37075,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -36735,7 +37092,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -36746,7 +37104,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -37151,7 +37510,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -37167,7 +37527,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -37178,7 +37539,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -37586,7 +37948,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -37602,7 +37965,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -37613,7 +37977,8 @@
                 "cultivator_used_this_turn": false,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -38021,7 +38386,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -38037,7 +38403,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -38048,7 +38415,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -38456,7 +38824,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -38472,7 +38841,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -38483,7 +38853,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -38892,7 +39263,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -38908,7 +39280,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -38919,7 +39292,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -39335,7 +39709,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -39351,7 +39726,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -39362,7 +39738,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -39785,7 +40162,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -39801,7 +40179,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -39812,7 +40191,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -40242,7 +40622,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -40258,7 +40639,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -40269,7 +40651,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -40701,7 +41084,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -40717,7 +41101,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -40728,7 +41113,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -41165,7 +41551,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -41181,7 +41568,8 @@
                   "R13",
                   "Rs1",
                   "Rs2"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -41192,7 +41580,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -41629,7 +42018,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -41646,7 +42036,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -41657,7 +42048,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -42094,7 +42486,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -42111,7 +42504,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -42122,7 +42516,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -42559,7 +42954,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -42576,7 +42972,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -42587,7 +42984,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -43024,7 +43422,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -43041,7 +43440,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -43052,7 +43452,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -43489,7 +43890,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -43506,7 +43908,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -43517,7 +43920,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -43954,7 +44358,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -43971,7 +44376,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -43982,7 +44388,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -44419,7 +44826,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -44436,7 +44844,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -44447,7 +44856,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -44884,7 +45294,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -44901,7 +45312,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -44912,7 +45324,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -45349,7 +45762,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -45366,7 +45780,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -45377,7 +45792,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -45814,7 +46230,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -45831,7 +46248,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -45842,7 +46260,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -46279,7 +46698,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -46296,7 +46716,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -46307,7 +46728,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -46744,7 +47166,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -46761,7 +47184,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -46772,7 +47196,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -47209,7 +47634,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -47226,7 +47652,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -47237,7 +47664,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -47674,7 +48102,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -47691,7 +48120,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -47702,7 +48132,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -48139,7 +48570,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -48156,7 +48588,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -48167,7 +48600,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -48604,7 +49038,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -48621,7 +49056,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -48632,7 +49068,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -49069,7 +49506,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -49086,7 +49524,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -49097,7 +49536,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -49534,7 +49974,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -49551,7 +49992,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -49562,7 +50004,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -49999,7 +50442,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -50016,7 +50460,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -50027,7 +50472,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -50464,7 +50910,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -50481,7 +50928,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -50492,7 +50940,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -50929,7 +51378,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -50946,7 +51396,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -50957,7 +51408,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -51394,7 +51846,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -51411,7 +51864,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -51422,7 +51876,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1
@@ -51859,7 +52314,8 @@
                   "C3",
                   "Cs1",
                   "Cs3"
-                ]
+                ],
+                "name": "Fabrication Lead"
               },
               "lead": {
                 "actions": [],
@@ -51876,7 +52332,8 @@
                   "Rs1",
                   "Rs2",
                   "R21"
-                ]
+                ],
+                "name": "Lead Ecologist"
               },
               "systems": {
                 "actions": [
@@ -51887,7 +52344,8 @@
                 "cultivator_used_this_turn": true,
                 "hand": [
                   "R4"
-                ]
+                ],
+                "name": "Systems Ecologist"
               }
             },
             "reactor": 1

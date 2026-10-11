@@ -1,6 +1,6 @@
 {
   "game_regressions": {
-    "passed": 21,
+    "passed": 22,
     "environment": "Isolated game venv Python 3.14"
   },
   "legacy_aphelion_tests": {
@@ -8,9 +8,9 @@
     "note": "PyYAML installed; bytecode writes disabled; original sources unchanged"
   },
   "playtrace_release_gate": {
-    "passed": 306,
+    "passed": 307,
     "wheel_smoke": true,
-    "shared_commit": "ef19834dcae7ecbf914259b0d1f208b5a524eed8",
+    "shared_commit": "9b3288af94bcaa5802bb28b60caa33f007424973",
     "pr": "https://github.com/jkeywo/playtrace/pull/1"
   },
   "legacy_crisis_wardens": {
@@ -24,9 +24,19 @@
   },
   "limitations": [
     "Declared tutorial only; unsupported optional actions fail explicitly",
-    "Generic plugin report exposes full JSON state; no game-specific board UI",
     "Map artwork and prose names remain unresolved"
   ],
   "original_file_hashes_unchanged": 339,
-  "replay_javascript_syntax": "passed node --check"
+  "replay_javascript_syntax": "passed node --check",
+  "replay_ui": {
+    "browser_checked": [
+      "player movement",
+      "location population and resources",
+      "affected tab badges",
+      "next/previous highlight reset"
+    ],
+    "synthetic_javascript_cases": 6,
+    "all_112_mechanical_events_and_checkpoints_unchanged": true,
+    "drive_readback_sha256_verified": true
+  }
 }

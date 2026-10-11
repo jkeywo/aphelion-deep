@@ -9,6 +9,7 @@ from copy import deepcopy
 from collections import Counter
 import json, re, hashlib
 from importlib.resources import files
+from .presentation import PLAYER_NAMES, describe
 
 LOCATIONS = {"C": "Crash Flats", "R": "Reef Gardens", "K": "Kelp Cathedral"}
 
@@ -78,7 +79,7 @@ class Engine:
                 for k, v in LOCATIONS.items()
             },
             "players": {
-                p: {"hand": [], "at": None, "capabilities": {}}
+                p: {"name": PLAYER_NAMES[p], "hand": [], "at": None, "capabilities": {}}
                 for p in ["engineer", "lead", "systems"]
             },
             "reactor": 0,
@@ -93,6 +94,7 @@ class Engine:
 
     def emit(self, type, keys=(), **data):
         self.refresh()
+        data["description"] = describe(type, keys, data, self)
         self.events.append(
             {
                 "turn": self.turn,

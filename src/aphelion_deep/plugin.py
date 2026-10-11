@@ -25,7 +25,7 @@ from .engine import Engine, Blocked, load_cards
 
 class AphelionPlugin:
     id = "aphelion-deep"
-    version = "0.1.0"
+    version = "0.1.1"
     project_ids = ("aphelion-deep",)
 
     def run(self, snapshot, config, *, runner):

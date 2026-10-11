@@ -450,6 +450,10 @@
       "mime_type": "text/html",
       "url": "https://drive.google.com/file/d/1oK5hNP6hsca6R9dtJBXQcCLCxNNNk5Xl/view?usp=drivesdk",
       "parent_id": "1mM3AK6DfZrgYH4auLBugy6NZB9TKBdwo"
-    }
+    },
+    "modified_time": "2026-10-11T19:56:20.647Z",
+    "size": 848699,
+    "sha256": "a16cb260bc749fc7c1010a1e210c4e6575c319c484d07e343bbc330c618b3fd9",
+    "readback_verified": true
   }
 }
