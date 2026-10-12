@@ -23,7 +23,7 @@ def tutorial_answer(result):
     if prompt.get("kind") == "table":
         desired = SCRIPT["choices"].get(f"{turn}:cultivate")
         cultivar = next((v for v in values if isinstance(v, dict) and v.get("action") == "cultivate" and v["target"] == desired and v["actor"] == "systems"), None)
-        take = next((v for v in values if isinstance(v, dict) and v.get("action") == "take" and SCRIPT["choices"].get(f"{turn}:recipient:{v['card']}") == v["actor"]), None)
+        take = next((v for v in values if isinstance(v, dict) and v.get("action") == "take" and SCRIPT["choices"].get(f"{turn}:recipient:{v['card']}")), None)
         answer = cultivar or take or ("reveal" if "reveal" in values else "stop")
     elif key in SCRIPT["choices"]:
         answer = SCRIPT["choices"][key]
@@ -225,7 +225,7 @@ def test_manifest_stays_back_up_until_three_salvage_recipes(played):
     assert not any(v.get("card") == "C13" for _, v in e.exploration_actions("C"))
     e.loc("C")["recipes"].append("Rs1")
     action = next(v for _, v in e.exploration_actions("C") if v["card"] == "C13")
-    e.decisions = [{"key": "1:reveal:C14", "value": action}]
+    e.decisions = [{"key": "1:reveal:C14", "value": action}, {"key": "1:recipient:C13", "value": "engineer"}]
     with pytest.raises(Waiting):
         e.table_window("C", "C14")
     assert "C13" in e.state["players"]["engineer"]["hand"]
@@ -421,3 +421,98 @@ def test_spawning_upgrades_stay_local_and_skip_upkeep(choice, icon, played):
     assert e.icons("C").get(icon, 0) == 0
     with pytest.raises(Blocked, match="already resolved"):
         e.resolve_dilemma("R14", choice)
+
+
+def test_manifest_requires_a_present_recipient_and_goes_only_to_hand():
+    e = InteractiveEngine([])
+    e.turn, e.phase = 1, "Exploration"
+    e.state["players"]["engineer"]["at"] = "C"
+    e.state["players"]["lead"]["at"] = "C"
+    e.state["players"]["systems"]["at"] = "R"
+    e.loc("C")["set_aside"].append("C13")
+    with pytest.raises(Blocked, match="not available"):
+        e.take_set_aside("C13")
+    # A third existing salvage recipe is a test fixture, not added to the demo.
+    e.loc("C")["recipes"].append("Rs1")
+    with pytest.raises(Waiting):
+        e.take_set_aside("C13")
+    assert {o["value"] for o in e.prompt["options"]} == {"engineer", "lead"}
+    assert "C13" in e.loc("C")["set_aside"]
+    assert all("C13" not in p["hand"] for p in e.state["players"].values())
+    e.decisions = [{"key": "1:recipient:C13", "value": "systems"}]
+    with pytest.raises(Blocked):
+        e.take_set_aside("C13")
+    e.decisions = [{"key": "1:recipient:C13", "value": "lead"}]
+    e.take_set_aside("C13")
+    assert "C13" in e.state["players"]["lead"]["hand"]
+    assert "C13" not in e.loc("C")["set_aside"]
+    assert "C13" not in e.loc("C")["cards"]
+    with pytest.raises(Blocked):
+        e.take_set_aside("C13")
+
+
+@pytest.mark.parametrize("phase", ["Exploration", "Upkeep"])
+def test_trades_replay_resume_and_branch_without_advancing_the_pending_action(phase, played, tmp_path):
+    decisions, _ = played
+    if phase == "Exploration":
+        index = next(i for i, d in enumerate(decisions) if d["key"] == "1:recipient:R13") + 1
+    else:
+        index = next(i for i, d in enumerate(decisions) if d["key"] == "1:assign:Upkeep")
+    session = Session(tmp_path / "trade-session.json", "test")
+    for i, decision in enumerate(decisions[:index], 1):
+        session.data["nodes"].append({"id":str(i), "parent":str(i-1), "decision":decision, "label":decision["key"]})
+    session.data["current"] = str(index)
+    session.save()
+    before = session.view()
+    value = {"card":"R13", "actor":"lead", "recipient":"systems"}
+    assert value in [o["value"] for o in before["prompt"]["trades"]]
+    key = before["prompt"]["key"] + ":trade"
+    for invalid in [dict(value, card="R3"), dict(value, recipient="engineer"), dict(value, recipient="lead"), dict(value, actor="systems")]:
+        saved = deepcopy(session.data)
+        with pytest.raises(Blocked):
+            session.act(str(index), key, invalid)
+        assert session.data == saved
+    session.act(str(index), key, value)
+    after = session.view()
+    trade_point = session.data["current"]
+    assert after["state"]["phase"] == phase
+    assert after["prompt"]["key"] == before["prompt"]["key"]
+    assert after["state"]["locations"] == before["state"]["locations"]
+    assert "R13" not in after["state"]["players"]["lead"]["hand"]
+    assert "R13" in after["state"]["players"]["systems"]["hand"]
+    assert after["state"]["players"]["systems"]["capabilities"]["Knowledge"] == 1
+    assert after["recent_events"][0]["event_type"] == "card.traded"
+    assert replay(session.decisions(trade_point))["state"] == after["state"]
+    restored = Session(session.path, session.binding)
+    assert restored.view() == after
+    restored.checkout(str(index))
+    assert restored.view()["state"] == before["state"]
+    restored.checkout(trade_point)
+    reverse = {"card":"R13", "actor":"systems", "recipient":"lead"}
+    restored.act(trade_point, key, reverse)
+    assert restored.view()["state"] == before["state"]
+    restored.checkout(str(index))
+    answer = tutorial_answer(before)
+    restored.act(str(index), **answer)
+    assert restored.data["nodes"][int(trade_point)]["decision"]["value"] == value
+
+
+def test_manifest_trade_preserves_scoped_knowledge_and_blocks_remote_or_role_transfers():
+    e = InteractiveEngine([])
+    e.turn, e.phase = 1, "Exploration"
+    for p in ("lead", "engineer"):
+        e.state["players"][p]["at"] = "C"
+    e.state["players"]["systems"]["at"] = "R"
+    e.state["players"]["engineer"]["hand"] = ["C3", "C13"]
+    before = deepcopy(e.state)
+    for card, recipient in [("C3", "lead"), ("C13", "systems"), ("Cs1", "lead")]:
+        with pytest.raises(Blocked):
+            e.trade_card(card, "engineer", recipient)
+        assert e.state == before
+    e.trade_card("C13", "engineer", "lead")
+    assert e.portable("lead").get("Knowledge", 0) == 0
+    assert e.portable("lead", crafting=True)["Knowledge"] == 2
+    assert e.state["players"]["engineer"]["hand"] == ["C3"]
+    e.state["players"]["lead"]["at"] = "R"
+    assert e.icons("C", crafting=True).get("Knowledge", 0) == 0
+    assert e.icons("R", crafting=True)["Knowledge"] == 2

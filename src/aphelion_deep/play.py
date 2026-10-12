@@ -77,8 +77,10 @@ class Session:
         if node != self.data["current"]:
             raise Blocked("This page is out of date. Reload before choosing an action.")
         prompt = self.result(node)["prompt"]
-        option = next((o for o in prompt["options"] if o["value"] == value), None) if prompt else None
-        if not prompt or key != prompt["key"] or option is None:
+        is_trade = prompt is not None and key == prompt["key"] + ":trade"
+        options = prompt.get("trades", []) if is_trade else prompt["options"] if prompt else []
+        option = next((o for o in options if o["value"] == value), None)
+        if not prompt or (key != prompt["key"] and not is_trade) or option is None:
             raise Blocked("Action is unavailable at this history point")
         if len(self.data["nodes"]) >= 5000:
             raise Blocked("History limit reached; export this session and start a new expedition.")
@@ -86,7 +88,7 @@ class Session:
         result = replay(self.decisions(node) + [decision])
         new_id = str(len(self.data["nodes"]))
         self.data["nodes"].append({"id": new_id, "parent": node,
-                                   "label": prompt["title"] + " — " + option["label"], "decision": decision})
+                                   "label": ("Trade " + result["state"]["card_names"][value["card"]]["name"] + " — " if is_trade else prompt["title"] + " — ") + option["label"], "decision": decision})
         self.data["current"] = new_id
         self.cache[new_id] = result
         if len(self.cache) > 128:

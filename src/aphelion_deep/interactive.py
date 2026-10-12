@@ -28,17 +28,55 @@ class InteractiveEngine(Engine):
 
     def ask(self, key, title, options, cards=(), note="", **presentation):
         options = [{"label": label, "value": value} for label, value in options]
-        self.refresh()
-        self.prompt = {"key": key, "title": title, "options": options,
-                       "cards": list(cards), "note": note, **presentation}
-        if self.cursor == len(self.decisions):
-            raise Waiting()
-        answer = self.decisions[self.cursor]
-        if answer.get("key") != key or not any(answer.get("value") == o["value"] for o in options):
-            raise Blocked("Decision no longer matches the available actions: " + key)
-        self.cursor += 1
-        self.prompt = None
-        return deepcopy(answer["value"])
+        while True:
+            self.refresh()
+            trades = self.trade_options()
+            self.prompt = {"key": key, "title": title, "options": options,
+                           "cards": list(cards), "note": note, "trades": trades, **presentation}
+            if self.cursor == len(self.decisions):
+                raise Waiting()
+            answer = self.decisions[self.cursor]
+            if answer.get("key") == key + ":trade":
+                if not any(answer.get("value") == o["value"] for o in trades):
+                    raise Blocked("Illegal trade: choose a non-role card in hand and another player here")
+                self.trade_card(**answer["value"])
+                self.cursor += 1
+                continue
+            if answer.get("key") != key or not any(answer.get("value") == o["value"] for o in options):
+                raise Blocked("Decision no longer matches the available actions: " + key)
+            self.cursor += 1
+            self.prompt = None
+            return deepcopy(answer["value"])
+
+    def trade_options(self):
+        if self.phase not in ("Exploration", "Upkeep"):
+            return []
+        options = []
+        for actor, player in self.state["players"].items():
+            if not player["at"]:
+                continue
+            for card in player["hand"]:
+                if self.defs[card]["Card Type"] == "Role":
+                    continue
+                for recipient in self.people(player["at"]):
+                    if recipient != actor:
+                        options.append({"label": "Give to " + PLAYER_NAMES[recipient],
+                                        "value": {"card": card, "actor": actor, "recipient": recipient}})
+        return options
+
+    def trade_card(self, card, actor, recipient):
+        value = {"card": card, "actor": actor, "recipient": recipient}
+        if not any(value == o["value"] for o in self.trade_options()):
+            raise Blocked("Illegal trade: choose a non-role card in hand and another player here")
+        self.state["players"][actor]["hand"].remove(card)
+        self.state["players"][recipient]["hand"].append(card)
+        self.emit("card.traded", [card], actor=actor, recipient=recipient,
+                  location=self.state["players"][recipient]["at"])
+
+    def take_set_aside(self, key):
+        if self.phase != "Exploration" or key not in {"C13", "R13", "R19", "K7"} or key not in self.loc(key[0])["set_aside"] or not self.unlock(key)[0]:
+            raise Blocked("Knowledge card is not available to take: " + key)
+        self.gain(key)  # Recipient is an explicit decision among players at this site.
 
     DEFERRED = {"C13", "R13", "R19", "K5", "K6", "K7"}
     GATES = {"R15": {"Oxygen": 2, "Knowledge": 2}, "C15": {"Oxygen": 1, "Power": 3}, "K1": {"Oxygen": 2}}
@@ -46,7 +84,7 @@ class InteractiveEngine(Engine):
     def unlock(self, key):
         if key == "C13":
             count = sum("aphelion salvage" in self.keywords(k) for k in self.loc("C")["recipes"])
-            return count >= 3, f"Requires 3 Aphelion Salvage recipes here ({count}/3)."
+            return count >= 3, f"Requires 3 Aphelion Salvage recipes here ({count}/3). When ready, choose a player here to take this into their hand."
         if key == "R13":
             count = sum(c.get("track") == "Population" and c.get("value", 0) >= 4 for c in self.loc("R")["cards"].values())
             return count >= 2, f"Requires two cards here with Population 4+ ({count}/2)."
@@ -66,8 +104,8 @@ class InteractiveEngine(Engine):
                     options.append((f"{PLAYER_NAMES[actor]}: cultivate {self.name(target)}", {"action": "cultivate", "card": "R4", "target": target, "actor": actor}))
         for key in self.loc(location)["set_aside"]:
             if key in {"C13", "R13", "R19", "K7"} and self.unlock(key)[0]:
-                for actor in self.people(location):
-                    options.append((f"Flip and take {self.name(key)} into {PLAYER_NAMES[actor]}'s hand", {"action": "take", "card": key, "actor": actor}))
+                if self.people(location):
+                    options.append(("Take into hand — choose a player", {"action": "take", "card": key}))
         return options
 
     def table_window(self, location, next_card):
@@ -82,10 +120,7 @@ class InteractiveEngine(Engine):
                 self.change(choice["target"], 1)
                 self.emit("player.cultivated", [choice["target"], "R4"], actor=choice["actor"])
             elif choice["action"] == "take":
-                key, actor = choice["card"], choice["actor"]
-                self.loc(location)["set_aside"].remove(key)
-                self.state["players"][actor]["hand"].append(key)
-                self.emit("card.gained", [key], recipient=actor)
+                self.take_set_aside(choice["card"])
 
     def before_reveal(self, key):
         if self.table_window(key[0], key) == "stop":
@@ -176,7 +211,9 @@ class InteractiveEngine(Engine):
             return recipient
         if kind == "recipient":
             title = "Who takes " + self.name(subject) + "?"
-            options = [(PLAYER_NAMES[p], p) for p in self.people(subject[0])]
+            options = [("Give to " + PLAYER_NAMES[p], p) for p in self.people(subject[0])]
+            presentation = {"kind": "recipient", "location": subject[0]}
+            note = "Choose a player present here. This card goes into their hand."
         elif kind == "dilemma":
             title = "Choose an outcome: " + self.name(subject)
             options = [(c["label"], c["value"]) for c in DILEMMAS[subject] if not c.get("blocked")]

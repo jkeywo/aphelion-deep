@@ -34,6 +34,8 @@ def describe(event_type, keys, data, engine):
         return f"{actor} spends 2 Materials at {location}, flips {subject}, and sets Scanning to 4."
     if event_type == "card.flipped":
         return f"Flip {subject} at {location} to its front."
+    if event_type == "card.traded":
+        return f"{actor} gives {subject} to {player(data['recipient'])} at {engine.loc(data['location'])['name']}. It moves into their hand."
     if event_type == "card.gained":
         return f"{player(data['recipient'])} takes {subject} into their hand."
     if event_type == "exploration.gate":

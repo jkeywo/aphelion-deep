@@ -151,6 +151,8 @@ function matchingActions(key){
     return p.cards?.includes(k)&&!['table','table-upkeep'].includes(p.kind);
   });
 }
+function handTrades(key){return (data.prompt?.trades||[]).filter(o=>o.value.card===shortCard(key)&&o.value.actor===handPlayer);}
+function actTrade(option){$('card-dialog').close();request('/api/action',{node:data.current,key:data.prompt.key+':trade',value:option.value});}
 function actOption(option){$('card-dialog').close();request('/api/action',{node:data.current,key:data.prompt.key,value:option.value});}
 function inspectTableCard(key,shownFace=null){
   const k=shortCard(key),id=data.state.card_names[k]?.id,face=shownFace||tableFace(k);
@@ -158,6 +160,7 @@ function inspectTableCard(key,shownFace=null){
   const controls=$('card-dialog').querySelector('.table-card-actions');if(controls)controls.remove();
   const actions=make('div','table-card-actions toolbar');
   for(const option of matchingActions(k)){const b=make('button','primary',option.label);b.onclick=()=>actOption(option);actions.append(b);}
+  for(const option of handTrades(k)){const b=make('button','',option.label);b.onclick=()=>actTrade(option);actions.append(b);}
   const rule=data.table?.cards[k]?.requirement;if(rule)actions.append(make('p','muted',rule));
   if(!actions.childNodes.length)actions.append(make('p','muted','No active action for this card at this decision. Passive icons are shared with players at the same site.'));
   $('card-dialog').append(actions);
@@ -175,7 +178,13 @@ function tableCard(key,{owner=null,info=null,deck=false,drawn=false}={}){
   if(direct){imageButton.setAttribute('aria-label',direct.label+': '+cardName(k));imageButton.onclick=()=>actOption(direct);box.classList.add('actionable');}
   else imageButton.onclick=()=>inspectTableCard(k,face);
   box.append(imageButton,make('strong','',cardName(k)),make('small','',face==='back'?'Back up':'Front up'));
-  if(owner)box.append(make('small','owner',owner));
+  if(owner){
+    box.append(make('small','owner',owner));
+    if(owner===data.state.players[handPlayer].name){
+      if(data.previous_state&&!data.previous_state.players[handPlayer].hand.includes(k))box.classList.add('changed');
+      for(const option of handTrades(k)){const b=make('button','card-action',option.label);b.onclick=()=>actTrade(option);box.append(b);}
+    }
+  }
   if(info?.attached_to)box.append(make('small','owner','Tucked under '+cardName(info.attached_to)+' · '+info.choice),make('small','',Object.entries(info.icons).map(([k,v])=>v+' local '+k).join(', ')));
   if(info?.track)box.append(make('span','track',info.track+': '+info.value+' / 5'));
   if(meta?.requirement)box.append(make('small',meta.eligible?'ready':'muted',meta.requirement));
@@ -187,9 +196,8 @@ function renderTable(){
   const state=data.state,prompt=data.prompt;
   if(lastTablePoint!==data.current){
     tableLocation=prompt?.location||state.drawn_card?.key[0]||data.table?.active_location||tableLocation;
-    const roleIds=['C3','R3','R4'].map(k=>state.card_names[k]?.id);
-    const takenRole=[...(data.recent_events||[])].reverse().find(e=>e.event_type==='card.gained'&&e.entity_ids.some(id=>roleIds.includes(id)));
-    if(takenRole)handPlayer=takenRole.data.recipient;
+    const received=[...(data.recent_events||[])].reverse().find(e=>['card.gained','card.traded'].includes(e.event_type));
+    if(received)handPlayer=received.data.recipient;
     lastTablePoint=data.current;
   }
   const selector=$('location-select'),playerSelector=$('hand-select');selector.replaceChildren();playerSelector.replaceChildren();
@@ -214,6 +222,7 @@ function renderTable(){
   const discard=make('details');discard.append(make('summary','','Discard · '+loc.discard.length));const pile=make('div','table-cards');for(const k of loc.discard)pile.append(tableCard(k));discard.append(pile);area.append(discard);
   const hand=$('hand-table'),player=state.players[handPlayer];hand.replaceChildren();hand.append(make('h2','',player.name));
   hand.append(make('p','muted',locationName(player.at)+' · Your hand'));
+  hand.append(make('p','muted scope','Use Give to… on a hand card to trade with someone here. Role cards stay with their players.'));
   const own=make('div','table-cards');for(const k of player.hand)own.append(tableCard(k,{owner:player.name}));if(!player.hand.length)own.append(make('p','muted','No cards in hand yet.'));hand.append(own);
   const colleagues=Object.entries(state.players).filter(([p,v])=>p!==handPlayer&&v.at===player.at&&player.at);
   if(colleagues.length){hand.append(make('h3','','Available from players here'));hand.append(make('p','muted','These cards stay in their owners’ hands. Their icons and available actions can be used together at this site.'));
