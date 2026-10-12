@@ -24,11 +24,16 @@
 @media(max-width:1100px){.table-layout{grid-template-columns:minmax(0,1fr) 250px}.table-card{width:125px}.hand-table .table-card{width:100%}}
 @media(max-width:850px){.table-layout{display:block}.hand-table{position:static;max-height:none}.hand-table .table-card{width:140px}}
 header{padding:16px 24px}h1{font-size:26px}main{padding:16px 22px}.panel{padding:16px;margin-bottom:14px}.panel.decision{padding:12px 16px}.decision .eyebrow{display:none}.decision h2{font-size:21px;margin:0}.decision p{margin:6px 0;font-size:13px}.decision p:empty{display:none}.decision .options{margin:8px 0 0}.table-selectors{margin-bottom:10px}.card-zone{margin:12px 0}.table-layout h2{font-size:23px;margin-bottom:6px}.table-layout p.muted{margin:6px 0}.table-layout .stats{margin:7px 0}.table-layout .stat{padding:5px 9px;font-size:13px}
-+</style>
+#hover-preview{position:fixed;inset:0;margin:0;border:0;width:100vw;height:100dvh;max-width:none;max-height:none;padding:18px;background:#000b;z-index:10000;pointer-events:none;color:var(--ink)}
+#hover-preview[hidden]{display:none}#hover-preview:not([hidden]){display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}#hover-preview::backdrop{background:transparent;pointer-events:none}
+#hover-preview img{display:block;max-width:calc(100vw - 36px);max-height:calc(100dvh - 72px);width:auto;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px #0009}#hover-preview figcaption{font-size:13px;text-align:center}
+.hover-hint{font-size:12px;margin:0 0 12px}
+</style>
 <header><div><div class="eyebrow">The Aphelion Deep / Interactive expedition</div><h1>Choose your next move.</h1></div><div><div id="status">Connecting to the local rules engine…</div><div id="save-status" class="muted">Your decisions are saved on this computer.</div></div></header>
 <div class="layout"><aside><div class="history-title"><h3>Expedition history</h3><button id="export">Export</button></div><p class="muted scope">Select any decision point to resume there. New choices create a branch; your previous route stays available.</p><div class="toolbar"><button id="undo">← Back</button><button id="start">Start / new branch</button></div><div id="history"></div></aside>
-<main><div id="error" role="alert"></div><section class="panel decision" aria-labelledby="decision-title"><div class="eyebrow">Your decision</div><h2 id="decision-title">Preparing the expedition</h2><p id="decision-note" class="muted"></p><div id="options" class="options"></div><details id="decision-cards"><summary>Cards involved in this decision</summary><div class="cards"></div></details></section><section class="panel" id="table-panel"><div class="table-selectors"><label>Location <select id="location-select" aria-label="Visible location"></select></label><label>Player <select id="hand-select" aria-label="Visible player hand"></select></label></div><div class="table-layout"><div id="location-table"></div><div id="hand-table" class="hand-table"></div></div></section><details class="scope"><summary>About this demo</summary><p class="muted scope">Local shared-table play · Control the three characters through Exploration and Upkeep. This interface uses the reviewed three-turn rules slice. Unfinished outcomes remain unavailable. Card pictures show the source faces; agreed tutorial corrections still apply.</p></details><section class="panel"><h2>What just happened</h2><div id="events" aria-live="polite"></div></section></main></div>
+<main><div id="error" role="alert"></div><section class="panel decision" aria-labelledby="decision-title"><div class="eyebrow">Your decision</div><h2 id="decision-title">Preparing the expedition</h2><p id="decision-note" class="muted"></p><div id="options" class="options"></div><details id="decision-cards"><summary>Cards involved in this decision</summary><div class="cards"></div></details></section><section class="panel" id="table-panel"><div class="table-selectors"><label>Location <select id="location-select" aria-label="Visible location"></select></label><label>Player <select id="hand-select" aria-label="Visible player hand"></select></label></div><p class="muted hover-hint">Hold Alt while hovering over a card to enlarge it.</p><div class="table-layout"><div id="location-table"></div><div id="hand-table" class="hand-table"></div></div></section><details class="scope"><summary>About this demo</summary><p class="muted scope">Local shared-table play · Control the three characters through Exploration and Upkeep. This interface uses the reviewed three-turn rules slice. Unfinished outcomes remain unavailable. Card pictures show the source faces; agreed tutorial corrections still apply.</p></details><section class="panel"><h2>What just happened</h2><div id="events" aria-live="polite"></div></section></main></div>
 <dialog id="card-dialog"><div class="toolbar" style="justify-content:space-between"><h2 id="card-title"></h2><button id="close-card">Close</button></div><p id="card-caption" class="muted scope">Source reference render · Front and back · Click outside or press Escape to close.</p><div class="faces"></div></dialog>
+<figure id="hover-preview" popover="manual" hidden aria-hidden="true"><img alt=""><figcaption></figcaption></figure>
 <script>
 'use strict';
 let data=null, busy=false;
@@ -203,10 +208,39 @@ function renderTable(){
   const changed=Object.keys(removed).filter(k=>!loc.cards[k]);if(changed.length)area.append(make('p','delta','Removed this step: '+changed.map(cardName).join(', ')));
 }
 
-function render(){const s=data.state;$('status').textContent='Turn '+data.turn+' of 3 · '+s.phase+' · Reactor '+s.reactor;$('save-status').textContent='Saved locally · History point #'+data.current;const prompt=data.prompt;$('decision-title').textContent=prompt?.title||(data.status==='complete'?'Three turns complete':'This route is blocked');$('decision-note').textContent=prompt?(prompt.note||'Choose an action to continue. You can return to this decision later.'):(data.error||'Explore an earlier decision point to try another route. Every previous branch is preserved.');if(prompt?.kind==='table'&&!prompt.note)$('decision-note').textContent='';renderOptions(prompt);const involved=$('decision-cards').querySelector('.cards');involved.replaceChildren();cards(prompt?.cards||[],involved);$('decision-cards').hidden=!prompt?.cards.length||prompt?.kind==='card-face';
+function render(){clearCardHover();const s=data.state;$('status').textContent='Turn '+data.turn+' of 3 · '+s.phase+' · Reactor '+s.reactor;$('save-status').textContent='Saved locally · History point #'+data.current;const prompt=data.prompt;$('decision-title').textContent=prompt?.title||(data.status==='complete'?'Three turns complete':'This route is blocked');$('decision-note').textContent=prompt?(prompt.note||'Choose an action to continue. You can return to this decision later.'):(data.error||'Explore an earlier decision point to try another route. Every previous branch is preserved.');if(prompt?.kind==='table'&&!prompt.note)$('decision-note').textContent='';renderOptions(prompt);const involved=$('decision-cards').querySelector('.cards');involved.replaceChildren();cards(prompt?.cards||[],involved);$('decision-cards').hidden=!prompt?.cards.length||prompt?.kind==='card-face';
 renderTable();
 const events=$('events');events.replaceChildren();const point=data.history[Number(data.current)];if(point.decision)events.append(make('p','',point.label));for(const e of data.recent_events){const el=make('div','event');el.append(make('p','',e.data.description||e.event_type));const box=make('div','cards');cards(e.entity_ids,box);el.append(box);events.append(el);}if(data.previous_state){const changedKeys=new Set();for(const l of Object.keys(s.locations)){const a=data.previous_state.locations[l].cards,b=s.locations[l].cards;for(const k of new Set([...Object.keys(a),...Object.keys(b)]))if(!equal(a[k],b[k]))changedKeys.add(k);}for(const p of Object.keys(s.players)){const a=data.previous_state.players[p].hand,b=s.players[p].hand;for(const k of new Set([...a,...b]))if(a.includes(k)!==b.includes(k))changedKeys.add(k);}if(changedKeys.size){events.append(make('h3','','Cards changed in this step'));const gallery=make('div','cards');cards([...changedKeys],gallery);events.append(gallery);}}
 const history=$('history');history.replaceChildren();const active=new Set();let id=data.current;while(id!==null){active.add(id);id=data.history[Number(id)].parent;}for(const n of data.history){const b=make('button','history-node'+(n.id===data.current?' current':''));b.setAttribute('aria-current',n.id===data.current?'step':'false');b.append(make('small','', '#'+n.id+' · '+(n.parent===null?'Start':('from #'+n.parent))+(active.has(n.id)?' · current route':' · saved branch')));b.append(document.createTextNode(n.label));b.onclick=()=>request('/api/checkout',{node:n.id});history.append(b);}}
 $('undo').onclick=()=>{const parent=data.history[Number(data.current)].parent;if(parent!==null)request('/api/checkout',{node:parent});};$('start').onclick=()=>request('/api/checkout',{node:'0'});$('export').onclick=async()=>{try{const r=await fetch('/api/export');if(!r.ok)throw new Error('Export failed');const blob=new Blob([JSON.stringify(await r.json(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=make('a');a.href=url;a.download='aphelion-expedition.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){fail(e.message);}};$('close-card').onclick=()=>$('card-dialog').close();$('card-dialog').onclick=e=>{if(e.target===$('card-dialog'))$('card-dialog').close();};
+// Enlarge the face already visible on the table; never reveal its reverse.
+const hoverPreview=$('hover-preview');
+let hoveredCard=null, altHeld=false;
+function hoverCardAt(target){return target instanceof Element?target.closest('.table-card, .card, .card-preview, .reading-card, .faces a')?.querySelector('img'):null;}
+function hideCardPreview(){
+  if(hoverPreview.matches(':popover-open'))hoverPreview.hidePopover();
+  hoverPreview.hidden=true;
+}
+function clearCardHover(){hoveredCard=null;hideCardPreview();}
+function updateCardPreview(){
+  if(!altHeld||!hoveredCard?.isConnected){hideCardPreview();return;}
+  const img=hoverPreview.querySelector('img');
+  img.src=hoveredCard.currentSrc||hoveredCard.src;img.alt=hoveredCard.alt;
+  hoverPreview.querySelector('figcaption').textContent=hoveredCard.alt+' · Release Alt to close';
+  hoverPreview.hidden=false;
+  if(hoverPreview.showPopover&&!hoverPreview.matches(':popover-open'))hoverPreview.showPopover();
+}
+document.addEventListener('pointerover',e=>{hoveredCard=hoverCardAt(e.target);altHeld=e.altKey;updateCardPreview();});
+document.addEventListener('pointerout',e=>{hoveredCard=hoverCardAt(e.relatedTarget);updateCardPreview();});
+document.addEventListener('pointermove',e=>{if(altHeld!==e.altKey){altHeld=e.altKey;updateCardPreview();}});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Alt'){e.preventDefault();altHeld=true;updateCardPreview();}
+  if(e.key==='Escape'){altHeld=false;hideCardPreview();}
+});
+document.addEventListener('keyup',e=>{if(e.key==='Alt'){altHeld=false;hideCardPreview();}});
+document.addEventListener('click',e=>{if((e.altKey||altHeld)&&hoverCardAt(e.target)){e.preventDefault();e.stopImmediatePropagation();}},true);
+window.addEventListener('blur',()=>{altHeld=false;clearCardHover();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){altHeld=false;clearCardHover();}});
+document.addEventListener('scroll',clearCardHover,true);
 if(location.protocol==='file:'){fail('This page needs the local Python rules engine. Open Start Play.cmd in the game folder, or run .venv\\Scripts\\python.exe -m aphelion_deep.play --open from that folder.');$('decision-title').textContent='Start the local game server';}else request('/api/state');
 </script></html>
