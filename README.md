@@ -11,7 +11,7 @@ Canonical editing takes place in [Google Drive](https://drive.google.com/drive/f
 
 ## Install and replay
 
-Use Python 3.12 or newer. Install PlayTrace with the plugin-state support from [PlayTrace PR 1](https://github.com/jkeywo/playtrace/pull/1), branch `codex/plugin-simulation-state`, commit `38246742592d95f3dc0a3a764556e09ab87b1f87`, then this package. From this game repository:
+Use Python 3.12 or newer. Install PlayTrace with the plugin-state support from [PlayTrace PR 1](https://github.com/jkeywo/playtrace/pull/1), branch `codex/plugin-simulation-state`, commit `7167e4e43fc231b7863865d0a2655586ddae57fd`, then this package. From this game repository:
 
 ```powershell
 uv venv
@@ -25,6 +25,24 @@ uv pip install --python .venv/Scripts/python.exe -e C:/Coding/playtrace -e ".[de
 On other platforms use the local PlayTrace checkout path and `.venv/bin` executables. The installed game package has no dependency on original source paths, GameSpec, Excel or PyYAML at runtime. Editable installs of both projects resolve the unpublished PlayTrace dependency locally.
 
 For a fresh live capture use `--access-token-env GOOGLE_ACCESS_TOKEN` instead of `--fixture`. Supply credentials through the environment. Changes to bound cards or Core Rules intentionally block simulation until their mappings are reviewed. Do not blindly regenerate bindings. The files in `tools/initial_*` record this one-time migration and its machine-specific source paths; they are not runtime dependencies or a routine sync command.
+
+## Play interactively
+
+Double-click `Start Play.cmd`, or run this from the game workspace:
+
+```powershell
+.venv/Scripts/python.exe -m aphelion_deep.play --open
+```
+
+The separate player page opens at `http://127.0.0.1:8768/play.html`. It needs the local Python rules server; opening `reports/play.html` directly shows launch instructions. The existing replay remains a standalone read-only report.
+
+Choose destinations, exploration order, reveals, recipients, cultivation targets, feeding order, conversion amounts, upkeep order and affordable crafting. Player and location tabs show the state at the selected decision point, with gold change highlights and front/back card pictures. This is local shared-table control of the three tutorial characters, not network multiplayer. It supports the reviewed three-turn slice; unfinished dilemma outcomes and optional effects are labelled unavailable. Gates, mandatory upkeep and payment restrictions still apply.
+
+Every decision automatically saves to `.playtrace/player-session.json`. Click any history point to restore its exact continuation; choosing again adds a branch without deleting the old future. Back selects the parent decision; Start selects the original setup. History points are player decisions, with automatic effects shown beneath each step. Reopening the launcher resumes the selected point, including all branches. Save files are deliberately excluded from Git.
+
+Export downloads the complete history tree. To reopen an exported history, use `--session C:/path/to/aphelion-expedition.json`. Use a different, new `--session` path for a separate expedition. The server binds only to this computer. Closing its console stops it; saved decisions remain on disk. A second launcher cannot take over an already running server, so use its existing browser page or stop that console first.
+
+The interactive controller replays explicit decisions through the same Python effects as the strict tutorial. Its history is bound to the source snapshot and executable engine fingerprints; changed rules reject incompatible saves rather than silently reinterpret them. Tests compare the entire three-turn final state with the scripted tutorial and cover branching, restart recovery, once-per-turn restoration, stale choices and HTTP action validation.
 
 ## Reading the replay
 

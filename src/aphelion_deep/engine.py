@@ -272,6 +272,9 @@ class Engine:
         self.change(choice, 1)
         self.emit("player.cultivated", [choice, "R4"], actor="systems")
 
+    def before_reveal(self, key):
+        pass  # Interactive decision hook; scripted runs continue immediately.
+
     def explore(self, l):
         loc = self.loc(l)
         if not self.people(l):
@@ -287,6 +290,7 @@ class Engine:
         self.gains(l)
         while loc["position"] < len(loc["deck"]):
             key = loc["deck"][loc["position"]]
+            self.before_reveal(key)
             c = self.defs[key]
             kind = c["Card Type"]
             requirements = {
