@@ -244,3 +244,22 @@ def test_replay_names_and_action_descriptions():
     dilemma = next(e for e in replay.events if e.data.get("choice") == "Cut it free")
     assert "Giant Lungweed gains 2 Population" in dilemma.data["description"]
     assert any("Convert" in e.data["description"] and "Abundance" in e.data["description"] for e in replay.events)
+
+
+def test_card_reference_images_cover_all_source_faces_and_tutorial_entities():
+    import hashlib
+    cards = json.loads((ROOT / "src/aphelion_deep/data/cards.json").read_text(encoding="utf8"))
+    images = ROOT / "reports/cards"
+    manifest = json.loads((images / "manifest.json").read_text(encoding="utf8"))
+    tutorial = json.loads((ROOT / "provenance/tutorial-run.json").read_text(encoding="utf8"))["simulation"]
+    assert manifest["snapshot_digest"] == tutorial["provenance"]["snapshot_digest"]
+    assert set(manifest["cards"]) == {c["ID"] for c in cards}
+    assert {eid for e in tutorial["events"] for eid in e["entity_ids"]} <= set(manifest["cards"])
+    for card in cards:
+        entry = manifest["cards"][card["ID"]]
+        assert entry["source_fingerprint"] == card["Source Fingerprint"]
+        for face in ("front", "back"):
+            assert entry[face]["text_sha256"] == hashlib.sha256((card.get(face.title()+" Text") or "").encode()).hexdigest()
+            raw = (images / entry[face]["path"]).read_bytes()
+            assert hashlib.sha256(raw).hexdigest() == entry[face]["sha256"]
+            assert raw[:4] == b"RIFF" and raw[8:12] == b"WEBP"

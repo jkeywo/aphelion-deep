@@ -1,0 +1,788 @@
+{
+  "snapshot_digest": "e3fe52f7dca96b395195a28ec229b602b9544bfba9bdca766c8e105e47ec2f11",
+  "render_kind": "Consolidated source reference, not an original Affinity export",
+  "cards": {
+    "reef_gardens_1_a_rough_landing": {
+      "name": "A Rough Landing",
+      "source_fingerprint": "fff88adaf2c419f7574134f0a335a883f988f2cc3234477f2fbd52ecdc5154fb",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_1_a_rough_landing-front.webp",
+        "sha256": "f7cc019f4eecbdd536bc8ba3bcceaf4e69de61d6e1d6968c64a0e285a7a3c747",
+        "text_sha256": "110eebf17a1a3084172c4be031a66c3a7626d2e908a2f11f58c7663ccbed8ce8",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_1_a_rough_landing-back.webp",
+        "sha256": "8d471080c847350246f1938b2eb66a9fe272246b4a74ebf11b2162b7f11a7fdb",
+        "text_sha256": "607dcb59dbc73b92db69d0764c12aa8a7b057334d072add88cc2d49db8b89875",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_2_ecology_department": {
+      "name": "Ecology Department",
+      "source_fingerprint": "c64ce4d6abd5ae6013da4b95638f59bd065b3900ae63c02b0da31cf33a11812d",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_2_ecology_department-front.webp",
+        "sha256": "85ad5285e9f557366d046527b05cb18a5895f3351b194ab59ded491c08108869",
+        "text_sha256": "c804007ab52ef8831e9ee4dec9fd66f16728d3cfddd4c740347710fdfb52ad3f",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_2_ecology_department-back.webp",
+        "sha256": "0003f870fa1505582e8b8a54463af3ea6ef6427eab4f42efb13b73d75a76f5ef",
+        "text_sha256": "71ef7062acac08994ba96c62310d19c78721b73a09b839952d178be92c39a8c3",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_3_lead_ecologist": {
+      "name": "Lead Ecologist",
+      "source_fingerprint": "8b71e9ceb002b8a7fd74ffe60fc036e466f3b6a87d67bfdb0ab256ef69c77a3f",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_3_lead_ecologist-front.webp",
+        "sha256": "6e2616d0efa14245c8af26c08f5245e818abbe0d6245f45f68606a4646bb0d95",
+        "text_sha256": "e5c70476920cedf11522d6d1737ea9994c66aba0fb0135a9b6f5da3f248f942a",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_3_lead_ecologist-back.webp",
+        "sha256": "2a87b3c9220d17f32ae1b2235291a19263a40acf10b02d2df5526dacf74822b1",
+        "text_sha256": "b7b78a5b85cac282411d80a98ab08ecdfaf55a09f0de68b857d445eba32ece02",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_4_systems_ecologist": {
+      "name": "Systems Ecologist",
+      "source_fingerprint": "81e77449aba2b3623e5182077a7c022a39ac0d00457433c928c7adbb4d00fa61",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_4_systems_ecologist-front.webp",
+        "sha256": "4114f81711c5bc9872e73c066bab2374abe295515b92c73b9bba80fdb4c374bc",
+        "text_sha256": "6cdf95ad14f77edfcfb7dfaab2d812dd16e9e28e03a0a2156d2866c72d87df94",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_4_systems_ecologist-back.webp",
+        "sha256": "2e9aed50d2f50b2336bbbdd1d829adaab71e2237ab63971012a2d15165666549",
+        "text_sha256": "5c62aa49da762953861359df8a84a427d35e28b408d7c3ae292848bf4f03dd74",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_8_phase_reference": {
+      "name": "Phase Reference",
+      "source_fingerprint": "5bd434f10b1076c9fab006dd103fdec2394d1a15ba1b698efe3590334287558f",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_8_phase_reference-front.webp",
+        "sha256": "3b45f6a53ae364e5c0fed708871af3e2a84cbf0394af05e2431958dd1d92ec57",
+        "text_sha256": "78ef5bdd01e727e62babcdfde53208d800eacfa69cb5a52bf63187e118ec64b7",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_8_phase_reference-back.webp",
+        "sha256": "b2c1f7d2e9d3a1ac9cb4aebc8bcdb9e989072dbfb996c076a75d2802a39cd59a",
+        "text_sha256": "e60c229a3812ab2aa56ed93c4aa6b58ad06522866d15505267d53a8b7dec9988",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_9_reef_garden_outpost": {
+      "name": "Reef Garden Outpost",
+      "source_fingerprint": "5670d98d50789bd37a137cf0e1821306bafb19c66313e6db381d1a9341703ab4",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_9_reef_garden_outpost-front.webp",
+        "sha256": "adb68e4fbe5e7a76c599a5620923511ba18e686bf4f73e8a8ea6cec8a8560213",
+        "text_sha256": "0a6c6ddf97932950405cc9d2771d6a8141c0634a7f5301865c8360c14d1f121f",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_9_reef_garden_outpost-back.webp",
+        "sha256": "e7d5e71eea52ac17621db9fcb503bedeb5cb116ad44d06f07eef4941158683a8",
+        "text_sha256": "e3c2a0e66b854f5f6298ec3e0e3013f53f5dc71f33bba0ed0b374ff2b8c9d7b8",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_10_shallowwater_filterweed": {
+      "name": "Shallowwater Filterweed",
+      "source_fingerprint": "780fb5871ba345f0f4a5a3db9cbd89ff5d4f3bc32fc83835110e8a651382c2e9",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_10_shallowwater_filterweed-front.webp",
+        "sha256": "c213eb6c06a85b6332c821dee0b41e627d17aa24b724308967d91ab8e76bb86d",
+        "text_sha256": "1da2f3cabceec42ecbbe3bd55dfbd08978cf361453aff772430a8e7d3905b25a",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_10_shallowwater_filterweed-back.webp",
+        "sha256": "acd3fc0bfebe3ae2fc110ca854512b30040de94531b40105db7bbc5484292b57",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_11_spotted_grazers": {
+      "name": "Spotted Grazers",
+      "source_fingerprint": "f5c7a3141b1d600d4a2351ebcad1cfdab372d74b810d4f1f4d25448a1e766036",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_11_spotted_grazers-front.webp",
+        "sha256": "3a7c9adc525e3a4ceefd8393edbb5570bafe2a37999f0a85cab5af2bbebb6ea8",
+        "text_sha256": "4e16dcf180a24d96f48b0df8835de6302bf493e88f17a96315543e723593d142",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_11_spotted_grazers-back.webp",
+        "sha256": "b8996b1ccdb55aafd448c458c8a18086b637d1438b2b1debf9c3cbd43431025a",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_12_coral_shelf_formation": {
+      "name": "Coral Shelf Formation",
+      "source_fingerprint": "376c79b1f0304698fedc5a2e5bf20c4b7677870e93d18ef27be28d406e307031",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_12_coral_shelf_formation-front.webp",
+        "sha256": "aedb54a19732e2dd1b7da31ee29e3937a1a95cf1b877073d64525ea5d9a07cfb",
+        "text_sha256": "e6a44c1d46d7bf1969ee8f96b23635edfb4fda23c93617b1d6a43ae570ea17e8",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_12_coral_shelf_formation-back.webp",
+        "sha256": "95ab684a42758e3fbc69f5b3bd27af21b9c39d379d7a38cb8ca93ae186d3a7a1",
+        "text_sha256": "89ad0122019f695613bafeb7b8dbbfc5f9e722d965a71c9357647fbbe4de8758",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_13_reef_ecologist_s_notes": {
+      "name": "Reef Ecologist's Notes",
+      "source_fingerprint": "9bd9266c944f073123d66195b2368d0477e072153542b56d463eb176f6198086",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_13_reef_ecologist_s_notes-front.webp",
+        "sha256": "673b1715adbe0b6516952c59ef4095c863bbd81a0376e07ccbb1f14d27ff6074",
+        "text_sha256": "a79a90267b6c402e9c907e0733052ebf11e0b948243a5719d7db6581eedcc20a",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_13_reef_ecologist_s_notes-back.webp",
+        "sha256": "088dff049ac7987c598509f740425f29520920db14c14b3bc1763f5e8c99fca6",
+        "text_sha256": "d7bd0306f75b298e24c92177d5f92da1c080d0ca441e49db3321c3adf0e7bb21",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_14_spawning_ground": {
+      "name": "Spawning Ground",
+      "source_fingerprint": "261b120a0100d22f45bc31b1e5fa713e7dc695246d814d3a43a171d51a7553f2",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_14_spawning_ground-front.webp",
+        "sha256": "976a2a8731dee52f8f4abd65ef0115f4de2001713a4b014a489f38e7d8a7807b",
+        "text_sha256": "5b0e1bfcc530158c558553e39f19fe02c84b1db24ab3cf1ab38b2373982978ed",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_14_spawning_ground-back.webp",
+        "sha256": "ce331e27f159a7b1b855fbcd356ab15f50c80f5adff837efd634beb6515fba23",
+        "text_sha256": "12a3c0c82007c96ec9e7685219bc5c2c330665b1e43465754dc5a50d628db35f",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_15_reef_caverns": {
+      "name": "Reef Caverns",
+      "source_fingerprint": "f3f039cd0b19a6c550a6f997d9278a1f33be1ce42a0b4b8a0dfe40b7b3a411bc",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_15_reef_caverns-front.webp",
+        "sha256": "dad96597b1ab22c9d99470cab0253d3ee729365bd93a4a07ea71ffd6a6a0e64a",
+        "text_sha256": "22a678c82f0555ea3a4da6f6a730dae8deb71e9e789fbcac088ecf12e29935b5",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_15_reef_caverns-back.webp",
+        "sha256": "94a49048b0f473e2b5043a3baf16f68557e18ee26e558de764f5a8cc645d55b2",
+        "text_sha256": "3b6d1e8769a1835252ad4af53817451b150dda499f25b5acff243535871e26c3",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_16_glow_polyp_mat": {
+      "name": "Glow-Polyp Mat",
+      "source_fingerprint": "81abf1954d93989d87be5ec07239d8c8e492fd64bc91dccca1788cba153182ec",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_16_glow_polyp_mat-front.webp",
+        "sha256": "1835a1b36e4ace607d84693bc413176d08da4155c19dad0f5de68e1efcb49592",
+        "text_sha256": "3df4b16108569f924835a27ccbd7046d0b969ffe9da3cbef38fbcf507ad55c9a",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_16_glow_polyp_mat-back.webp",
+        "sha256": "0c21aa0ec8026bae0dc74af11e03dc924dbb260c446eb41d9e6e2dc961ad4b5b",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_17_crystalblind_snapper": {
+      "name": "Crystalblind Snapper",
+      "source_fingerprint": "f36819ee910377be9b8595ce61ab79076c094506d990dc637f6704d6e9ff9b02",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_17_crystalblind_snapper-front.webp",
+        "sha256": "534ebf4449860fd09ad7032c310c4310d830fc834898ddef1971468116b0bcf5",
+        "text_sha256": "4205bd192594392755325ddfaa8de5c35f4110b68d464ebc1b9ac4ccab280c68",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_17_crystalblind_snapper-back.webp",
+        "sha256": "e8179897678c8065e2e3853d1cc09024ad481522e7d1f05147461b37b5c0f537",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_18_echoing_calcite_spires": {
+      "name": "Echoing Calcite Spires",
+      "source_fingerprint": "974c9d4cee2f26ee3c3ba5fafb498fe5543ebf4f12feb9e1a54cf2c0cbdb48a7",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_18_echoing_calcite_spires-front.webp",
+        "sha256": "34ee8ff212d9cb0d1c16e7ca9ca06f025754647e345f1135142001a4b30a569d",
+        "text_sha256": "15a793a498ec8606c303d29d5520371c2ab9ebc89268d4b95eb835c9da5a356d",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_18_echoing_calcite_spires-back.webp",
+        "sha256": "fa1447d93982315d5e04c6f6a2556531ce5989569d0cfc2e588b4498589b2ec5",
+        "text_sha256": "ff5cfa7a98a6474d9dc821750aa78d937130c406f02de184e54b9bd421ddb561",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_19_drowned_survey_cache": {
+      "name": "Drowned Survey Cache",
+      "source_fingerprint": "64812ffa97f31221c121f6622fb231fe9b39dd130c22250d30be3574d5f8c3f4",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_19_drowned_survey_cache-front.webp",
+        "sha256": "4b42c1c062e86efa5c7f68eb21a6106592230330ed1bf2ac74be7a2a8b9344c5",
+        "text_sha256": "1e8f51ef0b66fd9930bcaa818c7f8e630df0d6d787c3edd048df8de34a296344",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_19_drowned_survey_cache-back.webp",
+        "sha256": "7a92c0eb2c1812cf5f847c23c369446c65808b26ec2e4ec5b41ac774b306e0ea",
+        "text_sha256": "ed2a1b4c3526e24d9094f450c0d06e0ef0b2f4e892872b6ee2700648b87f03fd",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_20_the_watcher_in_the_dark": {
+      "name": "The Watcher in the Dark",
+      "source_fingerprint": "9edac243c5daf86c85f987422294ad154812492b21b26bf10d4365e9e07bad83",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_20_the_watcher_in_the_dark-front.webp",
+        "sha256": "5b8cd7bf8c5dcba96eb06d1197881fc53da71c5846a734b91ab5d8af3e8c17e5",
+        "text_sha256": "fcf7f4af1bdde98386e3528c6484a5c7099bd867b1aeefc8d88efca0b2532e12",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_20_the_watcher_in_the_dark-back.webp",
+        "sha256": "d867afbbfd2f054e9fcf24bf1fddc7d338c4698fc3b4fd19b7a219667bc24059",
+        "text_sha256": "682f7f55ffef71b3123d9c74529506bd1ce0700064fb8eb0f8a8e5a49232cb74",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_21_bioluminescent_pollination": {
+      "name": "Bioluminescent Pollination",
+      "source_fingerprint": "b7d58b25410efeda9e4d7cf461cee457de4e4f54c4d5660a02e647465859b43b",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_21_bioluminescent_pollination-front.webp",
+        "sha256": "2b39bf7a1cf0415de925d3d35ec335f0d74b97f128fab7b1ab359251169d3c91",
+        "text_sha256": "557570c371ba7f857b5be739eb026cebe9a4b30da88e39300c8db27b6b319712",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_21_bioluminescent_pollination-back.webp",
+        "sha256": "fe694964ce5bafb32c9d3033d2f044da35bbf3e625f1ec4646a798b584f7a057",
+        "text_sha256": "cfcfefa912650658a25f4c27e7ccef83e1f79f63af6eda785060ee3f4f1cf042",
+        "font_size": 31
+      }
+    },
+    "crash_flats_1_a_rough_landing": {
+      "name": "A Rough Landing",
+      "source_fingerprint": "c66338c2240916f415f1fa9b873677615c50d37acc6e8a30904169d5dc7173ca",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_1_a_rough_landing-front.webp",
+        "sha256": "a4701240342e72d6dd16b6e9f0822c95ae43c855b1bd791ff183e0b7512599c1",
+        "text_sha256": "110eebf17a1a3084172c4be031a66c3a7626d2e908a2f11f58c7663ccbed8ce8",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_1_a_rough_landing-back.webp",
+        "sha256": "76ccde4e0ffc6dee58003602dbb48e477c3acc9e61fdfb294ead70ca00922d03",
+        "text_sha256": "d1aa440061acc3a3acefd2a035397b5e86c0cbe104c1a6db2fe688f87054a5bb",
+        "font_size": 31
+      }
+    },
+    "crash_flats_2_engineering_department": {
+      "name": "Engineering Department",
+      "source_fingerprint": "8700644b4fcbeb972a9e3d4e5316c890d3ac6e7b1ae15786e760ee9c256eda68",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_2_engineering_department-front.webp",
+        "sha256": "b9cfd2475a109a9df0a77d81d1ea8ea34d18f396f092c7a4a9e0657c3df12f75",
+        "text_sha256": "b669df36994012a6dd978bab38ec8b49a3b48a1b713c42116e2fc893a87291f6",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_2_engineering_department-back.webp",
+        "sha256": "0c742d97eec8f532e3cb5712c319fda0203f97b8b3796d98cbe12bc2924a5f7a",
+        "text_sha256": "cc40af5edf128fd8ee7042a99eb92267862086b5af5738b04cd8bc75bbfb9052",
+        "font_size": 31
+      }
+    },
+    "crash_flats_3_fabrication_lead": {
+      "name": "Fabrication Lead",
+      "source_fingerprint": "fa1b477f2c802ea0d837bf37f271b7aeb8a7e1ec66c100399d064fe715e80a77",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_3_fabrication_lead-front.webp",
+        "sha256": "fed1482f2ad80ae85d5284e7a91db40903eb0a299ebd240f261818d662837c5c",
+        "text_sha256": "78f6f6cd5e8854a171ee403de15007713d9c298a2eaeb55a7fa863545ab4a863",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_3_fabrication_lead-back.webp",
+        "sha256": "ca1ce5c6b301f24a69168688c373c926ce37236e6dd3c4e00633e36e496cfe97",
+        "text_sha256": "28c01aa01b57eded0a6adf390da55592c443396c63785e05b45c38200aae8fd1",
+        "font_size": 31
+      }
+    },
+    "crash_flats_8_phase_reference": {
+      "name": "Phase Reference",
+      "source_fingerprint": "274b50333dd31003df9be5717c7a2a88608538c9c4180490f5e3f9fc16921799",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_8_phase_reference-front.webp",
+        "sha256": "c05fc46ec1a18f259f0806d76fb95b31da67e94b527b5c44f4b6bc23559a9d52",
+        "text_sha256": "78ef5bdd01e727e62babcdfde53208d800eacfa69cb5a52bf63187e118ec64b7",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_8_phase_reference-back.webp",
+        "sha256": "6dda20f134b4f6a2d166b6b7c46110ce7fb4280153b0f018b98ed18fc7a3a3ec",
+        "text_sha256": "e60c229a3812ab2aa56ed93c4aa6b58ad06522866d15505267d53a8b7dec9988",
+        "font_size": 31
+      }
+    },
+    "crash_flats_9_crash_flats_outpost_fabrication_bay": {
+      "name": "Crash Flats Outpost (Fabrication Bay)",
+      "source_fingerprint": "1f1e7662fd568369bf02b95c26fe999c2c48b92324773bc9f50edf9e19c95d4d",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_9_crash_flats_outpost_fabrication_bay-front.webp",
+        "sha256": "afccfc613f049ab48b3880ac4193408b3e379be4a67525367a0285445ed3c0fc",
+        "text_sha256": "b8348571342bdafcf7f40e4748a60daba411011747a7439732bb2436c7dfa519",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_9_crash_flats_outpost_fabrication_bay-back.webp",
+        "sha256": "efd0afd1abf5aded5c2b5d3dd958c549c59541b26b57ae65086b44842a412c84",
+        "text_sha256": "b053552e6fc43ad9df9c524b194f996b2b3800999d185311b99e7e3bce677882",
+        "font_size": 31
+      }
+    },
+    "crash_flats_10_tidal_rust_bloom": {
+      "name": "Tidal Rust Bloom",
+      "source_fingerprint": "5305e8c980d6027fef5b057a46d3c3774b6ab7b5b732586015497f6980f9d311",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_10_tidal_rust_bloom-front.webp",
+        "sha256": "c2bfc5bc389a4584840a4244c3013af3e1f7f931c7a5b42a412f38455b43cb51",
+        "text_sha256": "dc999784356e1b7bb7bab9e86f7636f9b16d95949ee37b76113e28dff6918dc2",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_10_tidal_rust_bloom-back.webp",
+        "sha256": "30523c4e09ce9e21d865abebe7eba9ef307ee37fd6ebd460290af1861414be07",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "crash_flats_11_carrier_crabs": {
+      "name": "Carrier Crabs",
+      "source_fingerprint": "532ad0e080bb666eec14936a11b5cd89f861a75150f1391a1391801d6bb6d7a7",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_11_carrier_crabs-front.webp",
+        "sha256": "92bcd493b7b8328ff175721fe057013e7a6bc1966ed20d2317f1bb3231b4d096",
+        "text_sha256": "d638c8d7020af840ebae7c574630f98f3fe2acf2fd7a1490dea19a4514142afe",
+        "font_size": 30
+      },
+      "back": {
+        "path": "crash_flats_11_carrier_crabs-back.webp",
+        "sha256": "bfafef054d0a638a2e2c0b4a7d61ba61c59a2d8e06b9e1ad59e41b8298ebc333",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "crash_flats_12_aphelion_wreckage_field": {
+      "name": "Aphelion Wreckage Field",
+      "source_fingerprint": "88dd75994b7f56e96027d7ff0639ddbe523869b62cc972658f3da108b78d706e",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_12_aphelion_wreckage_field-front.webp",
+        "sha256": "8c5da20f9dc36d15a63257e3d96f205a7d4db5fc49c55dcdbabd6c84f72a873e",
+        "text_sha256": "7afab8116446d6059a7a7e82a051dcc7eef16f1079165bb2c532ef74ec527de5",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_12_aphelion_wreckage_field-back.webp",
+        "sha256": "2da50de498c59fca3146d8bd20dfdf23345d17c9edbd30059588a660299db39f",
+        "text_sha256": "d49014964e2ca243fcec107986fb46c3b73ac941f290d88be72a55a3a79433a3",
+        "font_size": 31
+      }
+    },
+    "crash_flats_13_salvage_manifest": {
+      "name": "Salvage Manifest",
+      "source_fingerprint": "26ac20ee44636d4ca7f5a59d57a263f17edf19aea618090cd352e5681c64ed1b",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_13_salvage_manifest-front.webp",
+        "sha256": "96586730981ec47f964b9d5facf437d8e55a897e68f015eb887d3288fd370acd",
+        "text_sha256": "21fcf3a732ef6865bc0685d19c6b19dc0786167b78ab01fe874de18cebcd8198",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_13_salvage_manifest-back.webp",
+        "sha256": "cde9e8fd3e9344ea0de518234ab21ee15faf24336fc2dd82b59d9ae3b3c50153",
+        "text_sha256": "f99401f72064e37ccfb3cdf49d40d997d172a70a74a58ed5eecb7c8d4030b2e1",
+        "font_size": 31
+      }
+    },
+    "crash_flats_14_the_power_question": {
+      "name": "The Power Question",
+      "source_fingerprint": "2f471db688e36f339616d3ab7f51e91ab48301201f5610f9fd86348bf56d4d14",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_14_the_power_question-front.webp",
+        "sha256": "8d711a5bbbd50b84180355f0ee26aa1a9de5ba9a44bf8f854988fc3ca9c50695",
+        "text_sha256": "711f184a67e5149c21b8af72aede497219d899eccde35774e9efd4de7a610846",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_14_the_power_question-back.webp",
+        "sha256": "482b0aba3b970ceff9dfebf8856b55a1b5da1342fcf9b5c183c87167c487057c",
+        "text_sha256": "2e46b2b118510cf856069869c072ce31f7e54dba2f5f09d1cbdd9bdaf0827539",
+        "font_size": 31
+      }
+    },
+    "crash_flats_15_engine_core_section": {
+      "name": "Engine Core Section",
+      "source_fingerprint": "af238cf6e37b55d09004e4033bd332d8661ec066ac1b0724f1d4e758df132ac6",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_15_engine_core_section-front.webp",
+        "sha256": "a93c855b8dd7aadbfdf0afe36428652b6816428b2519f88e23f7f0093253f156",
+        "text_sha256": "a410e7d618d7452e92d5208195c51efa246ee14917e29ef6a6056ec0f93ddede",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_15_engine_core_section-back.webp",
+        "sha256": "c384bac01658d046956c9a21b41745bb5c2314c4c69459ddd08a4728e8402e26",
+        "text_sha256": "3c2ec72b48126aabeea0a00819f5361b18f55db3735807344f2c90e4bf715432",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_1_kelp_cathedral": {
+      "name": "Kelp Cathedral",
+      "source_fingerprint": "a91edb1a24c4ade4f776b61a24ecd593f21347dd9f3935c64d55a0a358a210f7",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_1_kelp_cathedral-front.webp",
+        "sha256": "54fb24b3223487e5971d95853314a7e0a846ae0f3ed307db7eca1278b0b829ad",
+        "text_sha256": "342dbe18576345704982ffd1c34a4674b442beb378855e2519685aa7077f2e23",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_1_kelp_cathedral-back.webp",
+        "sha256": "bd5128cc703751eac304a494429e0e5f9f01643d8c72b99bf968fffbfd4794df",
+        "text_sha256": "b55ca6092c1b94ab00360409cedfca354fe9942c8a866812c29e43384e0a2027",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_2_giant_lungweed_stalks": {
+      "name": "Giant Lungweed Stalks",
+      "source_fingerprint": "ad91447e9da6f291dee10af5e26a5c689bcd7d4010cffd80ea4bb572946d13c6",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_2_giant_lungweed_stalks-front.webp",
+        "sha256": "4aee6751bfb387d1a3dd0b81a3027929d897f7caa6c5a798692ba9954bb5184a",
+        "text_sha256": "a3714f2c144a7a934665eb810388b4b3ef7203936fd96a58308076e17b087b8b",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_2_giant_lungweed_stalks-back.webp",
+        "sha256": "f51c09ccae84f1dc746856562ca3e771171e4120fb0e509cc32b37718c164a45",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_3_resonating_lure_fish": {
+      "name": "Resonating Lure Fish",
+      "source_fingerprint": "b6bdc9e9fb431a71f2a81420bdccc1448cdff9ad54a2666c0b802e4998b59e9a",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_3_resonating_lure_fish-front.webp",
+        "sha256": "baf3ac70a10a7a61bf54c156c2b3898767ef9dcdd8bcf3c0e509265214b75086",
+        "text_sha256": "6d280def202d174c61c8ed987694b8be3c4b46d65a25d196f9b5e15382e4cd1c",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_3_resonating_lure_fish-back.webp",
+        "sha256": "7ea30b239292f922a27a8f25992bc0c2309386e4d499fe8ffeff33c06de52e7e",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_4_hush_mussels": {
+      "name": "Hush Mussels",
+      "source_fingerprint": "1fbafa985b30ba590b3b86d44a76fd56e0f5987d5f5e353b595d4195d81564e9",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_4_hush_mussels-front.webp",
+        "sha256": "4a9695e6d926e1a299072cfb26d2b74f3d8d6aae087ecc18018e644fc8b75e6c",
+        "text_sha256": "6672e40934bd50ef57b602a984df4643af7d0ee6041567385940836624a6fb1c",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_4_hush_mussels-back.webp",
+        "sha256": "f4c527ab35b80c16f578ecb8205d5d1d11faa157c3f691475670e1b7ca2887bd",
+        "text_sha256": "6edb75e70cc14289c85a38d575463f702b45a05f79e601b7abd058cd02933799",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_5_sunken_survey_drone": {
+      "name": "Sunken Survey Drone",
+      "source_fingerprint": "1c71d5d0d5ca877d5da86e9072f1a2b836b7aaf671b696c18dd1d7e905eca7c7",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_5_sunken_survey_drone-front.webp",
+        "sha256": "42969c77ac6d980dd21e56e3e380e3bf963886f34514c78971db596893e51d39",
+        "text_sha256": "7895cae6ab7eae329e865d0173cced9481f4902da317e29405d905c9c6be53f0",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_5_sunken_survey_drone-back.webp",
+        "sha256": "0a5714b6362962938f900f350db394ea4aad9466263fe0f1334c2cb1fabe78cb",
+        "text_sha256": "980041792588ab2f47bff58862395d8f776147638535cf5fb6270a771d1283de",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_6_the_bloom": {
+      "name": "The Bloom",
+      "source_fingerprint": "7c745cb8df234c125d67d3b7faedbbea50ff6c3095c036e65c25504bb0ff5738",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_6_the_bloom-front.webp",
+        "sha256": "5e2483ee5b69a950731d345d496080ce12feb50305b5a2ccbf43f1c13d5ddcbd",
+        "text_sha256": "baa1175f4850eb03fe1444f46443508a9706be6da69463a045b3c4614abe10de",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_6_the_bloom-back.webp",
+        "sha256": "6dbbc053177b16eaab0ef3516fb5c4400f2f147ddb9ead79ed2c0f157532258d",
+        "text_sha256": "6823004f84aa112a4912f19707aa76c23367847f1c648b69b9d0d54b6923100c",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_7_cathedral_hymn": {
+      "name": "Cathedral Hymn",
+      "source_fingerprint": "dc58eb8e28473186f565c9f228f142efdc2ad5299cd2cf7aece1f0d5e35e8c63",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_7_cathedral_hymn-front.webp",
+        "sha256": "c3271d1078bb5ce40a2a74aeb06858df45f7e5feeef17bca64311e849acbb091",
+        "text_sha256": "934e802517c3c4814c5484eb5a6ac41a07538eedc7cf5734d8ee608c76f23dd0",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_7_cathedral_hymn-back.webp",
+        "sha256": "e5391663ad7bce998f19bb4b93730d69a7d6ba9e76f4ed6498552665d01ee78b",
+        "text_sha256": "839a3c9be7d8e60d0a70a329bb4ba70987f0aec6035a69f14586f2685b6a0a7b",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_8_echoing_drowned_mass": {
+      "name": "Echoing Drowned Mass",
+      "source_fingerprint": "89f6d8cfdf558c7ad11f5eb446f2de98f4dde34d4be677216f5553d64a5870df",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_8_echoing_drowned_mass-front.webp",
+        "sha256": "70b74f5dc61c0aee8fabb45ccf3d6d2f2f694e51dd6477116d88cd46b658b444",
+        "text_sha256": "1a6309b2d82b0a45d9c8c09deb0e3cc9051dfac1b921c436815bdd8f00dca54d",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_8_echoing_drowned_mass-back.webp",
+        "sha256": "346533fe3afdb839e2db20fbc5486648e4e3ada543b68c8f6398ef91320560bd",
+        "text_sha256": "73ec3543e1512e40350febc95c946371e72e2fb2870b14286b7197b7f8822583",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_s1_oxygen_tank": {
+      "name": "Oxygen Tank",
+      "source_fingerprint": "bc228db3e745a1aefa1882bc8834af22be70d4460d583f88431ff571d646637f",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_s1_oxygen_tank-front.webp",
+        "sha256": "14a2edf12929586b71d522c04f3462d67e9dd51ca221e3bac7c61e2ebb271110",
+        "text_sha256": "fa5c1c8b70c3cb459fac0b6a4fa36fcc0a3bd911094dd83f8a2e47f4cd943ea1",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_s1_oxygen_tank-back.webp",
+        "sha256": "9f5adaac31895e00f1eacbdc994edb327c9455e7ec26b9671c2da0f1e365868b",
+        "text_sha256": "91b4f3cc9d322505f01faf479aac4da8e0c54877bab29a0b291b1e9a0f012546",
+        "font_size": 31
+      }
+    },
+    "crash_flats_s1_oxygen_tank": {
+      "name": "Oxygen Tank",
+      "source_fingerprint": "b98d7cbd96c19bf6dcd377a9a7ba56ee74636b994b4a749a85745f2ee1d2f3d3",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_s1_oxygen_tank-front.webp",
+        "sha256": "7f57b96229838c57c2d9e6c59a4d08a25b2b36ba10fafcc1f8fd48ae102d998b",
+        "text_sha256": "fa5c1c8b70c3cb459fac0b6a4fa36fcc0a3bd911094dd83f8a2e47f4cd943ea1",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_s1_oxygen_tank-back.webp",
+        "sha256": "a2785da6edfef50aa65312cc5a182c6c5fb0c6f3648648a6c214a60ad97e1f1a",
+        "text_sha256": "91b4f3cc9d322505f01faf479aac4da8e0c54877bab29a0b291b1e9a0f012546",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_s2_field_welder": {
+      "name": "Field Welder",
+      "source_fingerprint": "ee76a179e0564207a2cfbba3be5c4f35fc9e83aa9d61dd11cc9b314753e5eadf",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_s2_field_welder-front.webp",
+        "sha256": "30c13a5f93e9f6f4afb30b5bf8fb865b726e7fd6885f5dfcc7e131ac6d5cfb12",
+        "text_sha256": "eba722f26cc60c373c03022e1b86f92449b8013116f5ba84895b9894dbbc0250",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_s2_field_welder-back.webp",
+        "sha256": "a95e862da5e0b08540d04a9ff29bd194310959f0e303c5ba276e6d781834b252",
+        "text_sha256": "4c60cd264200eb883a2605b41060aaac12983ffe92b89c437d4506335f6d2f6f",
+        "font_size": 31
+      }
+    },
+    "crash_flats_s3_aphelion_scan_database": {
+      "name": "Aphelion Scan Database",
+      "source_fingerprint": "dffd7324280f1ef59210efbe064c821c42a09ecf35604ce6dd8489d95ae817c7",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_s3_aphelion_scan_database-front.webp",
+        "sha256": "792e56ff6dc621be1d8fea510860de9e5dbf280dbb71e3286da7495f2b80b38b",
+        "text_sha256": "d40ad70b393e831022ff7f1e0d9fd304b11f8520070960c715c93c832012ab22",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_s3_aphelion_scan_database-back.webp",
+        "sha256": "7eb3040b1688a3a6d038028863562c22783c853cebfb2c16c4afb607e7171aef",
+        "text_sha256": "d161cc248948050c6b142d66be7a7ac0339ddcd476bd1f4a5d1619850d0ac3d4",
+        "font_size": 31
+      }
+    },
+    "kelp_cathedral_s4_thermal_power_generator": {
+      "name": "Thermal Power Generator",
+      "source_fingerprint": "ce2f3548756f0ca4268943c38d792bc062217201e2d5b4bf1f5d0ef6addecdf4",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "kelp_cathedral_s4_thermal_power_generator-front.webp",
+        "sha256": "b46a06206284cf9e1a7c3329568d5b956a5585a88213158193c5b93d1909292e",
+        "text_sha256": "528bb6840a7ef3d256be04134c30b3b05be2d952f1831de54113fab5553fd61d",
+        "font_size": 31
+      },
+      "back": {
+        "path": "kelp_cathedral_s4_thermal_power_generator-back.webp",
+        "sha256": "5ffa3fcd78b16ac65a9969f8ec0ba480e21d456079c7bd49f1702e6fcbcbf06b",
+        "text_sha256": "86f208b83f13b549ded850df0b9c4f9317033494601e27d151f8afd827e31bfe",
+        "font_size": 31
+      }
+    },
+    "challenge_c1_the_aphelion_wraith": {
+      "name": "The Aphelion Wraith",
+      "source_fingerprint": "29c1a53303706054f463c1f573c5cb6cdd6f87f403fb9f1d0d30769c1e2c9e87",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "challenge_c1_the_aphelion_wraith-front.webp",
+        "sha256": "7d2163990751c36aa12b7af1beb159352f9e20a3d64666a10dca843a2a81734e",
+        "text_sha256": "75827e615ebad0585fd8761b39e6334fe482fd7bf167f13dd68515790cdf4082",
+        "font_size": 31
+      },
+      "back": {
+        "path": "challenge_c1_the_aphelion_wraith-back.webp",
+        "sha256": "5ec114a312170894230f034e9f8590f6fe8cb8adfbe93e20a943e38672904e54",
+        "text_sha256": "9d10dfac6c4b08221be4e968b6350d6141c8b5afe84e72cfcd4ef04824d8a1e9",
+        "font_size": 31
+      }
+    },
+    "reef_gardens_c2_reactor_pulse": {
+      "name": "Reactor Pulse",
+      "source_fingerprint": "f7b9c25fcb99369b58e7650d45b0aa26042ba57d178a788a4356d2d90698042d",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "reef_gardens_c2_reactor_pulse-front.webp",
+        "sha256": "ef91388abcd639525da4421ec9de7a6ad306598be7c44acab7f65464fe09d041",
+        "text_sha256": "6e9f28cf7d009bf2acebe6405140b01401dbf81947457d3e0d99311483a91e1a",
+        "font_size": 31
+      },
+      "back": {
+        "path": "reef_gardens_c2_reactor_pulse-back.webp",
+        "sha256": "7f336b965e2ce1dc5f4762b56a096e1971f08114cb03bb0d6b693a8c21d2a24c",
+        "text_sha256": "6b94e73c50e03b0de53c2ceec03c41f52de064367da7c157c11f65bbb7aee5bb",
+        "font_size": 31
+      }
+    },
+    "crash_flats_c2_reactor_pulse": {
+      "name": "Reactor Pulse",
+      "source_fingerprint": "689356d49e972561c7e7c860d4abebabb5723fe430dc2d000ccd55ff0d1885ab",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "crash_flats_c2_reactor_pulse-front.webp",
+        "sha256": "f9f62dd1002995fdd7d053e405202bffea71c8c495a71c3dc58d9b5fdf4ee952",
+        "text_sha256": "6e9f28cf7d009bf2acebe6405140b01401dbf81947457d3e0d99311483a91e1a",
+        "font_size": 31
+      },
+      "back": {
+        "path": "crash_flats_c2_reactor_pulse-back.webp",
+        "sha256": "2cbc4f520c839508baea28b6099f50871b72de4233bb4a9d39b9630e2e3935ad",
+        "text_sha256": "6b94e73c50e03b0de53c2ceec03c41f52de064367da7c157c11f65bbb7aee5bb",
+        "font_size": 31
+      }
+    },
+    "challenge_c3_lost_signal": {
+      "name": "Lost Signal",
+      "source_fingerprint": "e6a592f4afbcb2c46ce411c1755fe179194fbd658eb8b4c87159ba4de846a1b2",
+      "note": "Reference render from consolidated card text and existing location artwork. Both source faces are preserved; the agreed tutorial amendments apply separately.",
+      "front": {
+        "path": "challenge_c3_lost_signal-front.webp",
+        "sha256": "09820464980b389467e56a03680c87ec7c77d678f28a164b8df56d1fe02b4306",
+        "text_sha256": "a03b221c6c6eae7122ca51695d456d5222e524889136394944b2f9763b483615",
+        "font_size": 31
+      },
+      "back": {
+        "path": "challenge_c3_lost_signal-back.webp",
+        "sha256": "e4d4512b7fe8358e34792252358b88850b9043f5948799fff66283b59593de28",
+        "text_sha256": "ffa994acb8b685e5ad5fee6fec0a23b495594c60b83686e9526ab9dae00b03ea",
+        "font_size": 31
+      }
+    }
+  }
+}

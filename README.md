@@ -11,14 +11,14 @@ Canonical editing takes place in [Google Drive](https://drive.google.com/drive/f
 
 ## Install and replay
 
-Use Python 3.12 or newer. Install PlayTrace with the plugin-state support from [PlayTrace PR 1](https://github.com/jkeywo/playtrace/pull/1), branch `codex/plugin-simulation-state`, commit `9b3288af94bcaa5802bb28b60caa33f007424973`, then this package. From this game repository:
+Use Python 3.12 or newer. Install PlayTrace with the plugin-state support from [PlayTrace PR 1](https://github.com/jkeywo/playtrace/pull/1), branch `codex/plugin-simulation-state`, commit `38246742592d95f3dc0a3a764556e09ab87b1f87`, then this package. From this game repository:
 
 ```powershell
 uv venv
 uv pip install --python .venv/Scripts/python.exe -e C:/Coding/playtrace -e ".[dev]"
 .venv/Scripts/playtrace.exe snapshot . --fixture provenance/workspace-capture.json --db .playtrace/playtrace.db --output provenance/snapshot.json
 .venv/Scripts/playtrace.exe simulate . --fixture provenance/workspace-capture.json --config tutorial.json --db .playtrace/playtrace.db --output provenance/tutorial-run.json
-.venv/Scripts/playtrace.exe simulation-report --run provenance/tutorial-run.json --output reports/tutorial.html
+.venv/Scripts/playtrace.exe simulation-report --run provenance/tutorial-run.json --output reports/tutorial.html --card-images reports/cards/manifest.json
 .venv/Scripts/python.exe -m pytest
 ```
 
@@ -29,6 +29,10 @@ For a fresh live capture use `--access-token-env GOOGLE_ACCESS_TOKEN` instead of
 ## Reading the replay
 
 Open `reports/tutorial.html` in a browser, or download the [Drive copy](https://drive.google.com/file/d/1oK5hNP6hsca6R9dtJBXQcCLCxNNNk5Xl/view). Each action has a plain-language description. Choose a player or location tab to inspect its state after that action; gold badges identify every affected tab and highlighted fields show before/after values. Use Previous, Next, the slider or the action history to move through the trace. Highlights always compare adjacent actions, even when jumping through the history.
+
+The action gallery includes directly referenced cards and cards changed indirectly, including feeding targets and removed cards. Select Front or Back, click a card to enlarge it, or use the full-size download link. All 92 images are embedded in the report so the downloaded Drive copy works offline. These are clearly labelled reference renders of the 46 consolidated source cards, using existing location artwork; they preserve printed text, with tutorial amendments applied separately.
+
+To rebuild the reference images, install `.[render]` and run `.venv/Scripts/python.exe tools/render_cards.py`, then regenerate the report with `--card-images reports/cards/manifest.json`. Rendering requires the preserved `assets/source-2/Art` files. Arial is the default font; set `APHELION_FONT` and `APHELION_FONT_BOLD` to explicit font files on other platforms. The manifest binds each face to its text and image fingerprints and to the tutorial source snapshot.
 
 Location tabs show resources, capabilities, players present and cards in play. Expand the deck section for ordered cards, the next card, recipes and piles. Technical details retain exact checkpoints and source references. Presentation text is owned by `src/aphelion_deep/presentation.py`; it never applies game effects.
 

@@ -1,6 +1,6 @@
 {
   "game_regressions": {
-    "passed": 22,
+    "passed": 23,
     "environment": "Isolated game venv Python 3.14"
   },
   "legacy_aphelion_tests": {
@@ -8,9 +8,9 @@
     "note": "PyYAML installed; bytecode writes disabled; original sources unchanged"
   },
   "playtrace_release_gate": {
-    "passed": 307,
+    "passed": 312,
     "wheel_smoke": true,
-    "shared_commit": "9b3288af94bcaa5802bb28b60caa33f007424973",
+    "shared_commit": "38246742592d95f3dc0a3a764556e09ab87b1f87",
     "pr": "https://github.com/jkeywo/playtrace/pull/1"
   },
   "legacy_crisis_wardens": {
@@ -35,8 +35,17 @@
       "affected tab badges",
       "next/previous highlight reset"
     ],
-    "synthetic_javascript_cases": 6,
+    "synthetic_javascript_cases": 8,
     "all_112_mechanical_events_and_checkpoints_unchanged": true,
     "drive_readback_sha256_verified": true
+  },
+  "card_images": {
+    "cards": 46,
+    "faces": 92,
+    "source_text_and_image_fingerprints_verified": true,
+    "indirect_effects_in_gallery": true,
+    "browser_front_back_enlarge_download_checked": true,
+    "drive_readback_sha256_verified": true,
+    "source": "Reference renders from consolidated text and preserved location art; not Affinity exports"
   }
 }
