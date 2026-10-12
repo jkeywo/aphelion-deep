@@ -1,7 +1,7 @@
 """Deterministic, resumable decisions over the source-bound tutorial engine."""
 from copy import deepcopy
 from itertools import permutations, product
-from .engine import Engine, Blocked, LOCATIONS, ROLE_OWNERS
+from .engine import Engine, Blocked, LOCATIONS, ROLE_OWNERS, DILEMMAS
 from .presentation import PLAYER_NAMES
 
 
@@ -116,7 +116,7 @@ class InteractiveEngine(Engine):
                  [("Flip to front", True)], [key], kind="card-face", face="back")
         self.state["drawn_card"]["face"] = "front"
         self.emit("card.flipped", [key])
-        label = "Take into " + PLAYER_NAMES[ROLE_OWNERS[key]] + "'s hand" if key in ROLE_OWNERS else "Continue with this card"
+        label = "Take into " + PLAYER_NAMES[ROLE_OWNERS[key]] + "'s hand" if key in ROLE_OWNERS else "Choose an outcome" if key in DILEMMAS else "Continue with this card"
         self.ask(f"{self.turn}:resolve:{key}", "Read the front of " + self.name(key),
                  [(label, True)], [key], kind="card-face", face="front")
         del self.state["drawn_card"]
@@ -167,6 +167,7 @@ class InteractiveEngine(Engine):
         _, kind, subject = key.split(":", 2)
         options = []
         note = ""
+        presentation = {}
         cards = [subject] if subject in self.defs else []
         if kind == "recipient" and subject in ROLE_OWNERS:
             recipient = ROLE_OWNERS[subject]
@@ -177,10 +178,11 @@ class InteractiveEngine(Engine):
             title = "Who takes " + self.name(subject) + "?"
             options = [(PLAYER_NAMES[p], p) for p in self.people(subject[0])]
         elif kind == "dilemma":
-            title = "Resolve " + self.name(subject)
-            value = {"C14": "Restart", "R14": "Protect", "K8": "Cut it free"}[subject]
-            options = [(value, value)]
-            note = "Other outcomes are unfinished and are outside this playable slice. Rewind to change the route."
+            title = "Choose an outcome: " + self.name(subject)
+            options = [(c["label"], c["value"]) for c in DILEMMAS[subject] if not c.get("blocked")]
+            presentation = {"kind": "dilemma", "choices": deepcopy(DILEMMAS[subject]), "location": subject[0]}
+            note = "The players here must agree unanimously. Choose one outcome to apply its consequences."
+            self.state["drawn_card"] = {"key": subject, "face": "front"}
         elif kind == "eat":
             location = self.state["players"][subject]["at"]
             title = "Choose food for " + PLAYER_NAMES[subject]
@@ -221,7 +223,9 @@ class InteractiveEngine(Engine):
             raise Blocked("Unsupported decision: " + key)
         if not options:
             raise Blocked(title + ": no legal payment is available. Rewind to an earlier decision.")
-        answer = self.ask(key, title, options, cards, note)
+        answer = self.ask(key, title, options, cards, note, **presentation)
+        if kind == "dilemma":
+            del self.state["drawn_card"]
         self.script["choices"][key] = answer
         self.choices_used.add(key)
         return answer

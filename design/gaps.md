@@ -4,7 +4,7 @@ P0 Tutorial source mapping: any source change requires review and refreshed bind
 
 P1 Department completion: Command, Exploration and Corporate/Data have concepts and role outlines but no separate detailed briefs. Engineering personal goals include an unfinished "1) .". Ecology playtest covers two of five roles; Engineering one of five.
 
-P1 Outcomes: Power Question Strip for parts has an unnamed abundance target. Kelp Recover it and Document and leave remain ???. Lost Signal has no resolved front. No tutorial implementation may silently choose these outcomes.
+P1 Outcomes: Power Question Strip for parts was clarified by the designer on 12 October 2026: restore Aphelion Wreckage Field to 5 Abundance. The preserved printed source still contains the original placeholder. Kelp Recover it and Document and leave remain ???. Lost Signal has no resolved front. No tutorial implementation may silently choose these outcomes.
 
 P1 Full colony: Command allocations, reactor escalation, events, Wraith injection, deep expeditions and endgame need integration and balancing beyond this tutorial.
 

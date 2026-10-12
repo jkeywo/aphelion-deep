@@ -50,6 +50,8 @@ Taking a role card puts it directly into the matching player's hand: Fabrication
 
 Phase Reference stays in play at its location once used. Its back shows Exploration and its front shows Upkeep; it flips automatically at each phase change, including when returning to earlier history. Reference cards do not require an upkeep action.
 
+Dilemma cards show their choices and consequences together. The Power Question offers Restart, Strip for parts (restore Aphelion Wreckage Field to 5 Abundance, as clarified on 12 October 2026), and Seal it away (no immediate effect; a local note records the decision for Control). Spawning Ground offers Harvest (1 local Food), Protect (+2 Population to both named cards), and Tag & Monitor (1 local Knowledge). Harvest and Tag & Monitor remain tucked under Reef Garden Outpost; their icons stay at that location. The two unfinished Echoing Drowned Mass alternatives remain visible as “???” and unavailable. The scripted tutorial retains its original chosen route.
+
 ## Reading the replay
 
 Open `reports/tutorial.html` in a browser, or download the [Drive copy](https://drive.google.com/file/d/1oK5hNP6hsca6R9dtJBXQcCLCxNNNk5Xl/view). Each action has a plain-language description. Choose a player or location tab to inspect its state after that action; gold badges identify every affected tab and highlighted fields show before/after values. Use Previous, Next, the slider or the action history to move through the trace. Highlights always compare adjacent actions, even when jumping through the history.

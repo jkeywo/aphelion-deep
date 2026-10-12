@@ -28,6 +28,7 @@ header{padding:16px 24px}h1{font-size:26px}main{padding:16px 22px}.panel{padding
 #hover-preview[hidden]{display:none}#hover-preview:not([hidden]){display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}#hover-preview::backdrop{background:transparent;pointer-events:none}
 #hover-preview img{display:block;max-width:calc(100vw - 36px);max-height:calc(100dvh - 72px);width:auto;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px #0009}#hover-preview figcaption{font-size:13px;text-align:center}
 .hover-hint{font-size:12px;margin:0 0 12px}
+.dilemma-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;width:100%}.dilemma-choice{padding:12px;border:1px solid var(--line);border-radius:8px;background:#0a2029}.dilemma-choice p{font-size:14px!important;margin:8px 0!important}.dilemma-choice button{width:100%}.dilemma-choice button:disabled{cursor:not-allowed;opacity:.6}.control-note{border-left:2px solid var(--gold);padding-left:10px;font-size:13px}
 </style>
 <header><div><div class="eyebrow">The Aphelion Deep / Interactive expedition</div><h1>Choose your next move.</h1></div><div><div id="status">Connecting to the local rules engine…</div><div id="save-status" class="muted">Your decisions are saved on this computer.</div></div></header>
 <div class="layout"><aside><div class="history-title"><h3>Expedition history</h3><button id="export">Export</button></div><p class="muted scope">Select any decision point to resume there. New choices create a branch; your previous route stays available.</p><div class="toolbar"><button id="undo">← Back</button><button id="start">Start / new branch</button></div><div id="history"></div></aside>
@@ -114,6 +115,18 @@ function renderOptions(prompt){
   const options=$('options');options.replaceChildren();
   const choosingSite=prompt?.key.split(':')[1]==='explore-order';
   options.classList.toggle('destinations',choosingSite);
+  if(prompt?.kind==='dilemma'){
+    const choices=make('div','dilemma-choices');
+    for(const c of prompt.choices){
+      const item=make('article','dilemma-choice'),button=make('button','',c.label);
+      button.disabled=!!c.blocked;button.dataset.unavailable=String(!!c.blocked);
+      button.onclick=()=>actOption({value:c.value});
+      item.append(button,make('p','',c.consequence));
+      if(c.blocked)item.append(make('small','notice','Unavailable — '+c.blocked));
+      choices.append(item);
+    }
+    options.append(choices);return;
+  }
   if(prompt?.kind==='assignments'){renderAssignments(prompt,options);return;}
   if(prompt?.kind==='card-face'){options.append(make('p','muted','Read and interact with the card on the table below.'));return;}
   if(prompt?.kind==='table'||prompt?.kind==='table-upkeep'){const finish=prompt.options.find(o=>o.value==='stop'||o.value===null);if(finish){const b=make('button','',finish.label);b.onclick=()=>actOption(finish);options.append(b);}options.append(make('p','muted','Click the deck to continue, or click a card to use an available action.'));return;}
@@ -163,6 +176,7 @@ function tableCard(key,{owner=null,info=null,deck=false,drawn=false}={}){
   else imageButton.onclick=()=>inspectTableCard(k,face);
   box.append(imageButton,make('strong','',cardName(k)),make('small','',face==='back'?'Back up':'Front up'));
   if(owner)box.append(make('small','owner',owner));
+  if(info?.attached_to)box.append(make('small','owner','Tucked under '+cardName(info.attached_to)+' · '+info.choice),make('small','',Object.entries(info.icons).map(([k,v])=>v+' local '+k).join(', ')));
   if(info?.track)box.append(make('span','track',info.track+': '+info.value+' / 5'));
   if(meta?.requirement)box.append(make('small',meta.eligible?'ready':'muted',meta.requirement));
   const options=direct?[direct]:matchingActions(k);
@@ -186,6 +200,7 @@ function renderTable(){
   const loc=state.locations[tableLocation],area=$('location-table');area.replaceChildren();area.append(make('h2','',loc.name));
   const occupants=Object.entries(state.players).filter(([_,p])=>p.at===tableLocation).map(([_,p])=>p.name);
   area.append(make('p','muted','Present: '+(occupants.join(', ')||'Nobody')));
+  for(const n of state.control_notes||[])if(n.location===tableLocation)area.append(make('p','control-note','For Control · Turn '+n.turn+': '+n.message));
   stats(loc.resources,data.previous_state?.locations[tableLocation]?.resources,area);
   stats(loc.capabilities,data.previous_state?.locations[tableLocation]?.capabilities,area);
   function zone(title,keys,options={}){const z=make('section','card-zone');z.append(make('h3','',title));const row=make('div','table-cards');for(const k of keys)row.append(tableCard(k,{info:loc.cards[k],...options}));if(!keys.length)row.append(make('p','muted','None'));z.append(row);area.append(z);return z;}

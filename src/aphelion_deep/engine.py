@@ -15,6 +15,26 @@ LOCATIONS = {"C": "Crash Flats", "R": "Reef Gardens", "K": "Kelp Cathedral"}
 ROLE_OWNERS = {"C3": "engineer", "R3": "lead", "R4": "systems"}
 
 
+# Printed outcomes, with the user's 2026-10-12 Strip-for-parts clarification.
+# The existing Cut-it-free amendment remains the only defined Kelp outcome.
+DILEMMAS = {
+    "C14": [
+        {"value": "Restart", "label": "A — Restart it", "consequence": "Gain 2 local Power at Crash Flats and advance the Reactor by 1."},
+        {"value": "Strip for parts", "label": "B — Strip for parts", "consequence": "Restore Aphelion Wreckage Field to 5 Abundance. Discard this dilemma."},
+        {"value": "Seal it", "label": "C — Seal it away", "consequence": "No immediate resource or Reactor change. Record the decision for Control."},
+    ],
+    "R14": [
+        {"value": "Harvest", "label": "A — Harvest", "consequence": "Tuck this card under Reef Garden Outpost: gain 1 local Food icon."},
+        {"value": "Protect", "label": "B — Protect", "consequence": "Shallowwater Filterweed and Spotted Grazers each gain 2 Population, up to 5."},
+        {"value": "Tag & Monitor", "label": "C — Tag & Monitor", "consequence": "Tuck this card under Reef Garden Outpost: gain 1 local Knowledge icon."},
+    ],
+    "K8": [
+        {"value": "Cut it free", "label": "A — Cut it free", "consequence": "Giant Lungweed gains 2 Population, up to 5. Gain 1 Materials here and discard this dilemma."},
+        {"value": "Recover it", "label": "B — Recover it", "consequence": "???", "blocked": "The consequence has not been defined."},
+        {"value": "Document and leave", "label": "C — Document and leave", "consequence": "???", "blocked": "The consequence has not been defined."},
+    ],
+}
+
 class Blocked(ValueError):
     pass
 
@@ -214,7 +234,7 @@ class Engine:
     def upkeep_cards(self, location):
         # Phase references stay on the table but have no effect to resolve.
         return [k for k, c in self.loc(location)["cards"].items()
-                if c["type"] != "Phase Reference"]
+                if c["type"] not in ("Phase Reference", "Outpost upgrade")]
 
     def gain(self, key):
         p = self.need(f"{self.turn}:recipient:{key}")
@@ -338,21 +358,7 @@ class Engine:
                 loc["set_aside"].append(key)
             elif key in ("C14", "R14", "K8"):
                 option = self.need(f"{self.turn}:dilemma:{key}")
-                if key == "C14" and option == "Restart":
-                    loc["local_icons"]["Power"] = loc["local_icons"].get("Power", 0) + 2
-                    self.state["reactor"] += 1
-                elif key == "R14" and option == "Protect":
-                    self.change("R10", 2)
-                    self.change("R11", 2)
-                elif key == "K8" and option == "Cut it free":
-                    self.change("K2", 2)
-                    loc["resources"]["Materials"] += 1
-                else:
-                    raise Blocked(
-                        "Unsupported dilemma outcome: " + key + " " + str(option)
-                    )
-                loc["discard"].append(key)
-                self.emit("dilemma.resolved", [key], choice=option)
+                self.resolve_dilemma(key, option)
             elif key == "K1":
                 loc["revealed"] = True
                 loc["cards"][key] = {
@@ -371,6 +377,48 @@ class Engine:
             self.emit("card.revealed", [key], location=l, deck_position=loc["position"])
             self.cultivate(l)
             self.gains(l)
+
+    def resolve_dilemma(self, key, option):
+        definition = next((c for c in DILEMMAS.get(key, []) if c["value"] == option), None)
+        if not definition or definition.get("blocked"):
+            raise Blocked("Unsupported dilemma outcome: " + key + " " + str(option))
+        loc = self.loc(key[0])
+        if key in loc["discard"] or key in loc["cards"]:
+            raise Blocked("Dilemma already resolved: " + key)
+        affected = [key]
+        if key == "C14":
+            if option == "Restart":
+                loc["local_icons"]["Power"] = loc["local_icons"].get("Power", 0) + 2
+                self.state["reactor"] += 1
+            elif option == "Strip for parts":
+                if not self.card("C12"):
+                    c = self.defs["C12"]
+                    loc["cards"]["C12"] = {"id": c["ID"], "name": c["Name"], "type": c["Card Type"], "track": "Abundance", "value": 0}
+                    if "C12" in loc["discard"]:
+                        loc["discard"].remove("C12")
+                loc["cards"]["C12"]["value"] = 5
+                affected.append("C12")
+            else:
+                self.state.setdefault("control_notes", []).append({"turn": self.turn, "location": "C", "card": key, "choice": option,
+                    "message": "The expedition sealed the auxiliary reactor away. No immediate effect; Control follow-up is unresolved."})
+        elif key == "R14":
+            if option == "Protect":
+                self.change("R10", 2)
+                self.change("R11", 2)
+                affected += ["R10", "R11"]
+            else:
+                icon = "Food" if option == "Harvest" else "Knowledge"
+                loc["local_icons"][icon] = loc["local_icons"].get(icon, 0) + 1
+                c = self.defs[key]
+                loc["cards"][key] = {"id": c["ID"], "name": c["Name"], "type": "Outpost upgrade",
+                    "attached_to": "R9", "choice": option, "icons": {icon: 1}}
+        else:
+            self.change("K2", 2)
+            loc["resources"]["Materials"] += 1
+            affected.append("K2")
+        if key not in loc["cards"]:
+            loc["discard"].append(key)
+        self.emit("dilemma.resolved", affected, choice=option, consequence=definition["consequence"])
 
     def feed(self, key, word, amount, gain, loss):
         candidates = self.need(f"{self.turn}:feed:{key}")

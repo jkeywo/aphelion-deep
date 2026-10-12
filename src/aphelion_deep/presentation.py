@@ -49,10 +49,15 @@ def describe(event_type, keys, data, engine):
     if event_type == "dilemma.resolved":
         outcomes = {
             "Restart": "Gain 2 local Power and advance the reactor by 1.",
+            "Strip for parts": "Restore Aphelion Wreckage Field to 5 Abundance.",
+            "Seal it": "No immediate change. Record the sealed reactor for Control follow-up.",
+            "Harvest": "Gain 1 local Food icon. Tuck this card under Reef Garden Outpost.",
+            "Tag & Monitor": "Gain 1 local Knowledge icon. Tuck this card under Reef Garden Outpost.",
             "Protect": "Filterweed and Spotted Grazers each gain 2 Population, up to their track limits.",
             "Cut it free": "Giant Lungweed gains 2 Population, up to its track limit, and the location gains 1 Materials.",
         }
-        return f"Choose ‘{data['choice']}’ for {subject} at {location}. {outcomes[data['choice']]} Remove the dilemma."
+        disposition = "" if data["choice"] in ("Harvest", "Tag & Monitor") else " Remove the dilemma."
+        return f"Choose ‘{data['choice']}’ for {subject} at {location}. {outcomes[data['choice']]}{disposition}"
     if event_type == "player.ate":
         payment = data["payment"]
         food = "the available Food icon" if payment == "Food icon" else f"1 {'Rations' if payment == keys[0] else 'Population'} from {card(payment)}"

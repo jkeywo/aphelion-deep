@@ -348,3 +348,76 @@ def test_script_cannot_assign_role_to_a_different_player():
     script["choices"]["1:recipient:R3"] = "systems"
     with pytest.raises(Blocked, match="Role card must go to Lead Ecologist"):
         Engine(script).run()
+
+
+@pytest.mark.parametrize("card,choices,unavailable", [
+    ("C14", ["Restart", "Strip for parts", "Seal it"], []),
+    ("R14", ["Harvest", "Protect", "Tag & Monitor"], []),
+    ("K8", ["Cut it free"], ["Recover it", "Document and leave"]),
+])
+def test_dilemma_prompts_show_consequences_and_keep_card_on_table(card, choices, unavailable, played):
+    decisions, _ = played
+    index = next(i for i, d in enumerate(decisions) if d["key"].endswith(":dilemma:" + card))
+    view = replay(decisions[:index])
+    assert view["prompt"]["kind"] == "dilemma"
+    assert [o["value"] for o in view["prompt"]["options"]] == choices
+    assert [o["value"] for o in view["prompt"]["choices"] if o.get("blocked")] == unavailable
+    assert all(o["consequence"] for o in view["prompt"]["choices"])
+    assert view["state"]["drawn_card"] == {"key": card, "face": "front"}
+    for choice in unavailable:
+        with pytest.raises(Blocked):
+            replay(decisions[:index] + [{"key": view["prompt"]["key"], "value": choice}])
+
+
+@pytest.mark.parametrize("choice", ["Restart", "Strip for parts", "Seal it"])
+def test_power_question_effects_are_distinct_reversible_and_deterministic(choice, played):
+    decisions, _ = played
+    index = next(i for i, d in enumerate(decisions) if d["key"] == "1:dilemma:C14")
+    before = replay(decisions[:index])
+    branch = decisions[:index] + [{"key": "1:dilemma:C14", "value": choice}]
+    after = replay(branch)
+    assert after["status"] == "playing"
+    assert "drawn_card" not in after["state"]
+    assert "C14" in after["state"]["locations"]["C"]["discard"]
+    assert after["state"]["reactor"] == (1 if choice == "Restart" else 0)
+    assert after["state"]["locations"]["C"]["local_icons"].get("Power", 0) == (2 if choice == "Restart" else 0)
+    assert bool(after["state"].get("control_notes")) == (choice == "Seal it")
+    if choice == "Strip for parts":
+        assert after["state"]["locations"]["C"]["cards"]["C12"]["value"] == 5
+    assert replay(branch) == after
+    assert replay(decisions[:index]) == before
+
+
+def test_strip_restores_depleted_wreckage_without_making_materials():
+    e = InteractiveEngine([])
+    e.turn, e.phase = 1, "Exploration"
+    e.loc("C")["discard"] = ["C12"]
+    e.resolve_dilemma("C14", "Strip for parts")
+    assert e.value("C12") == 5
+    assert "C12" not in e.loc("C")["discard"]
+    assert e.loc("C")["resources"]["Materials"] == 0
+    assert e.state["reactor"] == 0
+    with pytest.raises(Blocked, match="already resolved"):
+        e.resolve_dilemma("C14", "Strip for parts")
+
+
+@pytest.mark.parametrize("choice,icon", [("Harvest", "Food"), ("Tag & Monitor", "Knowledge")])
+def test_spawning_upgrades_stay_local_and_skip_upkeep(choice, icon, played):
+    decisions, _ = played
+    index = next(i for i, d in enumerate(decisions) if d["key"] == "1:dilemma:R14")
+    after = replay(decisions[:index] + [{"key": "1:dilemma:R14", "value": choice}])
+    loc = after["state"]["locations"]["R"]
+    assert loc["cards"]["R14"]["attached_to"] == "R9"
+    assert loc["cards"]["R14"]["icons"] == {icon: 1}
+    assert loc["local_icons"][icon] == 1
+    assert "R14" not in loc["discard"]
+    e = InteractiveEngine([])
+    e.state = deepcopy(after["state"])
+    assert "R14" not in e.upkeep_cards("R")
+    for p in e.state["players"].values():
+        p["at"] = "C"
+        assert "R14" not in p["hand"]
+    assert e.icons("R")[icon] == 1
+    assert e.icons("C").get(icon, 0) == 0
+    with pytest.raises(Blocked, match="already resolved"):
+        e.resolve_dilemma("R14", choice)
