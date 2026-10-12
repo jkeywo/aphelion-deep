@@ -1,7 +1,7 @@
 """Deterministic, resumable decisions over the source-bound tutorial engine."""
 from copy import deepcopy
 from itertools import permutations, product
-from .engine import Engine, Blocked, LOCATIONS
+from .engine import Engine, Blocked, LOCATIONS, ROLE_OWNERS
 from .presentation import PLAYER_NAMES
 
 
@@ -116,8 +116,9 @@ class InteractiveEngine(Engine):
                  [("Flip to front", True)], [key], kind="card-face", face="back")
         self.state["drawn_card"]["face"] = "front"
         self.emit("card.flipped", [key])
+        label = "Take into " + PLAYER_NAMES[ROLE_OWNERS[key]] + "'s hand" if key in ROLE_OWNERS else "Continue with this card"
         self.ask(f"{self.turn}:resolve:{key}", "Read the front of " + self.name(key),
-                 [("Continue with this card", True)], [key], kind="card-face", face="front")
+                 [(label, True)], [key], kind="card-face", face="front")
         del self.state["drawn_card"]
 
     def explore(self, location):
@@ -167,6 +168,11 @@ class InteractiveEngine(Engine):
         options = []
         note = ""
         cards = [subject] if subject in self.defs else []
+        if kind == "recipient" and subject in ROLE_OWNERS:
+            recipient = ROLE_OWNERS[subject]
+            self.script["choices"][key] = recipient
+            self.choices_used.add(key)
+            return recipient
         if kind == "recipient":
             title = "Who takes " + self.name(subject) + "?"
             options = [(PLAYER_NAMES[p], p) for p in self.people(subject[0])]

@@ -44,6 +44,8 @@ Export downloads the complete history tree. To reopen an exported history, use `
 
 The interactive controller replays explicit decisions through the same Python effects as the strict tutorial. Its history is bound to the source snapshot and executable engine fingerprints; changed rules reject incompatible saves rather than silently reinterpret them. Tests compare the entire three-turn final state with the scripted tutorial and cover branching, restart recovery, once-per-turn restoration, stale choices and HTTP action validation.
 
+Taking a role card puts it directly into the matching player's hand: Fabrication Lead, Lead Ecologist, or Systems Ecologist. The visible hand switches to its owner so the result is visible immediately. Other cards retain their recipient choices.
+
 Phase Reference stays in play at its location once used. Its back shows Exploration and its front shows Upkeep; it flips automatically at each phase change, including when returning to earlier history. Reference cards do not require an upkeep action.
 
 ## Reading the replay

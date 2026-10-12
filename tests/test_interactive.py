@@ -324,3 +324,27 @@ def test_phase_reference_stays_in_play_and_follows_phase_on_resume(key, played, 
         if view["prompt"]["key"].split(":")[1] == "upkeep-card":
             assert key not in [o["value"] for o in view["prompt"]["options"]]
     assert result["status"] == "complete"
+
+
+@pytest.mark.parametrize("key,owner", [("C3", "engineer"), ("R3", "lead"), ("R4", "systems")])
+def test_role_card_is_taken_directly_into_matching_hand(key, owner, played):
+    decisions, _ = played
+    index = next(i for i, d in enumerate(decisions) if d["key"] == "1:resolve:" + key)
+    before = replay(decisions[:index])
+    assert before["state"]["drawn_card"] == {"key": key, "face": "front"}
+    assert before["prompt"]["options"][0]["label"].startswith("Take into ")
+    assert all(key not in p["hand"] for p in before["state"]["players"].values())
+    after = replay(decisions[:index + 1])
+    assert [p for p, v in after["state"]["players"].items() if key in v["hand"]] == [owner]
+    assert after["prompt"]["key"].split(":")[1] == "reveal"
+    assert "drawn_card" not in after["state"]
+    assert not any(d["key"] == "1:recipient:" + key for d in decisions)
+    assert replay(decisions[:index]) == before
+    assert replay(decisions[:index + 1]) == after
+
+
+def test_script_cannot_assign_role_to_a_different_player():
+    script = deepcopy(SCRIPT)
+    script["choices"]["1:recipient:R3"] = "systems"
+    with pytest.raises(Blocked, match="Role card must go to Lead Ecologist"):
+        Engine(script).run()

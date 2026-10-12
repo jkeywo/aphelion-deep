@@ -168,6 +168,9 @@ function renderTable(){
   const state=data.state,prompt=data.prompt;
   if(lastTablePoint!==data.current){
     tableLocation=prompt?.location||state.drawn_card?.key[0]||data.table?.active_location||tableLocation;
+    const roleIds=['C3','R3','R4'].map(k=>state.card_names[k]?.id);
+    const takenRole=[...(data.recent_events||[])].reverse().find(e=>e.event_type==='card.gained'&&e.entity_ids.some(id=>roleIds.includes(id)));
+    if(takenRole)handPlayer=takenRole.data.recipient;
     lastTablePoint=data.current;
   }
   const selector=$('location-select'),playerSelector=$('hand-select');selector.replaceChildren();playerSelector.replaceChildren();

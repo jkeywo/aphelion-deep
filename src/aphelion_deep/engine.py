@@ -12,6 +12,7 @@ from importlib.resources import files
 from .presentation import PLAYER_NAMES, describe
 
 LOCATIONS = {"C": "Crash Flats", "R": "Reef Gardens", "K": "Kelp Cathedral"}
+ROLE_OWNERS = {"C3": "engineer", "R3": "lead", "R4": "systems"}
 
 
 class Blocked(ValueError):
@@ -217,6 +218,8 @@ class Engine:
 
     def gain(self, key):
         p = self.need(f"{self.turn}:recipient:{key}")
+        if key in ROLE_OWNERS and p != ROLE_OWNERS[key]:
+            raise Blocked("Role card must go to " + PLAYER_NAMES[ROLE_OWNERS[key]])
         if p not in self.people(key[0]):
             raise Blocked("Recipient not present: " + key)
         if any(key in x["hand"] for x in self.state["players"].values()):
