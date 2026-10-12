@@ -30,6 +30,8 @@ def describe(event_type, keys, data, engine):
         return f"Confirm all {data['phase'].lower()} assignments together: {moves}."
     if event_type == "card.drawn":
         return f"Draw {subject} at {location}. Read its back before flipping it."
+    if event_type == "card.activated":
+        return f"{actor} spends 2 Materials at {location}, flips {subject}, and sets Scanning to 4."
     if event_type == "card.flipped":
         return f"Flip {subject} at {location} to its front."
     if event_type == "card.gained":

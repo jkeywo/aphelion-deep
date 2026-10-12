@@ -6,7 +6,7 @@ from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 import pytest
 from aphelion_deep.engine import Engine, Blocked
-from aphelion_deep.interactive import replay
+from aphelion_deep.interactive import replay, InteractiveEngine, Waiting
 from aphelion_deep.play import Session, make_server, verify_workspace
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,7 +20,12 @@ def tutorial_answer(result):
     t = SCRIPT["turns"][turn - 1]
     parts = key.split(":")
     kind = parts[1]
-    if key in SCRIPT["choices"]:
+    if prompt.get("kind") == "table":
+        desired = SCRIPT["choices"].get(f"{turn}:cultivate")
+        cultivar = next((v for v in values if isinstance(v, dict) and v.get("action") == "cultivate" and v["target"] == desired and v["actor"] == "systems"), None)
+        take = next((v for v in values if isinstance(v, dict) and v.get("action") == "take" and SCRIPT["choices"].get(f"{turn}:recipient:{v['card']}") == v["actor"]), None)
+        answer = cultivar or take or ("reveal" if "reveal" in values else "stop")
+    elif key in SCRIPT["choices"]:
         answer = SCRIPT["choices"][key]
     elif kind == "assign":
         answer = t["assignments"]
@@ -100,7 +105,7 @@ def test_invalid_or_stale_decisions_do_not_mutate_history(tmp_path):
 def test_card_history_points_restore_decks_tracks_hands_and_once_flags(played):
     decisions, final = played
     for i, decision in enumerate(decisions):
-        if ":cultivate:" in decision["key"] and decision["value"]:
+        if isinstance(decision["value"], dict) and decision["value"].get("action") == "cultivate":
             before, after = replay(decisions[:i]), replay(decisions[:i + 1])
             assert not before["state"]["players"]["systems"]["cultivator_used_this_turn"]
             assert after["state"]["players"]["systems"]["cultivator_used_this_turn"]
@@ -199,3 +204,89 @@ def test_upkeep_assignment_is_atomic_validated_and_reversible(tmp_path, played):
     assert session.view()["prompt"]["key"] == "1:eat:systems"
     session.checkout(before["current"])
     assert session.view()["state"] == before["state"]
+
+
+def test_manifest_stays_back_up_until_three_salvage_recipes(played):
+    decisions, _ = played
+    i = next(i for i, d in enumerate(decisions) if d["key"] == "1:set-aside:C13")
+    reading = replay(decisions[:i])
+    assert reading["prompt"]["face"] == "back"
+    assert all(o["label"] != "Flip to front" for o in reading["prompt"]["options"])
+    placed = replay(decisions[:i + 1])
+    assert "C13" in placed["state"]["locations"]["C"]["set_aside"]
+    assert placed["table"]["cards"]["C13"]["face"] == "back"
+    assert not placed["table"]["cards"]["C13"]["eligible"]
+    e = InteractiveEngine([])
+    e.phase, e.turn = "Exploration", 1
+    e.state["players"]["engineer"]["at"] = "C"
+    e.loc("C")["set_aside"].append("C13")
+    e.loc("C")["resources"]["Materials"] = 100
+    assert not e.unlock("C13")[0]  # Materials are not recipes.
+    assert not any(v.get("card") == "C13" for _, v in e.exploration_actions("C"))
+    e.loc("C")["recipes"].append("Rs1")
+    action = next(v for _, v in e.exploration_actions("C") if v["card"] == "C13")
+    e.decisions = [{"key": "1:reveal:C14", "value": action}]
+    with pytest.raises(Waiting):
+        e.table_window("C", "C14")
+    assert "C13" in e.state["players"]["engineer"]["hand"]
+    assert "C13" not in e.loc("C")["set_aside"]
+    assert e.icons("C").get("Knowledge", 0) == 0
+    assert e.icons("C", crafting=True)["Knowledge"] == 2
+
+
+def test_cultivator_can_be_used_by_colleague_once_without_transfer():
+    e = InteractiveEngine([])
+    e.phase, e.turn = "Exploration", 1
+    for p in ("lead", "systems"):
+        e.state["players"][p]["at"] = "R"
+    e.state["players"]["systems"]["hand"] = ["R4"]
+    e.loc("R")["cards"]["R10"] = {"type": "Flora", "track": "Population", "value": 2}
+    choices = e.exploration_actions("R")
+    assert {v["actor"] for _, v in choices} == {"lead", "systems"}
+    action = next(v for _, v in choices if v["actor"] == "lead")
+    e.decisions = [{"key": "1:reveal:R11", "value": action}]
+    with pytest.raises(Waiting):
+        e.table_window("R", "R11")
+    assert e.value("R10") == 3
+    assert e.state["players"]["systems"]["hand"] == ["R4"]
+    assert not e.exploration_actions("R")
+    e.used.clear()
+    e.state["players"]["lead"]["at"] = "C"
+    assert {v["actor"] for _, v in e.exploration_actions("R")} == {"systems"}
+
+
+def test_drone_requires_payment_and_upkeep_then_flips_once():
+    e = InteractiveEngine([])
+    e.turn, e.phase = 2, "Exploration"
+    e.loc("K")["set_aside"] = ["K5"]
+    e.state["players"]["lead"]["at"] = "K"
+    e.loc("K")["resources"]["Materials"] = 2
+    with pytest.raises(Blocked):
+        e.activate_drone("lead")
+    e.phase = "Upkeep"
+    e.loc("K")["resources"]["Materials"] = 1
+    with pytest.raises(Blocked):
+        e.activate_drone("lead")
+    e.loc("K")["resources"]["Materials"] = 2
+    with pytest.raises(Blocked):
+        e.activate_drone("engineer")
+    e.activate_drone("lead")
+    assert e.value("K5") == 4
+    assert e.loc("K")["resources"]["Materials"] == 0
+    assert "K5" not in e.loc("K")["set_aside"]
+    with pytest.raises(Blocked):
+        e.activate_drone("lead")
+    e.upkeep_card("K5")
+    assert e.value("K5") == 5
+
+
+def test_closed_gate_does_not_expose_front_or_advance_deck(played):
+    decisions, _ = played
+    index = next(i for i, d in enumerate(decisions) if d["key"] == "1:gate:C15")
+    before = replay(decisions[:index])
+    assert before["prompt"]["face"] == "back"
+    assert before["table"]["cards"]["C15"]["face"] == "back"
+    position = before["state"]["locations"]["C"]["position"]
+    after = replay(decisions[:index + 1])
+    assert after["state"]["locations"]["C"]["position"] == position
+    assert after["state"]["locations"]["C"]["deck"][position] == "C15"

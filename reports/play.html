@@ -19,14 +19,19 @@
 .top-preview{border-top:1px solid var(--line);padding-top:10px}.top-preview strong{display:block;font-size:12px}.card-preview{border:0;padding:0!important;background:none!important;display:block;width:100%;margin:8px 0}.card-preview img{width:100%;max-height:300px;object-fit:contain}
 .assignment-status{width:100%}.unassigned{width:100%}.reading-card{width:min(450px,65%)}.reading-card button{padding:0;border:0;background:none;width:100%}.reading-card img{width:100%;border-radius:8px}.reading-controls{flex:1;min-width:180px}.reading-controls button{display:block;margin-top:15px}
 @media(max-width:650px){.assignment-board{grid-template-columns:1fr}.reading-card{width:100%}}
-</style>
+
+.layout{grid-template-columns:230px minmax(0,1fr);max-width:1900px}.table-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(270px,1fr);gap:20px;align-items:start}.table-selectors{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:15px}.table-selectors label{display:flex;align-items:center;gap:10px}.table-layout>div{min-width:0}.hand-table{position:sticky;top:12px;max-height:95vh;overflow:auto;background:#0b2028;padding:16px;border-radius:10px}.table-cards{display:flex;flex-wrap:wrap;gap:12px}.table-card{width:150px;background:#071e27;border:1px solid var(--line);padding:7px;border-radius:8px;display:flex;flex-direction:column;gap:5px}.table-card .card-image{padding:0;border:0;background:none}.table-card img{width:100%;display:block;border-radius:4px}.table-card strong{font-size:13px}.table-card small{font-size:11px}.table-card .owner{color:var(--accent)}.table-card .card-action{font-size:12px;padding:7px;text-align:left}.table-card .track{color:var(--gold);font-size:13px}.table-card.actionable{border:2px solid var(--accent)}.table-card .ready{color:var(--accent)}.card-zone{margin:20px 0}.deck-area{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}.deck-area>.card-zone{flex:1;min-width:150px}.deck-area>.card-zone .table-card{width:160px}.card-zone:first-of-type .table-card{width:210px}.card-zone h3{color:var(--muted)}.table-card-actions{margin-top:15px}.table-card-actions p{width:100%}
+@media(max-width:1100px){.table-layout{grid-template-columns:minmax(0,1fr) 250px}.table-card{width:125px}.hand-table .table-card{width:100%}}
+@media(max-width:850px){.table-layout{display:block}.hand-table{position:static;max-height:none}.hand-table .table-card{width:140px}}
+header{padding:16px 24px}h1{font-size:26px}main{padding:16px 22px}.panel{padding:16px;margin-bottom:14px}.panel.decision{padding:12px 16px}.decision .eyebrow{display:none}.decision h2{font-size:21px;margin:0}.decision p{margin:6px 0;font-size:13px}.decision p:empty{display:none}.decision .options{margin:8px 0 0}.table-selectors{margin-bottom:10px}.card-zone{margin:12px 0}.table-layout h2{font-size:23px;margin-bottom:6px}.table-layout p.muted{margin:6px 0}.table-layout .stats{margin:7px 0}.table-layout .stat{padding:5px 9px;font-size:13px}
++</style>
 <header><div><div class="eyebrow">The Aphelion Deep / Interactive expedition</div><h1>Choose your next move.</h1></div><div><div id="status">Connecting to the local rules engine…</div><div id="save-status" class="muted">Your decisions are saved on this computer.</div></div></header>
 <div class="layout"><aside><div class="history-title"><h3>Expedition history</h3><button id="export">Export</button></div><p class="muted scope">Select any decision point to resume there. New choices create a branch; your previous route stays available.</p><div class="toolbar"><button id="undo">← Back</button><button id="start">Start / new branch</button></div><div id="history"></div></aside>
-<main><p class="muted scope">Local shared-table play · Control the three characters through Exploration and Upkeep. This interface uses the reviewed three-turn rules slice. Unfinished outcomes remain unavailable. Card pictures show the source faces; agreed tutorial corrections still apply.</p><div id="error" role="alert"></div><section class="panel decision" aria-labelledby="decision-title"><div class="eyebrow">Your decision</div><h2 id="decision-title">Preparing the expedition</h2><p id="decision-note" class="muted"></p><div id="options" class="options"></div><details id="decision-cards"><summary>Cards involved in this decision</summary><div class="cards"></div></details></section><section class="panel"><h2>At this point in the expedition</h2><div id="tabs" class="tabs" role="tablist" aria-label="Players and locations"></div><div id="state" role="tabpanel"></div></section><section class="panel"><h2>What just happened</h2><div id="events" aria-live="polite"></div></section></main></div>
+<main><div id="error" role="alert"></div><section class="panel decision" aria-labelledby="decision-title"><div class="eyebrow">Your decision</div><h2 id="decision-title">Preparing the expedition</h2><p id="decision-note" class="muted"></p><div id="options" class="options"></div><details id="decision-cards"><summary>Cards involved in this decision</summary><div class="cards"></div></details></section><section class="panel" id="table-panel"><div class="table-selectors"><label>Location <select id="location-select" aria-label="Visible location"></select></label><label>Player <select id="hand-select" aria-label="Visible player hand"></select></label></div><div class="table-layout"><div id="location-table"></div><div id="hand-table" class="hand-table"></div></div></section><details class="scope"><summary>About this demo</summary><p class="muted scope">Local shared-table play · Control the three characters through Exploration and Upkeep. This interface uses the reviewed three-turn rules slice. Unfinished outcomes remain unavailable. Card pictures show the source faces; agreed tutorial corrections still apply.</p></details><section class="panel"><h2>What just happened</h2><div id="events" aria-live="polite"></div></section></main></div>
 <dialog id="card-dialog"><div class="toolbar" style="justify-content:space-between"><h2 id="card-title"></h2><button id="close-card">Close</button></div><p id="card-caption" class="muted scope">Source reference render · Front and back · Click outside or press Escape to close.</p><div class="faces"></div></dialog>
 <script>
 'use strict';
-let data=null, selectedTab='overview', busy=false;
+let data=null, busy=false;
 const $=id=>document.getElementById(id);
 const make=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;};
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
@@ -34,15 +39,11 @@ const cardName=k=>data.state.card_names[k]?.name||k;
 const locationName=k=>data.state.locations[k]?.name||'Not assigned';
 function fail(message){$('error').textContent=message;$('error').style.display='block';}
 async function request(path,body){if(busy)return;busy=true;document.querySelectorAll('button').forEach(b=>b.disabled=true);try{const r=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Play-Token':data.token},body:JSON.stringify(body)}:{});const value=await r.json();if(!r.ok)throw new Error(value.error||'Request failed');data=value;assignmentDraft=null;$('error').style.display='none';render();}catch(e){fail(e.message);}finally{busy=false;document.querySelectorAll('button').forEach(b=>b.disabled=b.dataset.unavailable==='true');}}
-function showCard(id,sides=['front','back']){const c=data.card_images[id];if(!c)return;$('card-title').textContent=c.name;$('card-caption').textContent='Source reference render · '+(sides.length===1?(sides[0]==='back'?'Back only':'Front only'):'Front and back')+' · Click outside or press Escape to close.';const faces=$('card-dialog').querySelector('.faces');faces.replaceChildren();for(const side of sides){const a=make('a');a.href='/cards/'+encodeURIComponent(c[side].path);a.target='_blank';a.rel='noopener';a.style.display='contents';const img=make('img');img.src=a.href;img.alt=c.name+' — '+side;a.append(img);faces.append(a);}$('card-dialog').showModal();}
-function card(key, info, old, showChanges=false){const name=data.state.card_names[key], id=name?.id||key,c=data.card_images[id];const el=make('div','card'+(showChanges&&!equal(info,old)&&data.previous_state?' changed':''));if(c){const b=make('button');b.setAttribute('aria-label','Inspect '+c.name);const drawn=data.state.drawn_card;const face=drawn&&data.state.card_names[drawn.key]?.id===id?drawn.face:'front';const img=make('img');img.src='/cards/'+encodeURIComponent(c[face].path);img.alt=c.name+' — '+face;img.loading='lazy';b.append(img);b.onclick=()=>showCard(id,drawn&&data.state.card_names[drawn.key]?.id===id?[face]:['front','back']);el.append(b);}el.append(make('strong','',c?.name||cardName(key)));if(info?.track)el.append(make('div','track',info.track+': '+info.value+' / 5'+(old&&old.value!==info.value?' (was '+old.value+')':'')));return el;}
+function showCard(id,sides=['front','back']){const stale=$('card-dialog').querySelector('.table-card-actions');if(stale)stale.remove();const short=shortCard(id);if(data.table?.cards[short]?.face==='back')sides=['back'];const c=data.card_images[id];if(!c)return;$('card-title').textContent=c.name;$('card-caption').textContent='Source reference render · '+(sides.length===1?(sides[0]==='back'?'Back only':'Front only'):'Front and back')+' · Click outside or press Escape to close.';const faces=$('card-dialog').querySelector('.faces');faces.replaceChildren();for(const side of sides){const a=make('a');a.href='/cards/'+encodeURIComponent(c[side].path);a.target='_blank';a.rel='noopener';a.style.display='contents';const img=make('img');img.src=a.href;img.alt=c.name+' — '+side;a.append(img);faces.append(a);}$('card-dialog').showModal();}
+function card(key, info, old, showChanges=false){const name=data.state.card_names[key], id=name?.id||key,c=data.card_images[id];const el=make('div','card'+(showChanges&&!equal(info,old)&&data.previous_state?' changed':''));if(c){const b=make('button');b.setAttribute('aria-label','Inspect '+c.name);const drawn=data.state.drawn_card;const face=tableFace(key);const img=make('img');img.src='/cards/'+encodeURIComponent(c[face].path);img.alt=c.name+' — '+face;img.loading='lazy';b.append(img);b.onclick=()=>showCard(id,drawn&&data.state.card_names[drawn.key]?.id===id?[face]:['front','back']);el.append(b);}el.append(make('strong','',c?.name||cardName(key)));if(info?.track)el.append(make('div','track',info.track+': '+info.value+' / 5'+(old&&old.value!==info.value?' (was '+old.value+')':'')));return el;}
 function cards(keys,container,current={},old={},showChanges=false){for(const k of [...new Set(keys)])container.append(card(k,current[k]||{present:true},old[k],showChanges));}
 function stats(values,old,parent){const box=make('div','stats');for(const k of new Set([...Object.keys(values),...Object.keys(old||{})])){const v=values[k]??0;const changed=data.previous_state&&!equal(v,old?.[k]);const e=make('div','stat'+(changed?' changed':''),k+': '+v);if(changed)e.append(make('div','delta',old?.[k]===undefined?'New':String(old[k])+' → '+String(v)));box.append(e);}parent.append(box);}
 function sectionCards(title,keys,current,old,parent){parent.append(make('h3','',title));const box=make('div','cards');cards(keys,box,current,old,true);if(!keys.length)box.append(make('p','muted','None at this point.'));parent.append(box);}
-function renderState(){const s=data.state,prev=data.previous_state,area=$('state');area.replaceChildren();if(selectedTab==='overview'){stats({'Turn':data.turn,'Phase':s.phase,'Reactor':s.reactor},{Turn:data.turn,Phase:prev?.phase,Reactor:prev?.reactor},area);area.append(make('p','muted','Gold highlights show changes caused by the selected history step. Select a player or location tab for its current state.'));for(const p of Object.values(s.players))area.append(make('p','',p.name+' · '+locationName(p.at)+' · '+p.hand.length+' cards in hand'));return;}
-const [kind,key]=selectedTab.split(':');const value=s[kind][key], old=prev?.[kind]?.[key];area.append(make('h2','',value.name));if(kind==='players'){stats({'Location':locationName(value.at),'Cultivator':value.actions.length?(value.cultivator_used_this_turn?'Used this turn':'Available'):'Not held'},old?{'Location':locationName(old.at),'Cultivator':old.actions.length?(old.cultivator_used_this_turn?'Used this turn':'Available'):'Not held'}:{},area);stats(value.capabilities,old?.capabilities,area);sectionCards('Cards in hand',value.hand,Object.fromEntries(value.hand.map(k=>[k,{present:true}])),Object.fromEntries((old?.hand||[]).map(k=>[k,{present:true}])),area);
-}else{stats({'Deck position':value.position+' / '+value.deck.length,'Revealed':value.revealed?'Yes':'No'},{'Deck position':old?old.position+' / '+old.deck.length:undefined,'Revealed':old?.revealed?'Yes':'No'},area);stats(value.resources,old?.resources,area);area.append(make('h3','','Capabilities available here'));stats(value.capabilities,old?.capabilities,area);area.append(make('p','muted','Present: '+(Object.values(s.players).filter(p=>p.at===key).map(p=>p.name).join(', ')||'Nobody — mandatory upkeep still resolves.')));sectionCards('In play',Object.keys(value.cards),value.cards,old?.cards||{},area);sectionCards('Set aside',value.set_aside,{},Object.fromEntries((old?.set_aside||[]).map(k=>[k,{present:true}])),area);const d=make('details');d.append(make('summary','','Recipes and discarded cards'));sectionCards('Recipes',value.recipes,{},Object.fromEntries((old?.recipes||[]).map(k=>[k,{present:true}])),d);sectionCards('Discard',value.discard,{},Object.fromEntries((old?.discard||[]).map(k=>[k,{present:true}])),d);area.append(d);}
-if(old){const before=kind==='players'?old.hand:Object.keys(old.cards),after=kind==='players'?value.hand:Object.keys(value.cards);const removed=before.filter(k=>!after.includes(k));if(removed.length)area.append(make('p','delta','Removed from here: '+removed.map(cardName).join(', ')));}}
 let assignmentDraft=null;
 
 function topCardPreview(locationKey){
@@ -104,26 +105,13 @@ function renderAssignments(prompt,container){
   container.append(status,confirm,board);
 }
 
-function renderCardFace(prompt,container){
-  const key=prompt.cards[0],id=data.state.card_names[key]?.id,c=data.card_images[id];
-  const panel=make('div','reading-card');
-  if(c){
-    const enlarge=make('button');enlarge.setAttribute('aria-label','Enlarge '+prompt.face+' of '+c.name);
-    const img=make('img');img.src='/cards/'+encodeURIComponent(c[prompt.face].path);img.alt=c.name+' — '+prompt.face;
-    enlarge.append(img);enlarge.onclick=()=>showCard(id,[prompt.face]);panel.append(enlarge);
-  }else panel.append(make('p','notice','Card image unavailable: '+cardName(key)));
-  container.append(panel);
-  const controls=make('div','reading-controls');controls.append(make('p','muted',prompt.face==='back'?'Read this side, then flip the card to see its front.':'Read the front, then continue to resolve the card.'));
-  for(const option of prompt.options){const button=make('button','primary',option.label);button.onclick=()=>request('/api/action',{node:data.current,key:prompt.key,value:option.value});controls.append(button);}
-  container.append(controls);
-}
-
 function renderOptions(prompt){
   const options=$('options');options.replaceChildren();
   const choosingSite=prompt?.key.split(':')[1]==='explore-order';
   options.classList.toggle('destinations',choosingSite);
   if(prompt?.kind==='assignments'){renderAssignments(prompt,options);return;}
-  if(prompt?.kind==='card-face'){renderCardFace(prompt,options);return;}
+  if(prompt?.kind==='card-face'){options.append(make('p','muted','Read and interact with the card on the table below.'));return;}
+  if(prompt?.kind==='table'||prompt?.kind==='table-upkeep'){const finish=prompt.options.find(o=>o.value==='stop'||o.value===null);if(finish){const b=make('button','',finish.label);b.onclick=()=>actOption(finish);options.append(b);}options.append(make('p','muted','Click the deck to continue, or click a card to use an available action.'));return;}
   for(const o of prompt?.options||[]){
     const choose=make('button',choosingSite?'choose primary':'',choosingSite?'Explore '+o.label:o.label);
     choose.onclick=()=>request('/api/action',{node:data.current,key:prompt.key,value:o.value});
@@ -131,8 +119,89 @@ function renderOptions(prompt){
     const destination=make('article','destination');destination.append(make('h3','',o.label),topCardPreview(o.value),choose);options.append(destination);
   }
 }
-function render(){const s=data.state;$('status').textContent='Turn '+data.turn+' of 3 · '+s.phase+' · Reactor '+s.reactor;$('save-status').textContent='Saved locally · History point #'+data.current;const prompt=data.prompt;$('decision-title').textContent=prompt?.title||(data.status==='complete'?'Three turns complete':'This route is blocked');$('decision-note').textContent=prompt?(prompt.note||'Choose an action to continue. You can return to this decision later.'):(data.error||'Explore an earlier decision point to try another route. Every previous branch is preserved.');renderOptions(prompt);const involved=$('decision-cards').querySelector('.cards');involved.replaceChildren();cards(prompt?.cards||[],involved);$('decision-cards').hidden=!prompt?.cards.length||prompt?.kind==='card-face';
-const tabs=$('tabs');tabs.replaceChildren();const items=[['overview','Colony',s.reactor!==data.previous_state?.reactor],...['players','locations'].flatMap(kind=>Object.entries(s[kind]).map(([k,v])=>[kind+':'+k,v.name,data.previous_state&&(!equal(v,data.previous_state[kind][k])||(kind==='locations'&&!equal(Object.keys(s.players).filter(p=>s.players[p].at===k),Object.keys(data.previous_state.players).filter(p=>data.previous_state.players[p].at===k))))]))];for(const [key,label,changed]of items){const b=make('button','',label);b.setAttribute('role','tab');b.setAttribute('aria-selected',key===selectedTab);if(changed&&data.previous_state)b.append(make('span','badge','changed'));b.onclick=()=>{selectedTab=key;render();};tabs.append(b);}renderState();
+let tableLocation='C', handPlayer='engineer', lastTablePoint=null;
+function shortCard(key){return data.state.card_names[key]?key:Object.keys(data.state.card_names).find(k=>data.state.card_names[k].id===key)||key;}
+function tableFace(key){return data.table?.cards[shortCard(key)]?.face||'front';}
+function matchingActions(key){
+  const p=data.prompt,k=shortCard(key);if(!p)return [];
+  return p.options.filter(o=>{
+    const v=o.value;
+    if(v&&typeof v==='object'&&!Array.isArray(v)&&v.action)return (v.card===k||v.target===k)&&(!v.actor||v.actor===handPlayer);
+    if(Array.isArray(v))return v[0]===k;
+    if(p.kind==='card-face')return p.cards.includes(k);
+    if(p.key.split(':')[1]==='upkeep-card')return v===k;
+    return p.cards?.includes(k)&&!['table','table-upkeep'].includes(p.kind);
+  });
+}
+function actOption(option){$('card-dialog').close();request('/api/action',{node:data.current,key:data.prompt.key,value:option.value});}
+function inspectTableCard(key,shownFace=null){
+  const k=shortCard(key),id=data.state.card_names[k]?.id,face=shownFace||tableFace(k);
+  showCard(id,[face]);
+  const controls=$('card-dialog').querySelector('.table-card-actions');if(controls)controls.remove();
+  const actions=make('div','table-card-actions toolbar');
+  for(const option of matchingActions(k)){const b=make('button','primary',option.label);b.onclick=()=>actOption(option);actions.append(b);}
+  const rule=data.table?.cards[k]?.requirement;if(rule)actions.append(make('p','muted',rule));
+  if(!actions.childNodes.length)actions.append(make('p','muted','No active action for this card at this decision. Passive icons are shared with players at the same site.'));
+  $('card-dialog').append(actions);
+}
+function tableCard(key,{owner=null,info=null,deck=false,drawn=false}={}){
+  const k=shortCard(key),id=data.state.card_names[k]?.id,c=data.card_images[id],meta=data.table?.cards[k];
+  const face=deck||(owner&&owner!==data.state.players[handPlayer].name&&['C3','R3','R4'].includes(k))?'back':tableFace(k),box=make('article','table-card');if(info&&data.previous_state){const old=Object.values(data.previous_state.locations).map(l=>l.cards[k]).find(Boolean);if(!equal(info,old))box.classList.add('changed');}box.dataset.card=k;
+  const imageButton=make('button','card-image');imageButton.setAttribute('aria-label',(deck?'Draw top card: ':'Inspect ')+cardName(k));
+  if(c){const img=make('img');img.src='/cards/'+encodeURIComponent(c[face].path);img.alt=c.name+' — '+face;img.loading='lazy';imageButton.append(img);}
+  else imageButton.append(make('span','',cardName(k)));
+  let direct=null;
+  if(deck&&data.prompt?.kind==='table'&&data.prompt.location===k[0])direct=data.prompt.options.find(o=>o.value==='reveal');
+  if(drawn&&data.prompt?.kind==='card-face')direct=data.prompt.options[0];
+  if(data.prompt?.key.split(':')[1]==='upkeep-card')direct=matchingActions(k)[0];
+  if(direct){imageButton.setAttribute('aria-label',direct.label+': '+cardName(k));imageButton.onclick=()=>actOption(direct);box.classList.add('actionable');}
+  else imageButton.onclick=()=>inspectTableCard(k,face);
+  box.append(imageButton,make('strong','',cardName(k)),make('small','',face==='back'?'Back up':'Front up'));
+  if(owner)box.append(make('small','owner',owner));
+  if(info?.track)box.append(make('span','track',info.track+': '+info.value+' / 5'));
+  if(meta?.requirement)box.append(make('small',meta.eligible?'ready':'muted',meta.requirement));
+  const options=direct?[direct]:matchingActions(k);
+  for(const option of options){const b=make('button','card-action',option.label);b.onclick=()=>actOption(option);box.append(b);}
+  return box;
+}
+function renderTable(){
+  const state=data.state,prompt=data.prompt;
+  if(lastTablePoint!==data.current){
+    tableLocation=prompt?.location||state.drawn_card?.key[0]||data.table?.active_location||tableLocation;
+    lastTablePoint=data.current;
+  }
+  const selector=$('location-select'),playerSelector=$('hand-select');selector.replaceChildren();playerSelector.replaceChildren();
+  for(const [k,l]of Object.entries(state.locations)){const o=make('option','',l.name);o.value=k;selector.append(o);}selector.value=tableLocation;
+  selector.onchange=()=>{tableLocation=selector.value;renderTable();};
+  for(const [k,p]of Object.entries(state.players)){const o=make('option','',p.name+' · '+locationName(p.at));o.value=k;playerSelector.append(o);}playerSelector.value=handPlayer;
+  playerSelector.onchange=()=>{handPlayer=playerSelector.value;renderTable();};
+  const loc=state.locations[tableLocation],area=$('location-table');area.replaceChildren();area.append(make('h2','',loc.name));
+  const occupants=Object.entries(state.players).filter(([_,p])=>p.at===tableLocation).map(([_,p])=>p.name);
+  area.append(make('p','muted','Present: '+(occupants.join(', ')||'Nobody')));
+  stats(loc.resources,data.previous_state?.locations[tableLocation]?.resources,area);
+  stats(loc.capabilities,data.previous_state?.locations[tableLocation]?.capabilities,area);
+  function zone(title,keys,options={}){const z=make('section','card-zone');z.append(make('h3','',title));const row=make('div','table-cards');for(const k of keys)row.append(tableCard(k,{info:loc.cards[k],...options}));if(!keys.length)row.append(make('p','muted','None'));z.append(row);area.append(z);return z;}
+  const drawn=state.drawn_card?.key;
+  let deckZone;
+  if(drawn?.[0]===tableLocation)deckZone=zone('Card being read',[drawn],{drawn:true});
+  else {const top=loc.deck[loc.position];deckZone=zone('Deck · '+(loc.deck.length-loc.position)+' cards remaining',top?[top]:[],{deck:true});}
+  const asideZone=zone('Beside the deck',loc.set_aside),deckArea=make('div','deck-area');deckArea.append(deckZone,asideZone);area.append(deckArea);
+  zone('In play',Object.keys(loc.cards));
+  zone('Recipes',loc.recipes);
+  const discard=make('details');discard.append(make('summary','','Discard · '+loc.discard.length));const pile=make('div','table-cards');for(const k of loc.discard)pile.append(tableCard(k));discard.append(pile);area.append(discard);
+  const hand=$('hand-table'),player=state.players[handPlayer];hand.replaceChildren();hand.append(make('h2','',player.name));
+  hand.append(make('p','muted',locationName(player.at)+' · Your hand'));
+  const own=make('div','table-cards');for(const k of player.hand)own.append(tableCard(k,{owner:player.name}));if(!player.hand.length)own.append(make('p','muted','No cards in hand yet.'));hand.append(own);
+  const colleagues=Object.entries(state.players).filter(([p,v])=>p!==handPlayer&&v.at===player.at&&player.at);
+  if(colleagues.length){hand.append(make('h3','','Available from players here'));hand.append(make('p','muted','These cards stay in their owners’ hands. Their icons and available actions can be used together at this site.'));
+    const shared=make('div','table-cards');for(const [_,p]of colleagues)for(const k of p.hand)shared.append(tableCard(k,{owner:p.name}));hand.append(shared);
+  }
+  const removed=data.previous_state?.locations[tableLocation]?.cards||{};
+  const changed=Object.keys(removed).filter(k=>!loc.cards[k]);if(changed.length)area.append(make('p','delta','Removed this step: '+changed.map(cardName).join(', ')));
+}
+
+function render(){const s=data.state;$('status').textContent='Turn '+data.turn+' of 3 · '+s.phase+' · Reactor '+s.reactor;$('save-status').textContent='Saved locally · History point #'+data.current;const prompt=data.prompt;$('decision-title').textContent=prompt?.title||(data.status==='complete'?'Three turns complete':'This route is blocked');$('decision-note').textContent=prompt?(prompt.note||'Choose an action to continue. You can return to this decision later.'):(data.error||'Explore an earlier decision point to try another route. Every previous branch is preserved.');if(prompt?.kind==='table'&&!prompt.note)$('decision-note').textContent='';renderOptions(prompt);const involved=$('decision-cards').querySelector('.cards');involved.replaceChildren();cards(prompt?.cards||[],involved);$('decision-cards').hidden=!prompt?.cards.length||prompt?.kind==='card-face';
+renderTable();
 const events=$('events');events.replaceChildren();const point=data.history[Number(data.current)];if(point.decision)events.append(make('p','',point.label));for(const e of data.recent_events){const el=make('div','event');el.append(make('p','',e.data.description||e.event_type));const box=make('div','cards');cards(e.entity_ids,box);el.append(box);events.append(el);}if(data.previous_state){const changedKeys=new Set();for(const l of Object.keys(s.locations)){const a=data.previous_state.locations[l].cards,b=s.locations[l].cards;for(const k of new Set([...Object.keys(a),...Object.keys(b)]))if(!equal(a[k],b[k]))changedKeys.add(k);}for(const p of Object.keys(s.players)){const a=data.previous_state.players[p].hand,b=s.players[p].hand;for(const k of new Set([...a,...b]))if(a.includes(k)!==b.includes(k))changedKeys.add(k);}if(changedKeys.size){events.append(make('h3','','Cards changed in this step'));const gallery=make('div','cards');cards([...changedKeys],gallery);events.append(gallery);}}
 const history=$('history');history.replaceChildren();const active=new Set();let id=data.current;while(id!==null){active.add(id);id=data.history[Number(id)].parent;}for(const n of data.history){const b=make('button','history-node'+(n.id===data.current?' current':''));b.setAttribute('aria-current',n.id===data.current?'step':'false');b.append(make('small','', '#'+n.id+' · '+(n.parent===null?'Start':('from #'+n.parent))+(active.has(n.id)?' · current route':' · saved branch')));b.append(document.createTextNode(n.label));b.onclick=()=>request('/api/checkout',{node:n.id});history.append(b);}}
 $('undo').onclick=()=>{const parent=data.history[Number(data.current)].parent;if(parent!==null)request('/api/checkout',{node:parent});};$('start').onclick=()=>request('/api/checkout',{node:'0'});$('export').onclick=async()=>{try{const r=await fetch('/api/export');if(!r.ok)throw new Error('Export failed');const blob=new Blob([JSON.stringify(await r.json(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=make('a');a.href=url;a.download='aphelion-expedition.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){fail(e.message);}};$('close-card').onclick=()=>$('card-dialog').close();$('card-dialog').onclick=e=>{if(e.target===$('card-dialog'))$('card-dialog').close();};

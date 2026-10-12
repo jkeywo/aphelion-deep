@@ -40,13 +40,72 @@ class InteractiveEngine(Engine):
         self.prompt = None
         return deepcopy(answer["value"])
 
+    DEFERRED = {"C13", "R13", "R19", "K5", "K6", "K7"}
+    GATES = {"R15": {"Oxygen": 2, "Knowledge": 2}, "C15": {"Oxygen": 1, "Power": 3}, "K1": {"Oxygen": 2}}
+
+    def unlock(self, key):
+        if key == "C13":
+            count = sum("aphelion salvage" in self.keywords(k) for k in self.loc("C")["recipes"])
+            return count >= 3, f"Requires 3 Aphelion Salvage recipes here ({count}/3)."
+        if key == "R13":
+            count = sum(c.get("track") == "Population" and c.get("value", 0) >= 4 for c in self.loc("R")["cards"].values())
+            return count >= 2, f"Requires two cards here with Population 4+ ({count}/2)."
+        if key == "R19":
+            return self.value("R16") >= 4 and self.value("R18") >= 4, "Requires Glow-Polyp Mat and Echoing Calcite Spires both at 4+."
+        if key == "K7":
+            return self.value("K2") >= 5 and self.value("K3") >= 5, "Requires Giant Lungweed and Resonating Lure Fish both at Population 5."
+        if key == "K5":
+            return self.phase == "Upkeep" and self.loc("K")["resources"]["Materials"] >= 2 and bool(self.people("K")), "During Upkeep, spend 2 Materials here to flip and set Scanning to 4."
+        return False, "Flips when the next expedition starts here."
+
+    def exploration_actions(self, location):
+        options = []
+        if ("cultivate", self.turn) not in self.used and any("R4" in self.state["players"][p]["hand"] for p in self.people(location)):
+            for actor in self.people(location):
+                for target in self.has(location, "flora"):
+                    options.append((f"{PLAYER_NAMES[actor]}: cultivate {self.name(target)}", {"action": "cultivate", "card": "R4", "target": target, "actor": actor}))
+        for key in self.loc(location)["set_aside"]:
+            if key in {"C13", "R13", "R19", "K7"} and self.unlock(key)[0]:
+                for actor in self.people(location):
+                    options.append((f"Flip and take {self.name(key)} into {PLAYER_NAMES[actor]}'s hand", {"action": "take", "card": key, "actor": actor}))
+        return options
+
+    def table_window(self, location, next_card):
+        while True:
+            options = ([("Draw the top card", "reveal")] if next_card else []) + [("Finish exploration here", "stop")] + self.exploration_actions(location)
+            choice = self.ask(f"{self.turn}:reveal:{next_card or location + '-empty'}", "Explore " + LOCATIONS[location],
+                              options, kind="table", location=location)
+            if choice in ("reveal", "stop"):
+                return choice
+            if choice["action"] == "cultivate":
+                self.used.add(("cultivate", self.turn))
+                self.change(choice["target"], 1)
+                self.emit("player.cultivated", [choice["target"], "R4"], actor=choice["actor"])
+            elif choice["action"] == "take":
+                key, actor = choice["card"], choice["actor"]
+                self.loc(location)["set_aside"].remove(key)
+                self.state["players"][actor]["hand"].append(key)
+                self.emit("card.gained", [key], recipient=actor)
+
     def before_reveal(self, key):
-        answer = self.ask(f"{self.turn}:reveal:{key}", "Explore " + LOCATIONS[key[0]],
-                         [("Draw the next card", "reveal"), ("Finish exploration here", "stop")])
-        if answer == "stop":
+        if self.table_window(key[0], key) == "stop":
             raise StopExploring()
         self.state["drawn_card"] = {"key": key, "face": "back"}
         self.emit("card.drawn", [key])
+        if key in self.DEFERRED:
+            self.ask(f"{self.turn}:set-aside:{key}", "Set aside " + self.name(key),
+                     [("Place beside the deck, back up", True)], [key], kind="card-face", face="back",
+                     note=self.unlock(key)[1])
+            del self.state["drawn_card"]
+            return
+        requirements = self.GATES.get(key)
+        if requirements and not all(self.icons(key[0]).get(k, 0) >= v for k, v in requirements.items()):
+            self.ask(f"{self.turn}:gate:{key}", self.name(key) + " — requirements not met",
+                     [("Leave on the deck for a later expedition", True)], [key], kind="card-face", face="back",
+                     note="Requires " + ", ".join(f"{v} {k}" for k, v in requirements.items()))
+            self.gate(key, requirements)
+            del self.state["drawn_card"]
+            raise StopExploring()
         self.ask(f"{self.turn}:flip:{key}", "Read the back of " + self.name(key),
                  [("Flip to front", True)], [key], kind="card-face", face="back")
         self.state["drawn_card"]["face"] = "front"
@@ -56,40 +115,43 @@ class InteractiveEngine(Engine):
         del self.state["drawn_card"]
 
     def explore(self, location):
+        self.active_location = location
         try:
             super().explore(location)
+            if self.loc(location)["position"] == len(self.loc(location)["deck"]):
+                self.table_window(location, None)
         except StopExploring:
             pass
 
     def cultivate(self, location):
-        if ("cultivate", self.turn) in self.used:
-            return
-        holder = next((p for p in self.people(location) if "R4" in self.state["players"][p]["hand"]), None)
-        targets = self.has(location, "flora")
-        if not holder or not targets:
-            return
-        target = self.ask(f"{self.turn}:cultivate:{self.loc(location)['position']}",
-                          "Use Cultivator now?", [("Keep it available", None)] +
-                          [("Cultivate " + self.name(k), k) for k in targets], ["R4", *targets])
-        if target:
-            self.used.add(("cultivate", self.turn))
-            self.change(target, 1)
-            self.emit("player.cultivated", [target, "R4"], actor=holder)
+        pass  # Players click Cultivator during the exploration action window.
 
     def gains(self, location):
-        if self.people(location):
-            super().gains(location)
+        pass  # Eligible set-aside cards remain on the table until clicked.
 
-    def gain(self, key):
-        if key in self.loc(key[0])["set_aside"]:
-            marker = ("offered", self.turn, key)
-            if marker in self.used:
-                return
-            self.used.add(marker)
-            if not self.ask(f"{self.turn}:take:{key}", "Take " + self.name(key) + " into a hand?",
-                            [("Take the card", True), ("Leave it here this turn", False)], [key]):
-                return
-        super().gain(key)
+    def activate_drone(self, actor):
+        if "K5" not in self.loc("K")["set_aside"] or not self.unlock("K5")[0] or actor not in self.people("K"):
+            raise Blocked("Drone requires a present player, Upkeep, and 2 local Materials")
+        self.loc("K")["resources"]["Materials"] -= 2
+        self.loc("K")["set_aside"].remove("K5")
+        c = self.defs["K5"]
+        self.loc("K")["cards"]["K5"] = {"id": c["ID"], "name": c["Name"], "type": c["Card Type"], "track": "Scanning", "value": 4, "flipped": True}
+        self.emit("card.activated", ["K5"], actor=actor)
+
+    def table_metadata(self):
+        result = {}
+        for location in LOCATIONS:
+            for key in self.loc(location)["deck"][self.loc(location)["position"]:]:
+                result[key] = {"face": "back"}
+            for key in self.loc(location)["set_aside"]:
+                eligible, requirement = self.unlock(key)
+                result[key] = {"face": "back", "requirement": requirement, "eligible": eligible}
+            for key in self.loc(location)["recipes"]:
+                result[key] = {"face": "back", "requirement": "Craft during Upkeep; costs and requirements apply."}
+        if self.state.get("drawn_card"):
+            c = self.state["drawn_card"]
+            result[c["key"]] = {**result.get(c["key"], {}), "face": c["face"]}
+        return {"cards": result, "active_location": getattr(self, "active_location", None)}
 
     def need(self, key):
         _, kind, subject = key.split(":", 2)
@@ -195,6 +257,7 @@ class InteractiveEngine(Engine):
                 location = self.ask(f"{turn}:upkeep-location:{len(remaining)}", "Choose the next location for mandatory upkeep",
                                     [(LOCATIONS[k], k) for k in remaining], note="Every revealed location resolves, including unoccupied locations.")
                 remaining.remove(location)
+                self.active_location = location
                 pending = list(self.loc(location)["cards"])
                 while pending:
                     pending = [k for k in pending if self.card(k)]
@@ -217,13 +280,14 @@ class InteractiveEngine(Engine):
                             cost = trial.events[-1]["data"]["cost"]["Materials"]
                             options.append((f"Craft {self.name(key)} for {PLAYER_NAMES[p]} ({cost} Materials)", [key, p]))
                 choice = self.ask(f"{turn}:craft:{len(self.state['built'])}", "Craft equipment", options,
-                                  [v[0] for _, v in options if v], "Only affordable, implemented recipes with a present recipient are offered.")
+                                  [v[0] if isinstance(v, list) else v["card"] for _, v in options if v], "Click a recipe or set-aside card to use its available Upkeep action.", kind="table-upkeep")
                 if choice is None:
                     break
-                self.craft(*choice)
+                if isinstance(choice, dict):
+                    self.activate_drone(choice["actor"])
+                else:
+                    self.craft(*choice)
             optional = [k for p in self.state["players"].values() for k in p["hand"] if k in ("R13", "R21", "K7")]
-            if "K5" in self.loc("K")["set_aside"]:
-                optional.append("K5")
             if self.card("R11"):
                 optional.append("R11:harvest")
             for key in optional:
@@ -251,4 +315,4 @@ def replay(decisions):
         raise Blocked("History contains unused or invalid decisions")
     engine.refresh()
     return {"state": engine.state, "turn": engine.turn, "events": engine.events,
-            "prompt": engine.prompt, "status": status, "error": error}
+            "prompt": engine.prompt, "status": status, "error": error, "table": engine.table_metadata()}
