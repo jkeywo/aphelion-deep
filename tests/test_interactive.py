@@ -290,3 +290,37 @@ def test_closed_gate_does_not_expose_front_or_advance_deck(played):
     after = replay(decisions[:index + 1])
     assert after["state"]["locations"]["C"]["position"] == position
     assert after["state"]["locations"]["C"]["deck"][position] == "C15"
+
+
+@pytest.mark.parametrize("key", ["C8", "R8"])
+def test_phase_reference_stays_in_play_and_follows_phase_on_resume(key, played, tmp_path):
+    decisions, result = played
+    placed = next(i for i, d in enumerate(decisions) if d["key"] == "1:place-reference:" + key)
+    before = replay(decisions[:placed])
+    assert before["state"]["drawn_card"] == {"key": key, "face": "back"}
+    assert key not in before["state"]["locations"][key[0]]["cards"]
+    after = replay(decisions[:placed + 1])
+    assert after["state"]["locations"][key[0]]["cards"][key]["face"] == "back"
+    assert not any(d["key"] in ("1:flip:" + key, "1:resolve:" + key) for d in decisions)
+    points = [(placed + 1, "back")]
+    for turn in range(1, 4):
+        index = next(i for i, d in enumerate(decisions) if d["key"] == f"{turn}:assign:Upkeep")
+        points.append((index, "front"))
+        if turn < 3:
+            index = next(i for i, d in enumerate(decisions) if d["key"] == f"{turn + 1}:assign:Exploration")
+            points.append((index, "back"))
+    session = Session(tmp_path / "phase-session.json", "test")
+    for i, decision in enumerate(decisions, 1):
+        session.data["nodes"].append({"id": str(i), "parent": str(i-1), "decision": decision, "label": decision["key"]})
+    session.save()
+    restored = Session(session.path, session.binding)
+    for index, face in points + list(reversed(points)):
+        restored.checkout(str(index))
+        view = restored.view()
+        location = view["state"]["locations"][key[0]]
+        assert location["cards"][key]["face"] == face
+        assert view["table"]["cards"][key]["face"] == face
+        assert key not in location["discard"] + location["set_aside"]
+        if view["prompt"]["key"].split(":")[1] == "upkeep-card":
+            assert key not in [o["value"] for o in view["prompt"]["options"]]
+    assert result["status"] == "complete"

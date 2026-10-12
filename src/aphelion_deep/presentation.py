@@ -40,6 +40,8 @@ def describe(event_type, keys, data, engine):
         comparisons = ", ".join(f"{data['available'].get(k, 0)} of {v} required {k}" for k, v in data["requirements"].items())
         outcome = "The gate opens; exploration can continue" if data["open"] else "The gate stays closed; exploration stops here"
         return f"Attempt {subject} at {location}: {comparisons}. {outcome}."
+    if event_type == "card.revealed" and engine.defs[keys[0]]["Card Type"] == "Phase Reference":
+        return f"Place {subject} in play at {location}. It automatically shows the current phase."
     if event_type == "card.revealed":
         return f"Reveal {subject} at {location} (card {data['deck_position']} in its ordered deck)."
     if event_type == "player.cultivated":

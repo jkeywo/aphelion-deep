@@ -44,6 +44,8 @@ Export downloads the complete history tree. To reopen an exported history, use `
 
 The interactive controller replays explicit decisions through the same Python effects as the strict tutorial. Its history is bound to the source snapshot and executable engine fingerprints; changed rules reject incompatible saves rather than silently reinterpret them. Tests compare the entire three-turn final state with the scripted tutorial and cover branching, restart recovery, once-per-turn restoration, stale choices and HTTP action validation.
 
+Phase Reference stays in play at its location once used. Its back shows Exploration and its front shows Upkeep; it flips automatically at each phase change, including when returning to earlier history. Reference cards do not require an upkeep action.
+
 ## Reading the replay
 
 Open `reports/tutorial.html` in a browser, or download the [Drive copy](https://drive.google.com/file/d/1oK5hNP6hsca6R9dtJBXQcCLCxNNNk5Xl/view). Each action has a plain-language description. Choose a player or location tab to inspect its state after that action; gold badges identify every affected tab and highlighted fields show before/after values. Use Previous, Next, the slider or the action history to move through the trace. Highlights always compare adjacent actions, even when jumping through the history.

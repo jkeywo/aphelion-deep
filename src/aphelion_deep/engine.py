@@ -191,6 +191,9 @@ class Engine:
         self.state["phase"] = self.phase
         for l in LOCATIONS:
             self.loc(l)["capabilities"] = self.icons(l)
+            for card in self.loc(l)["cards"].values():
+                if card["type"] == "Phase Reference":
+                    card["face"] = "front" if self.phase == "Upkeep" else "back"
         for p in self.state["players"]:
             player = self.state["players"][p]
             player["capabilities"] = dict(self.portable(p))
@@ -206,6 +209,11 @@ class Engine:
             player["cultivator_used_this_turn"] = (
                 "R4" in player["hand"] and ("cultivate", self.turn) in self.used
             )
+
+    def upkeep_cards(self, location):
+        # Phase references stay on the table but have no effect to resolve.
+        return [k for k, c in self.loc(location)["cards"].items()
+                if c["type"] != "Phase Reference"]
 
     def gain(self, key):
         p = self.need(f"{self.turn}:recipient:{key}")
@@ -351,7 +359,9 @@ class Engine:
                 }
             elif key == "R20":
                 loc["cards"][key] = {"id": c["ID"], "name": c["Name"], "type": "Event"}
-            elif key in ("R1", "R2", "R8", "C1", "C2", "C8", "R15", "C15"):
+            elif kind == "Phase Reference":
+                loc["cards"][key] = {"id": c["ID"], "name": c["Name"], "type": kind}
+            elif key in ("R1", "R2", "C1", "C2", "R15", "C15"):
                 loc["discard"].append(key)
             else:
                 raise Blocked("Unsupported reveal: " + key)
@@ -585,7 +595,7 @@ class Engine:
                     "Upkeep must cover every revealed location, including unoccupied locations"
                 )
             for l, order in t["upkeep_order"].items():
-                expected = set(self.loc(l)["cards"])
+                expected = set(self.upkeep_cards(l))
                 if len(order) != len(set(order)) or set(order) != expected:
                     raise Blocked(
                         f"Upkeep order for {l} must match revealed cards {sorted(expected)}"

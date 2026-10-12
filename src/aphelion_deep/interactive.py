@@ -92,6 +92,12 @@ class InteractiveEngine(Engine):
             raise StopExploring()
         self.state["drawn_card"] = {"key": key, "face": "back"}
         self.emit("card.drawn", [key])
+        if self.defs[key]["Card Type"] == "Phase Reference":
+            self.ask(f"{self.turn}:place-reference:{key}", "Put Phase Reference in play",
+                     [("Place in play", True)], [key], kind="card-face", face="back",
+                     note="Stays here and automatically flips between Exploration and Upkeep.")
+            del self.state["drawn_card"]
+            return
         if key in self.DEFERRED:
             self.ask(f"{self.turn}:set-aside:{key}", "Set aside " + self.name(key),
                      [("Place beside the deck, back up", True)], [key], kind="card-face", face="back",
@@ -141,6 +147,9 @@ class InteractiveEngine(Engine):
     def table_metadata(self):
         result = {}
         for location in LOCATIONS:
+            for key, card in self.loc(location)["cards"].items():
+                if card["type"] == "Phase Reference":
+                    result[key] = {"face": card["face"], "requirement": self.phase + " reference · flips automatically."}
             for key in self.loc(location)["deck"][self.loc(location)["position"]:]:
                 result[key] = {"face": "back"}
             for key in self.loc(location)["set_aside"]:
@@ -258,7 +267,7 @@ class InteractiveEngine(Engine):
                                     [(LOCATIONS[k], k) for k in remaining], note="Every revealed location resolves, including unoccupied locations.")
                 remaining.remove(location)
                 self.active_location = location
-                pending = list(self.loc(location)["cards"])
+                pending = self.upkeep_cards(location)
                 while pending:
                     pending = [k for k in pending if self.card(k)]
                     if not pending:
