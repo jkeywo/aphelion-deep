@@ -25,6 +25,13 @@ def describe(event_type, keys, data, engine):
     if event_type == "turn.started":
         moves = "; ".join(f"{player(p)} goes to {engine.loc(l)['name']}" for p, l in data["assignments"].items())
         return f"Begin turn {engine.turn}: {moves}."
+    if event_type == "players.assigned":
+        moves = "; ".join(f"{player(p)} goes to {engine.loc(l)['name']}" for p, l in data["assignments"].items())
+        return f"Confirm all {data['phase'].lower()} assignments together: {moves}."
+    if event_type == "card.drawn":
+        return f"Draw {subject} at {location}. Read its back before flipping it."
+    if event_type == "card.flipped":
+        return f"Flip {subject} at {location} to its front."
     if event_type == "card.gained":
         return f"{player(data['recipient'])} takes {subject} into their hand."
     if event_type == "exploration.gate":

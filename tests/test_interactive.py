@@ -22,8 +22,8 @@ def tutorial_answer(result):
     kind = parts[1]
     if key in SCRIPT["choices"]:
         answer = SCRIPT["choices"][key]
-    elif kind == "move":
-        answer = t["assignments"][parts[2]]
+    elif kind == "assign":
+        answer = t["assignments"]
     elif kind == "explore-order":
         answer = next(x for x in t["exploration_order"] if x in values)
     elif kind == "upkeep-location":
@@ -45,7 +45,7 @@ def tutorial_answer(result):
 @pytest.fixture(scope="module")
 def played():
     decisions = []
-    for _ in range(250):
+    for _ in range(400):
         result = replay(decisions)
         assert result["status"] != "blocked", result["error"]
         if result["status"] == "complete":
@@ -148,8 +148,54 @@ def test_fixed_department_landings_and_later_movement(played):
         replay([{"key": "1:move:engineer", "value": "K"}])
     decisions, _ = played
     assert not any(d["key"].startswith("1:move:") for d in decisions)
-    index = next(i for i, d in enumerate(decisions) if d["key"] == "2:move:engineer")
+    index = next(i for i, d in enumerate(decisions) if d["key"] == "2:assign:Exploration")
     second_turn = replay(decisions[:index])
-    assert [o["value"] for o in second_turn["prompt"]["options"]] == ["C", "R", "K"]
-    alternate = replay(decisions[:index] + [{"key": "2:move:engineer", "value": "R"}])
-    assert alternate["state"]["players"]["engineer"]["at"] == "R"
+    assert second_turn["prompt"]["locations"] == ["C", "R", "K"]
+    alternative = {"engineer": "R", "lead": "C", "systems": "K"}
+    alternate = replay(decisions[:index] + [{"key": "2:assign:Exploration", "value": alternative}])
+    assert {p: v["at"] for p, v in alternate["state"]["players"].items()} == alternative
+
+
+def test_draw_back_flip_front_and_rollback(tmp_path):
+    session = Session(tmp_path / "save.json", "test")
+    session.act("0", "1:explore-order:2", "C")
+    session.act("1", "1:reveal:C1", "reveal")
+    back = session.view()
+    assert back["prompt"]["face"] == "back"
+    assert back["state"]["drawn_card"] == {"key": "C1", "face": "back"}
+    session.act("2", "1:flip:C1", True)
+    assert session.view()["prompt"]["face"] == "front"
+    session.checkout("2")
+    assert session.view()["state"] == back["state"]
+    session.checkout("3")
+    session.act("3", "1:resolve:C1", True)
+    assert session.view()["state"]["locations"]["C"]["position"] == 1
+    assert "drawn_card" not in session.view()["state"]
+
+
+def test_upkeep_assignment_is_atomic_validated_and_reversible(tmp_path, played):
+    decisions, _ = played
+    index = next(i for i, d in enumerate(decisions) if d["key"] == "1:assign:Upkeep")
+    session = Session(tmp_path / "save.json", "test")
+    for decision in decisions[:index]:
+        session.act(session.data["current"], **decision)
+    before = session.view()
+    assert before["prompt"]["locations"] == ["C", "R"]
+    for invalid in [{"engineer": "C"}, {"engineer": "K", "lead": "C", "systems": "R"}]:
+        with pytest.raises(Blocked):
+            session.act(before["current"], "1:assign:Upkeep", invalid)
+        assert session.view() == before
+    assignment = {"engineer": "R", "lead": "C", "systems": "C"}
+    session.act(before["current"], "1:assign:Upkeep", assignment)
+    after = session.view()
+    assert len(after["history"]) == len(before["history"]) + 1
+    assert {p: v["at"] for p, v in after["state"]["players"].items()} == assignment
+    session.act(after["current"], after["prompt"]["key"], "C")
+    selected = session.view()
+    session.act(selected["current"], selected["prompt"]["key"], "C9")
+    eating = session.view()
+    assert eating["prompt"]["key"] == "1:eat:lead"
+    session.act(eating["current"], eating["prompt"]["key"], "C9")
+    assert session.view()["prompt"]["key"] == "1:eat:systems"
+    session.checkout(before["current"])
+    assert session.view()["state"] == before["state"]

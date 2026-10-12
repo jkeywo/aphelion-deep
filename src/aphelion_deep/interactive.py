@@ -1,6 +1,6 @@
 """Deterministic, resumable decisions over the source-bound tutorial engine."""
 from copy import deepcopy
-from itertools import permutations
+from itertools import permutations, product
 from .engine import Engine, Blocked, LOCATIONS
 from .presentation import PLAYER_NAMES
 
@@ -26,11 +26,11 @@ class InteractiveEngine(Engine):
     def name(self, key):
         return self.defs.get(key, {}).get("Name", key)
 
-    def ask(self, key, title, options, cards=(), note=""):
+    def ask(self, key, title, options, cards=(), note="", **presentation):
         options = [{"label": label, "value": value} for label, value in options]
         self.refresh()
         self.prompt = {"key": key, "title": title, "options": options,
-                       "cards": list(cards), "note": note}
+                       "cards": list(cards), "note": note, **presentation}
         if self.cursor == len(self.decisions):
             raise Waiting()
         answer = self.decisions[self.cursor]
@@ -42,9 +42,18 @@ class InteractiveEngine(Engine):
 
     def before_reveal(self, key):
         answer = self.ask(f"{self.turn}:reveal:{key}", "Explore " + LOCATIONS[key[0]],
-                         [("Reveal the next card", "reveal"), ("Finish exploration here", "stop")])
+                         [("Draw the next card", "reveal"), ("Finish exploration here", "stop")])
         if answer == "stop":
             raise StopExploring()
+        self.state["drawn_card"] = {"key": key, "face": "back"}
+        self.emit("card.drawn", [key])
+        self.ask(f"{self.turn}:flip:{key}", "Read the back of " + self.name(key),
+                 [("Flip to front", True)], [key], kind="card-face", face="back")
+        self.state["drawn_card"]["face"] = "front"
+        self.emit("card.flipped", [key])
+        self.ask(f"{self.turn}:resolve:{key}", "Read the front of " + self.name(key),
+                 [("Continue with this card", True)], [key], kind="card-face", face="front")
+        del self.state["drawn_card"]
 
     def explore(self, location):
         try:
@@ -140,15 +149,37 @@ class InteractiveEngine(Engine):
         self.choices_used.add(key)
         return answer
 
+    def assign_players(self, phase):
+        locations = [k for k in LOCATIONS if phase == "Exploration" or self.loc(k)["revealed"]]
+        if not locations:
+            raise Blocked("No revealed site is available for upkeep assignments. Rewind and establish a landing site.")
+        players = list(self.state["players"])
+        options = []
+        for destinations in product(locations, repeat=len(players)):
+            assignment = dict(zip(players, destinations))
+            label = "; ".join(PLAYER_NAMES[p] + " → " + LOCATIONS[l] for p, l in assignment.items())
+            options.append((label, assignment))
+        assignments = self.ask(
+            f"{self.turn}:assign:{phase}",
+            "Assign the expedition" if phase == "Exploration" else "Assign players for upkeep",
+            options, kind="assignments", locations=locations,
+            initial={p: v["at"] if v["at"] in locations else None for p, v in self.state["players"].items()},
+            note="Drag players to sites, then confirm all assignments together. " +
+                 ("Every revealed location still resolves upkeep, even with nobody present." if phase == "Upkeep" else "No player moves until you confirm."))
+        for p, location in assignments.items():
+            self.state["players"][p]["at"] = location
+        self.emit("players.assigned", assignments=assignments, phase=phase)
+        return assignments
+
     def play(self):
         for turn in range(1, 4):
             self.turn, self.phase = turn, "Exploration"
-            assignments = {}
-            for p in self.state["players"]:
-                assignments[p] = STARTING_LOCATIONS[p] if turn == 1 else self.ask(
-                    f"{turn}:move:{p}", "Where will " + PLAYER_NAMES[p] + " go?",
-                    [(name, key) for key, name in LOCATIONS.items()])
-                self.state["players"][p]["at"] = assignments[p]
+            if turn == 1:
+                assignments = dict(STARTING_LOCATIONS)
+                for p, location in assignments.items():
+                    self.state["players"][p]["at"] = location
+            else:
+                assignments = self.assign_players("Exploration")
             self.emit("turn.started", assignments=assignments)
             remaining = list(dict.fromkeys(assignments.values()))
             while remaining:
@@ -158,6 +189,7 @@ class InteractiveEngine(Engine):
                 remaining.remove(location)
                 self.explore(location)
             self.phase = "Upkeep"
+            self.assign_players("Upkeep")
             remaining = [k for k in LOCATIONS if self.loc(k)["revealed"]]
             while remaining:
                 location = self.ask(f"{turn}:upkeep-location:{len(remaining)}", "Choose the next location for mandatory upkeep",

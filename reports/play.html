@@ -9,6 +9,16 @@
 .destination .choose{width:100%;text-align:center}.destination .card strong{font-size:14px}
 .destination .empty{min-height:150px;margin:12px 0}
 @media(max-width:650px){.options.destinations{grid-template-columns:1fr}}
+
+.assignment-board{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;width:100%}
+.assignment-site{background:#0a2029;border:2px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.assignment-site.drop-target{border-color:var(--gold);background:#25443e}
+.player-pile{min-height:100px;padding:8px 0}.player-token{background:#284b52;border:1px solid #57818a;border-radius:8px;padding:10px;margin:7px 0;cursor:grab}
+.player-token strong,.player-token small{display:block}.player-token small{font-size:11px}.player-token select{width:100%;margin-top:8px;font-size:12px;padding:6px;cursor:pointer}.player-token.dragging{opacity:.5}
+.drop-hint{border:1px dashed var(--line);padding:20px;text-align:center;color:var(--muted)}
+.top-preview{border-top:1px solid var(--line);padding-top:10px}.top-preview strong{display:block;font-size:12px}.card-preview{border:0;padding:0!important;background:none!important;display:block;width:100%;margin:8px 0}.card-preview img{width:100%;max-height:300px;object-fit:contain}
+.assignment-status{width:100%}.unassigned{width:100%}.reading-card{width:min(450px,65%)}.reading-card button{padding:0;border:0;background:none;width:100%}.reading-card img{width:100%;border-radius:8px}.reading-controls{flex:1;min-width:180px}.reading-controls button{display:block;margin-top:15px}
+@media(max-width:650px){.assignment-board{grid-template-columns:1fr}.reading-card{width:100%}}
 </style>
 <header><div><div class="eyebrow">The Aphelion Deep / Interactive expedition</div><h1>Choose your next move.</h1></div><div><div id="status">Connecting to the local rules engine…</div><div id="save-status" class="muted">Your decisions are saved on this computer.</div></div></header>
 <div class="layout"><aside><div class="history-title"><h3>Expedition history</h3><button id="export">Export</button></div><p class="muted scope">Select any decision point to resume there. New choices create a branch; your previous route stays available.</p><div class="toolbar"><button id="undo">← Back</button><button id="start">Start / new branch</button></div><div id="history"></div></aside>
@@ -23,9 +33,9 @@ const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const cardName=k=>data.state.card_names[k]?.name||k;
 const locationName=k=>data.state.locations[k]?.name||'Not assigned';
 function fail(message){$('error').textContent=message;$('error').style.display='block';}
-async function request(path,body){if(busy)return;busy=true;document.querySelectorAll('button').forEach(b=>b.disabled=true);try{const r=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Play-Token':data.token},body:JSON.stringify(body)}:{});const value=await r.json();if(!r.ok)throw new Error(value.error||'Request failed');data=value;$('error').style.display='none';render();}catch(e){fail(e.message);}finally{busy=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);}}
-function showCard(id,sides=['front','back']){const c=data.card_images[id];if(!c)return;$('card-title').textContent=c.name;$('card-caption').textContent='Source reference render · '+(sides.length===1?'Front only':'Front and back')+' · Click outside or press Escape to close.';const faces=$('card-dialog').querySelector('.faces');faces.replaceChildren();for(const side of sides){const a=make('a');a.href='/cards/'+encodeURIComponent(c[side].path);a.target='_blank';a.rel='noopener';a.style.display='contents';const img=make('img');img.src=a.href;img.alt=c.name+' — '+side;a.append(img);faces.append(a);}$('card-dialog').showModal();}
-function card(key, info, old, showChanges=false){const name=data.state.card_names[key], id=name?.id||key,c=data.card_images[id];const el=make('div','card'+(showChanges&&!equal(info,old)&&data.previous_state?' changed':''));if(c){const b=make('button');b.setAttribute('aria-label','Inspect '+c.name);const img=make('img');img.src='/cards/'+encodeURIComponent(c.front.path);img.alt=c.name;img.loading='lazy';b.append(img);b.onclick=()=>showCard(id);el.append(b);}el.append(make('strong','',c?.name||cardName(key)));if(info?.track)el.append(make('div','track',info.track+': '+info.value+' / 5'+(old&&old.value!==info.value?' (was '+old.value+')':'')));return el;}
+async function request(path,body){if(busy)return;busy=true;document.querySelectorAll('button').forEach(b=>b.disabled=true);try{const r=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Play-Token':data.token},body:JSON.stringify(body)}:{});const value=await r.json();if(!r.ok)throw new Error(value.error||'Request failed');data=value;assignmentDraft=null;$('error').style.display='none';render();}catch(e){fail(e.message);}finally{busy=false;document.querySelectorAll('button').forEach(b=>b.disabled=b.dataset.unavailable==='true');}}
+function showCard(id,sides=['front','back']){const c=data.card_images[id];if(!c)return;$('card-title').textContent=c.name;$('card-caption').textContent='Source reference render · '+(sides.length===1?(sides[0]==='back'?'Back only':'Front only'):'Front and back')+' · Click outside or press Escape to close.';const faces=$('card-dialog').querySelector('.faces');faces.replaceChildren();for(const side of sides){const a=make('a');a.href='/cards/'+encodeURIComponent(c[side].path);a.target='_blank';a.rel='noopener';a.style.display='contents';const img=make('img');img.src=a.href;img.alt=c.name+' — '+side;a.append(img);faces.append(a);}$('card-dialog').showModal();}
+function card(key, info, old, showChanges=false){const name=data.state.card_names[key], id=name?.id||key,c=data.card_images[id];const el=make('div','card'+(showChanges&&!equal(info,old)&&data.previous_state?' changed':''));if(c){const b=make('button');b.setAttribute('aria-label','Inspect '+c.name);const drawn=data.state.drawn_card;const face=drawn&&data.state.card_names[drawn.key]?.id===id?drawn.face:'front';const img=make('img');img.src='/cards/'+encodeURIComponent(c[face].path);img.alt=c.name+' — '+face;img.loading='lazy';b.append(img);b.onclick=()=>showCard(id,drawn&&data.state.card_names[drawn.key]?.id===id?[face]:['front','back']);el.append(b);}el.append(make('strong','',c?.name||cardName(key)));if(info?.track)el.append(make('div','track',info.track+': '+info.value+' / 5'+(old&&old.value!==info.value?' (was '+old.value+')':'')));return el;}
 function cards(keys,container,current={},old={},showChanges=false){for(const k of [...new Set(keys)])container.append(card(k,current[k]||{present:true},old[k],showChanges));}
 function stats(values,old,parent){const box=make('div','stats');for(const k of new Set([...Object.keys(values),...Object.keys(old||{})])){const v=values[k]??0;const changed=data.previous_state&&!equal(v,old?.[k]);const e=make('div','stat'+(changed?' changed':''),k+': '+v);if(changed)e.append(make('div','delta',old?.[k]===undefined?'New':String(old[k])+' → '+String(v)));box.append(e);}parent.append(box);}
 function sectionCards(title,keys,current,old,parent){parent.append(make('h3','',title));const box=make('div','cards');cards(keys,box,current,old,true);if(!keys.length)box.append(make('p','muted','None at this point.'));parent.append(box);}
@@ -33,33 +43,95 @@ function renderState(){const s=data.state,prev=data.previous_state,area=$('state
 const [kind,key]=selectedTab.split(':');const value=s[kind][key], old=prev?.[kind]?.[key];area.append(make('h2','',value.name));if(kind==='players'){stats({'Location':locationName(value.at),'Cultivator':value.actions.length?(value.cultivator_used_this_turn?'Used this turn':'Available'):'Not held'},old?{'Location':locationName(old.at),'Cultivator':old.actions.length?(old.cultivator_used_this_turn?'Used this turn':'Available'):'Not held'}:{},area);stats(value.capabilities,old?.capabilities,area);sectionCards('Cards in hand',value.hand,Object.fromEntries(value.hand.map(k=>[k,{present:true}])),Object.fromEntries((old?.hand||[]).map(k=>[k,{present:true}])),area);
 }else{stats({'Deck position':value.position+' / '+value.deck.length,'Revealed':value.revealed?'Yes':'No'},{'Deck position':old?old.position+' / '+old.deck.length:undefined,'Revealed':old?.revealed?'Yes':'No'},area);stats(value.resources,old?.resources,area);area.append(make('h3','','Capabilities available here'));stats(value.capabilities,old?.capabilities,area);area.append(make('p','muted','Present: '+(Object.values(s.players).filter(p=>p.at===key).map(p=>p.name).join(', ')||'Nobody — mandatory upkeep still resolves.')));sectionCards('In play',Object.keys(value.cards),value.cards,old?.cards||{},area);sectionCards('Set aside',value.set_aside,{},Object.fromEntries((old?.set_aside||[]).map(k=>[k,{present:true}])),area);const d=make('details');d.append(make('summary','','Recipes and discarded cards'));sectionCards('Recipes',value.recipes,{},Object.fromEntries((old?.recipes||[]).map(k=>[k,{present:true}])),d);sectionCards('Discard',value.discard,{},Object.fromEntries((old?.discard||[]).map(k=>[k,{present:true}])),d);area.append(d);}
 if(old){const before=kind==='players'?old.hand:Object.keys(old.cards),after=kind==='players'?value.hand:Object.keys(value.cards);const removed=before.filter(k=>!after.includes(k));if(removed.length)area.append(make('p','delta','Removed from here: '+removed.map(cardName).join(', ')));}}
+let assignmentDraft=null;
+
+function topCardPreview(locationKey){
+  const location=data.state.locations[locationKey], key=location.deck[location.position];
+  const wrapper=make('div','top-preview');
+  wrapper.append(make('small','','Current top card · Back'));
+  if(!key){wrapper.append(make('p','empty','Deck exhausted — no top card.'));return wrapper;}
+  const id=data.state.card_names[key]?.id,c=data.card_images[id];
+  if(!c){wrapper.append(make('p','empty',cardName(key)+' — back image unavailable'));return wrapper;}
+  const inspect=make('button','card-preview');
+  inspect.setAttribute('aria-label','Enlarge back of '+c.name+' at '+location.name);
+  const img=make('img');img.src='/cards/'+encodeURIComponent(c.back.path);img.alt=c.name+' — back · '+location.name;
+  inspect.append(img);inspect.onclick=()=>showCard(id,['back']);
+  wrapper.append(inspect,make('strong','',c.name));return wrapper;
+}
+
+function renderAssignments(prompt,container){
+  const identity=data.current+':'+prompt.key;
+  if(assignmentDraft?.identity!==identity)assignmentDraft={identity,values:{...prompt.initial}};
+  const draft=assignmentDraft.values;
+  container.replaceChildren();
+  const board=make('div','assignment-board');
+  const status=make('p','muted');status.setAttribute('aria-live','polite');
+  const valid=()=>Object.keys(data.state.players).every(p=>prompt.locations.includes(draft[p]));
+  status.textContent='Arrange all three players below. These moves are not saved until you confirm.';
+  function move(player,location){
+    if(!Object.hasOwn(data.state.players,player)||!prompt.locations.includes(location)||busy)return;
+    draft[player]=location;renderAssignments(prompt,container);
+    container.querySelector('.assignment-status').textContent=data.state.players[player].name+' placed at '+locationName(location)+'. Confirm to move the whole party.';
+  }
+  function chip(player){
+    const token=make('div','player-token');token.draggable=true;token.dataset.player=player;
+    token.append(make('strong','',data.state.players[player].name));
+    token.append(make('small','','Drag to a site, or choose below'));
+    token.ondragstart=e=>{e.dataTransfer.setData('text/plain',player);e.dataTransfer.effectAllowed='move';token.classList.add('dragging');};
+    token.ondragend=()=>token.classList.remove('dragging');
+    const select=make('select');select.setAttribute('aria-label','Destination for '+data.state.players[player].name);
+    if(!draft[player]){const empty=make('option','','Choose a site');empty.value='';select.append(empty);}
+    for(const location of prompt.locations){const option=make('option','',locationName(location));option.value=location;select.append(option);}
+    select.value=draft[player]||'';select.onchange=()=>move(player,select.value);token.append(select);return token;
+  }
+  const unassigned=Object.keys(draft).filter(p=>!prompt.locations.includes(draft[p]));
+  if(unassigned.length){const waiting=make('div','unassigned');waiting.append(make('h3','','Choose a site'));for(const p of unassigned)waiting.append(chip(p));container.append(waiting);}
+  for(const location of prompt.locations){
+    const site=make('section','assignment-site');site.dataset.location=location;
+    site.setAttribute('aria-label',locationName(location)+' assignment site');
+    site.append(make('h3','',locationName(location)));
+    site.ondragover=e=>{e.preventDefault();e.dataTransfer.dropEffect='move';site.classList.add('drop-target');};
+    site.ondragleave=e=>{if(!site.contains(e.relatedTarget))site.classList.remove('drop-target');};
+    site.ondrop=e=>{e.preventDefault();site.classList.remove('drop-target');move(e.dataTransfer.getData('text/plain'),location);};
+    const players=Object.keys(draft).filter(p=>draft[p]===location),pile=make('div','player-pile');
+    for(const player of players)pile.append(chip(player));
+    if(!players.length)pile.append(make('p','drop-hint','Drop players here'));
+    site.append(pile,topCardPreview(location));board.append(site);
+  }
+  status.classList.add('assignment-status');
+  const confirm=make('button','primary','Confirm all '+(prompt.key.endsWith('Upkeep')?'upkeep':'expedition')+' assignments');
+  confirm.disabled=!valid();confirm.dataset.unavailable=String(!valid());confirm.onclick=()=>{if(valid())request('/api/action',{node:data.current,key:prompt.key,value:{...draft}});};
+  container.append(status,confirm,board);
+}
+
+function renderCardFace(prompt,container){
+  const key=prompt.cards[0],id=data.state.card_names[key]?.id,c=data.card_images[id];
+  const panel=make('div','reading-card');
+  if(c){
+    const enlarge=make('button');enlarge.setAttribute('aria-label','Enlarge '+prompt.face+' of '+c.name);
+    const img=make('img');img.src='/cards/'+encodeURIComponent(c[prompt.face].path);img.alt=c.name+' — '+prompt.face;
+    enlarge.append(img);enlarge.onclick=()=>showCard(id,[prompt.face]);panel.append(enlarge);
+  }else panel.append(make('p','notice','Card image unavailable: '+cardName(key)));
+  container.append(panel);
+  const controls=make('div','reading-controls');controls.append(make('p','muted',prompt.face==='back'?'Read this side, then flip the card to see its front.':'Read the front, then continue to resolve the card.'));
+  for(const option of prompt.options){const button=make('button','primary',option.label);button.onclick=()=>request('/api/action',{node:data.current,key:prompt.key,value:option.value});controls.append(button);}
+  container.append(controls);
+}
+
 function renderOptions(prompt){
   const options=$('options');options.replaceChildren();
-  const decisionKind=prompt?.key.split(':')[1];
-  const moving=decisionKind==='move'||decisionKind==='explore-order';
-  options.classList.toggle('destinations',moving);
+  const choosingSite=prompt?.key.split(':')[1]==='explore-order';
+  options.classList.toggle('destinations',choosingSite);
+  if(prompt?.kind==='assignments'){renderAssignments(prompt,options);return;}
+  if(prompt?.kind==='card-face'){renderCardFace(prompt,options);return;}
   for(const o of prompt?.options||[]){
-    const choose=make('button',moving?'choose primary':'',moving?(decisionKind==='move'?'Go to ':'Explore ')+o.label:o.label);
+    const choose=make('button',choosingSite?'choose primary':'',choosingSite?'Explore '+o.label:o.label);
     choose.onclick=()=>request('/api/action',{node:data.current,key:prompt.key,value:o.value});
-    if(!moving){options.append(choose);continue;}
-    const location=data.state.locations[o.value],key=location.deck[location.position];
-    const destination=make('article','destination');
-    destination.append(make('h3','',o.label));
-    destination.append(make('small','','Current top card · Front'));
-    if(key){
-      const id=data.state.card_names[key]?.id,c=data.card_images[id];
-      if(c){
-        const preview=make('div','card'),inspect=make('button');
-        inspect.setAttribute('aria-label','Enlarge front of '+c.name+' at '+o.label);
-        const img=make('img');img.src='/cards/'+encodeURIComponent(c.front.path);img.alt=c.name+' — front · '+o.label;
-        inspect.append(img);inspect.onclick=()=>showCard(id,['front']);
-        preview.append(inspect,make('strong','',c.name));destination.append(preview);
-      }else destination.append(make('p','empty',cardName(key)+' — front image unavailable'));
-    }else destination.append(make('p','empty','Deck exhausted — no top card.'));
-    destination.append(choose);options.append(destination);
+    if(!choosingSite){options.append(choose);continue;}
+    const destination=make('article','destination');destination.append(make('h3','',o.label),topCardPreview(o.value),choose);options.append(destination);
   }
 }
-function render(){const s=data.state;$('status').textContent='Turn '+data.turn+' of 3 · '+s.phase+' · Reactor '+s.reactor;$('save-status').textContent='Saved locally · History point #'+data.current;const prompt=data.prompt;$('decision-title').textContent=prompt?.title||(data.status==='complete'?'Three turns complete':'This route is blocked');$('decision-note').textContent=prompt?(prompt.note||'Choose an action to continue. You can return to this decision later.'):(data.error||'Explore an earlier decision point to try another route. Every previous branch is preserved.');renderOptions(prompt);const involved=$('decision-cards').querySelector('.cards');involved.replaceChildren();cards(prompt?.cards||[],involved);$('decision-cards').hidden=!prompt?.cards.length;
+function render(){const s=data.state;$('status').textContent='Turn '+data.turn+' of 3 · '+s.phase+' · Reactor '+s.reactor;$('save-status').textContent='Saved locally · History point #'+data.current;const prompt=data.prompt;$('decision-title').textContent=prompt?.title||(data.status==='complete'?'Three turns complete':'This route is blocked');$('decision-note').textContent=prompt?(prompt.note||'Choose an action to continue. You can return to this decision later.'):(data.error||'Explore an earlier decision point to try another route. Every previous branch is preserved.');renderOptions(prompt);const involved=$('decision-cards').querySelector('.cards');involved.replaceChildren();cards(prompt?.cards||[],involved);$('decision-cards').hidden=!prompt?.cards.length||prompt?.kind==='card-face';
 const tabs=$('tabs');tabs.replaceChildren();const items=[['overview','Colony',s.reactor!==data.previous_state?.reactor],...['players','locations'].flatMap(kind=>Object.entries(s[kind]).map(([k,v])=>[kind+':'+k,v.name,data.previous_state&&(!equal(v,data.previous_state[kind][k])||(kind==='locations'&&!equal(Object.keys(s.players).filter(p=>s.players[p].at===k),Object.keys(data.previous_state.players).filter(p=>data.previous_state.players[p].at===k))))]))];for(const [key,label,changed]of items){const b=make('button','',label);b.setAttribute('role','tab');b.setAttribute('aria-selected',key===selectedTab);if(changed&&data.previous_state)b.append(make('span','badge','changed'));b.onclick=()=>{selectedTab=key;render();};tabs.append(b);}renderState();
 const events=$('events');events.replaceChildren();const point=data.history[Number(data.current)];if(point.decision)events.append(make('p','',point.label));for(const e of data.recent_events){const el=make('div','event');el.append(make('p','',e.data.description||e.event_type));const box=make('div','cards');cards(e.entity_ids,box);el.append(box);events.append(el);}if(data.previous_state){const changedKeys=new Set();for(const l of Object.keys(s.locations)){const a=data.previous_state.locations[l].cards,b=s.locations[l].cards;for(const k of new Set([...Object.keys(a),...Object.keys(b)]))if(!equal(a[k],b[k]))changedKeys.add(k);}for(const p of Object.keys(s.players)){const a=data.previous_state.players[p].hand,b=s.players[p].hand;for(const k of new Set([...a,...b]))if(a.includes(k)!==b.includes(k))changedKeys.add(k);}if(changedKeys.size){events.append(make('h3','','Cards changed in this step'));const gallery=make('div','cards');cards([...changedKeys],gallery);events.append(gallery);}}
 const history=$('history');history.replaceChildren();const active=new Set();let id=data.current;while(id!==null){active.add(id);id=data.history[Number(id)].parent;}for(const n of data.history){const b=make('button','history-node'+(n.id===data.current?' current':''));b.setAttribute('aria-current',n.id===data.current?'step':'false');b.append(make('small','', '#'+n.id+' · '+(n.parent===null?'Start':('from #'+n.parent))+(active.has(n.id)?' · current route':' · saved branch')));b.append(document.createTextNode(n.label));b.onclick=()=>request('/api/checkout',{node:n.id});history.append(b);}}

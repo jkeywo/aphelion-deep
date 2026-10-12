@@ -68,7 +68,7 @@ class Session:
         previous = self.result(item["parent"]) if item["parent"] is not None else None
         result = self.result(node)
         event_start = len(previous["events"]) if previous else 0
-        return {**deepcopy(result), "current": node, "history": self.data["nodes"],
+        return {**deepcopy(result), "current": node, "history": deepcopy(self.data["nodes"]),
                 "previous_state": previous["state"] if previous else None,
                 "recent_events": result["events"][event_start:],
                 "saved_path": str(self.path)}
