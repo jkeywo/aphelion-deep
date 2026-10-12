@@ -5,6 +5,9 @@ from .engine import Engine, Blocked, LOCATIONS
 from .presentation import PLAYER_NAMES
 
 
+STARTING_LOCATIONS = {"engineer": "C", "lead": "R", "systems": "R"}
+
+
 class Waiting(Exception):
     pass
 
@@ -142,14 +145,16 @@ class InteractiveEngine(Engine):
             self.turn, self.phase = turn, "Exploration"
             assignments = {}
             for p in self.state["players"]:
-                assignments[p] = self.ask(f"{turn}:move:{p}", "Where will " + PLAYER_NAMES[p] + " go?",
-                                          [(name, key) for key, name in LOCATIONS.items()])
+                assignments[p] = STARTING_LOCATIONS[p] if turn == 1 else self.ask(
+                    f"{turn}:move:{p}", "Where will " + PLAYER_NAMES[p] + " go?",
+                    [(name, key) for key, name in LOCATIONS.items()])
                 self.state["players"][p]["at"] = assignments[p]
             self.emit("turn.started", assignments=assignments)
             remaining = list(dict.fromkeys(assignments.values()))
             while remaining:
                 location = self.ask(f"{turn}:explore-order:{len(remaining)}", "Choose the next location to explore",
-                                    [(LOCATIONS[k], k) for k in remaining])
+                                    [(LOCATIONS[k], k) for k in remaining],
+                                    note="Fixed landing sites: Fabrication Lead at Crash Flats; both Ecologists at Reef Gardens." if turn == 1 else "")
                 remaining.remove(location)
                 self.explore(location)
             self.phase = "Upkeep"

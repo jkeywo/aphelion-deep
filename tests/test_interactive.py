@@ -69,10 +69,11 @@ def test_rollback_branch_and_restart_preserve_all_state(tmp_path, played):
         session.act(session.data["current"], **decision)
     previous = deepcopy(session.view())
     session.checkout("0")
-    session.act("0", "1:move:engineer", "R")
+    session.act("0", "1:explore-order:2", "R")
     branch = session.data["current"]
     assert len(session.data["nodes"]) == 27
-    assert session.result(branch)["state"]["players"]["engineer"]["at"] == "R"
+    assert session.result(branch)["prompt"]["key"] == "1:reveal:R1"
+    assert session.result(branch)["state"]["players"]["engineer"]["at"] == "C"
     session.checkout(previous["current"])
     assert session.view()["state"] == previous["state"]
     loaded = Session(session.path, session.binding)
@@ -87,9 +88,9 @@ def test_invalid_or_stale_decisions_do_not_mutate_history(tmp_path):
     with pytest.raises(Blocked):
         session.act("0", "1:move:engineer", "Atlantis")
     assert session.data == before
-    session.act("0", "1:move:engineer", "C")
+    session.act("0", "1:explore-order:2", "C")
     with pytest.raises(Blocked, match="out of date"):
-        session.act("0", "1:move:engineer", "R")
+        session.act("0", "1:explore-order:2", "R")
     with pytest.raises(Blocked, match="different source"):
         Session(session.path, "b")
     with pytest.raises(Blocked):
@@ -134,3 +135,21 @@ def test_http_play_actions_and_local_origin_protection(tmp_path):
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_fixed_department_landings_and_later_movement(played):
+    initial = replay([])
+    assert {p: value["at"] for p, value in initial["state"]["players"].items()} == {
+        "engineer": "C", "lead": "R", "systems": "R"
+    }
+    assert initial["prompt"]["key"] == "1:explore-order:2"
+    assert [o["value"] for o in initial["prompt"]["options"]] == ["C", "R"]
+    with pytest.raises(Blocked):
+        replay([{"key": "1:move:engineer", "value": "K"}])
+    decisions, _ = played
+    assert not any(d["key"].startswith("1:move:") for d in decisions)
+    index = next(i for i, d in enumerate(decisions) if d["key"] == "2:move:engineer")
+    second_turn = replay(decisions[:index])
+    assert [o["value"] for o in second_turn["prompt"]["options"]] == ["C", "R", "K"]
+    alternate = replay(decisions[:index] + [{"key": "2:move:engineer", "value": "R"}])
+    assert alternate["state"]["players"]["engineer"]["at"] == "R"

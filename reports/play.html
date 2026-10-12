@@ -35,10 +35,11 @@ const [kind,key]=selectedTab.split(':');const value=s[kind][key], old=prev?.[kin
 if(old){const before=kind==='players'?old.hand:Object.keys(old.cards),after=kind==='players'?value.hand:Object.keys(value.cards);const removed=before.filter(k=>!after.includes(k));if(removed.length)area.append(make('p','delta','Removed from here: '+removed.map(cardName).join(', ')));}}
 function renderOptions(prompt){
   const options=$('options');options.replaceChildren();
-  const moving=prompt?.key.split(':')[1]==='move';
+  const decisionKind=prompt?.key.split(':')[1];
+  const moving=decisionKind==='move'||decisionKind==='explore-order';
   options.classList.toggle('destinations',moving);
   for(const o of prompt?.options||[]){
-    const choose=make('button',moving?'choose primary':'',moving?'Go to '+o.label:o.label);
+    const choose=make('button',moving?'choose primary':'',moving?(decisionKind==='move'?'Go to ':'Explore ')+o.label:o.label);
     choose.onclick=()=>request('/api/action',{node:data.current,key:prompt.key,value:o.value});
     if(!moving){options.append(choose);continue;}
     const location=data.state.locations[o.value],key=location.deck[location.position];
