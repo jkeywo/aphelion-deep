@@ -43,7 +43,7 @@ async function startPeer(){
 }
 async function createRoom(){
   try{clearError();$('create').disabled=true;const boot=await api('/api/host');hostToken=boot.token;const started=await api('/api/start-room',{});invite=started.reply.invite;acceptView(started.host);status('Opening room…');const id=await startPeer();hosting=true;connected=true;roomCode=id+'.'+invite;
-    $('room-code').textContent=roomCode;$('host-room').hidden=false;$('room').hidden=false;$('code-input').hidden=true;$('create').hidden=true;status('Hosting · waiting for human crew');
+    $('room-code').textContent=roomCode;$('join-link').href='https://jkeywo.github.io/aphelion-deep/#room='+encodeURIComponent(roomCode);$('host-room').hidden=false;$('room').hidden=false;$('code-input').hidden=true;$('create').hidden=true;status('Hosting · waiting for human crew');
     peer.on('connection',conn=>{
       const remoteId='remote:'+conn.peer;
       if(connections.size>=8||connections.has(remoteId)){conn.close();return;}
@@ -151,3 +151,6 @@ $('export').onclick=async()=>{try{const data=await api('/api/export'),url=URL.cr
 $('host-start').hidden=!hostMode;
 setInterval(()=>{if(connected&&view?.role)send({type:'sync'}).catch(e=>{connected=false;status('Connection lost · reconnect to resume');$('lobby').hidden=false;$('reconnect').hidden=false;error(e.message);render();});},10000);
 
+
+$('copy-invite').onclick=()=>navigator.clipboard.writeText($('join-link').href).catch(()=>error('Copy the Open player page link instead.'));
+if(!hostMode){const code=new URLSearchParams(location.hash.slice(1)).get('room');if(code)$('join-code').value=code;}

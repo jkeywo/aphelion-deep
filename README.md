@@ -1,6 +1,6 @@
 # The Aphelion Deep
 
-Canonical editing takes place in [Google Drive](https://drive.google.com/drive/folders/1mM3AK6DfZrgYH4auLBugy6NZB9TKBdwo). This private repository preserves source provenance, decisions, a verified Workspace capture and the installable PlayTrace tutorial plugin. Original source folders remain untouched.
+Canonical editing takes place in [Google Drive](https://drive.google.com/drive/folders/1mM3AK6DfZrgYH4auLBugy6NZB9TKBdwo). This public repository preserves source provenance, decisions, a verified Workspace capture and the installable PlayTrace tutorial plugin. Original source folders remain untouched.
 
 ## Start here
 
@@ -55,6 +55,10 @@ Dilemma cards show their choices and consequences together. The Power Question o
 Eligible set-aside Knowledge cards, including Salvage Manifest, ask which player at the site takes them into hand. Salvage Manifest retains its printed requirement of three local Aphelion Salvage recipes; the two current Crash Flats recipes do not satisfy it. While choosing actions in Exploration or Upkeep, use **Give to…** on a non-role card in the selected player's hand to transfer it to another player at that location. Trades retain card identity and capabilities, appear in history, and can be rewound or branched. Role cards cannot be traded.
 
 ## Multiplayer with PeerJS
+
+Remote players can join at **https://jkeywo.github.io/aphelion-deep/**. Start a room locally, then use **Copy invitation link** to send a link with the room code filled in. The code is carried in the URL fragment, not sent to the Pages server. Guests choose a name and role before joining. The local host and Python rules server must stay open: GitHub Pages serves the guest interface only.
+
+The repository deploys the public guest page automatically using `.github/workflows/pages.yml`. The website publishes only the generated guest HTML and PeerJS license; game source documents, card artwork, saves and facilitator content are not included in the website artifact. Card images arrive from the host after a player joins. Run `python tools/build_pages.py` to reproduce the deployment artifact.
 
 Run **Start Multiplayer.cmd**, or `.venv/Scripts/python.exe -m aphelion_deep.multiplayer --open`, on the host computer. Open `http://127.0.0.1:8770/multiplayer.html`, click **Create room**, and send the displayed room code and **Download guest HTML** file to the other players. The same standalone file is saved as `reports/aphelion-multiplayer.html`. Guests open that file in a modern browser, enter their name and room code, and claim a role. Guests need no Python installation or game files. Three people each control one character; the host can be one of them or facilitate with all three seats remote.
 
